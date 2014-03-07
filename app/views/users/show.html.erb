@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @user.name %>
+</p>
+
+<p>
+  <strong>Id:</strong>
+  <%= @user.id %>
+</p>
+
+<p>
+  <strong>Last match:</strong>
+  <%= @user.last_match %>
+</p>
+
+<p>
+  <strong>War:</strong>
+  <%= @user.war %>
+</p>
+
+<p>
+  <strong>Match count:</strong>
+  <%= @user.match_count %>
+</p>
+
+<p>
+  <strong>Wins:</strong>
+  <%= @user.wins %>
+</p>
+
+<p>
+  <strong>Losses:</strong>
+  <%= @user.losses %>
+</p>
+
+<%= link_to 'Edit', edit_user_path(@user) %> |
+<%= link_to 'Back', users_path %>

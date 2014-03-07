@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  type: 
+  mode: 
+  date: 
+  region: 
+  duration: 
+  winner: 
+
+two:
+  type: 
+  mode: 
+  date: 
+  region: 
+  duration: 
+  winner: 

@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: 
+  id: 
+  last_match: 
+  war: 
+  match_count: 
+  wins: 
+  losses: 
+
+two:
+  name: 
+  id: 
+  last_match: 
+  war: 
+  match_count: 
+  wins: 
+  losses: 
