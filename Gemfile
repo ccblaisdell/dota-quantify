@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+ruby '2.0.0'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.3'
 
@@ -44,3 +45,6 @@ gem 'unicorn'
 
 # Required for heroku
 gem 'rails_12factor', group: :production
+
+# MongoDB ODM
+gem 'mongoid', git: 'https://github.com/mongoid/mongoid.git'
