@@ -48,3 +48,9 @@ gem 'rails_12factor', group: :production
 
 # MongoDB ODM
 gem 'mongoid', git: 'https://github.com/mongoid/mongoid.git'
+
+# Dota Web API
+gem 'dota', git: 'https://github.com/nashby/dota.git'
+
+# Set environment variables
+gem "figaro"
