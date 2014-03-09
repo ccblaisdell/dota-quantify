@@ -1,0 +1,71 @@
+<h1>Listing players</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Steam profile</th>
+      <th>Slot</th>
+      <th>Hero</th>
+      <th>Hero</th>
+      <th>Kills</th>
+      <th>Deaths</th>
+      <th>Assists</th>
+      <th>Kda</th>
+      <th>Leaver status</th>
+      <th>Gold</th>
+      <th>Last hits</th>
+      <th>Denies</th>
+      <th>Gold spent</th>
+      <th>Hero damage</th>
+      <th>Tower damage</th>
+      <th>Hero healing</th>
+      <th>Level</th>
+      <th>Xpm</th>
+      <th>Gpm</th>
+      <th>Items</th>
+      <th>Addition unit items</th>
+      <th>Additional unit names</th>
+      <th>Upgrades</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @players.each do |player| %>
+      <tr>
+        <td><%= player.steam_profile_id %></td>
+        <td><%= player.slot %></td>
+        <td><%= player.hero_id %></td>
+        <td><%= player.hero %></td>
+        <td><%= player.kills %></td>
+        <td><%= player.deaths %></td>
+        <td><%= player.assists %></td>
+        <td><%= player.kda %></td>
+        <td><%= player.leaver_status %></td>
+        <td><%= player.gold %></td>
+        <td><%= player.last_hits %></td>
+        <td><%= player.denies %></td>
+        <td><%= player.gold_spent %></td>
+        <td><%= player.hero_damage %></td>
+        <td><%= player.tower_damage %></td>
+        <td><%= player.hero_healing %></td>
+        <td><%= player.level %></td>
+        <td><%= player.xpm %></td>
+        <td><%= player.gpm %></td>
+        <td><%= player.items %></td>
+        <td><%= player.addition_unit_items %></td>
+        <td><%= player.additional_unit_names %></td>
+        <td><%= player.upgrades %></td>
+        <td><%= link_to 'Show', player %></td>
+        <td><%= link_to 'Edit', edit_player_path(player) %></td>
+        <td><%= link_to 'Destroy', player, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Player', new_player_path %>

@@ -1,0 +1,26 @@
+class Player
+  include Mongoid::Document
+  field :steam_profile_id, type: Integer,
+  field :slot, type: Integer,
+  field :hero_id, type: Integer,
+  field :hero, type: String,
+  field :kills, type: Integer,
+  field :deaths, type: Integer,
+  field :assists, type: Integer,
+  field :kda, type: Array,
+  field :leaver_status, type: String,
+  field :gold, type: Integer,
+  field :last_hits, type: Integer,
+  field :denies, type: Integer,
+  field :gold_spent, type: Integer,
+  field :hero_damage, type: Integer,
+  field :tower_damage, type: Integer,
+  field :hero_healing, type: Integer,
+  field :level, type: Integer,
+  field :xpm, type: Integer,
+  field :gpm, type: Integer,
+  field :items, type: Array,
+  field :addition_unit_items, type: Array,
+  field :additional_unit_names, type: Array,
+  field :upgrades, type: Array
+end
