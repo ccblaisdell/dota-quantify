@@ -54,3 +54,8 @@ gem 'dota', git: 'https://github.com/nashby/dota.git'
 
 # Set environment variables
 gem "figaro"
+
+group :development do
+  gem 'pry-rails'
+  gem 'pry-stack_explorer'
+end

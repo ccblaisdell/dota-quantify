@@ -26,14 +26,20 @@ class Match
 
   # End of attributes from the Steam API
   
-  # has many players
+  embeds_many :players
+
+  def to_param
+    match_id.to_s
+  end
 
   def self.find_or_fetch_from_steam(match_id)
     self.find_by(match_id: match_id) || Match.create_from_steam_match(Dota.match(match_id))
   end
 
-  def self.create_from_steam_match(match)
-    Match.create Match.attributes_from_steam_match(match)
+  def self.create_from_steam_match(steam_match)
+    match = Match.create Match.attributes_from_steam_match(steam_match)
+    match.associate_players(steam_match.players)
+    match
   end
 
   def self.attributes_from_steam_match(match)
@@ -56,5 +62,11 @@ class Match
       cluster: match.cluster,
       league_id: match.league_id
     }
+  end
+
+  def associate_players(steam_players)
+    for steam_player in steam_players
+      player = Player.create_from_steam_player(self, steam_player)
+    end
   end
 end
