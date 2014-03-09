@@ -1,4 +1,12 @@
-<%# form_tag find_from_steam_matches_path do %>
-  <%= search_field_tag :match_id, '', placeholder: "Match ID" %>
+<%= form_tag '#', id: "find_match" do %>
+  <%= search_field_tag :match_id, '', placeholder: "Match ID", id: "match_id" %>
   <%= submit_tag "Find" %>
-<%# end %>
+<% end %>
+
+<% content_for :bottom do %>
+  <script>
+    $(function(){
+      da.matches.watchFindMatch();
+    })
+  </script>
+<% end %>
