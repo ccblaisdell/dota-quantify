@@ -12,34 +12,10 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :steam_id %><br>
-    <%= f.text_field :steam_id %>
-  </div>
-  <div class="field">
-    <%= f.label :last_match %><br>
-    <%= f.text_field :last_match %>
-  </div>
-  <div class="field">
-    <%= f.label :war %><br>
-    <%= f.text_field :war %>
-  </div>
-  <div class="field">
-    <%= f.label :match_count %><br>
-    <%= f.text_field :match_count %>
-  </div>
-  <div class="field">
-    <%= f.label :wins %><br>
-    <%= f.text_field :wins %>
-  </div>
-  <div class="field">
-    <%= f.label :losses %><br>
-    <%= f.text_field :losses %>
+    <%= f.label :steam_profile_id %><br>
+    <%= f.text_field :steam_profile_id %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "Fetch profile" %>
   </div>
 <% end %>

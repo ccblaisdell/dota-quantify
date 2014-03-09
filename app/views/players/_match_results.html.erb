@@ -1,6 +1,6 @@
 <table>
   <tr>
-    <th>ID</th>
+    <th></th>
     <th>Slot</th>
     <th>Hero</th>
     <th>Level</th>
@@ -20,7 +20,7 @@
   </tr>
   <% for player in @match.players %>
     <tr>
-      <th><%= player.steam_profile_id %></th>
+      <th><%= player.name %></th>
       <th><%= player.slot %></th>
       <th><%= player.hero %></th>
       <th><%= player.level %></th>

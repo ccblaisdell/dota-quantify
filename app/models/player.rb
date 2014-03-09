@@ -23,8 +23,13 @@ class Player
   field :additional_unit_items, type: Array
   field :additional_unit_names, type: Array
   field :upgrades, type: Array
+  field :anonymous, type: Boolean
 
-  embedded_in :match, inverse_of: :players
+  belongs_to :match, index: true
+  belongs_to :profile, index: true
+
+  after_create :convert_32_bit_account_id_to_64_bit_steam_id
+  after_create :associate_with_profile
 
   def self.create_from_steam_player(match, steam_player)
     match.players.create({
@@ -52,5 +57,25 @@ class Player
       # additional_unit_names: steam_player.additional_unit_names,
       # upgrades: steam_player.upgrades || [],
     })
+  end
+
+  def name
+    self.profile.try(:name) || "anonymous"
+  end
+
+  # The match API returns a 32 bit dota account ID,
+  # which can't directly be used to look up a profile
+  # http://dev.dota2.com/showthread.php?t=108926
+  # There has got to be a better way
+  def convert_32_bit_account_id_to_64_bit_steam_id
+    self.update_attributes(anonymous: true) and return if self.steam_profile_id == 4294967295 # Means the profile is private
+    self.steam_profile_id += 76561197960265728
+    self.save
+  end
+
+  def associate_with_profile
+    return nil if self.anonymous?
+    profile = Profile.find_or_create_by_steam_profile_id( self.steam_profile_id )
+    profile.players << self
   end
 end

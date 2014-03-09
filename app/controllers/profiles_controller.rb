@@ -24,7 +24,7 @@ class ProfilesController < ApplicationController
   # POST /profiles
   # POST /profiles.json
   def create
-    @profile = Profile.new(profile_params)
+    @profile = Profile.find_or_new_from_steam_profile_id(params[:profile][:steam_profile_id])
 
     respond_to do |format|
       if @profile.save
@@ -64,7 +64,7 @@ class ProfilesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_profile
-      @profile = Profile.find(params[:id])
+      @profile = Profile.find_by(steam_profile_id: params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

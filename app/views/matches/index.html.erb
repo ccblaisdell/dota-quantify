@@ -9,6 +9,7 @@
 <table>
   <thead>
     <tr>
+      <th>ID</th>
       <th>Mode</th>
       <th>Start</th>
       <th>Duration</th>
@@ -22,6 +23,7 @@
   <tbody>
     <% @matches.each do |match| %>
       <tr>
+        <td><%= match.match_id %></td>
         <td><%= match.mode %></td>
         <td><%= match.start %></td>
         <td><%= match.duration %></td>

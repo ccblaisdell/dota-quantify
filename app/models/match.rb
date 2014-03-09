@@ -26,7 +26,7 @@ class Match
 
   # End of attributes from the Steam API
   
-  embeds_many :players
+  has_many :players
 
   def to_param
     match_id.to_s
