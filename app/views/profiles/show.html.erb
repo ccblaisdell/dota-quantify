@@ -2,38 +2,38 @@
 
 <p>
   <strong>Name:</strong>
-  <%= @user.name %>
+  <%= @profile.name %>
 </p>
 
 <p>
   <strong>Steam Id:</strong>
-  <%= @user.steam_id %>
+  <%= @profile.steam_id %>
 </p>
 
 <p>
   <strong>Last match:</strong>
-  <%= @user.last_match %>
+  <%= @profile.last_match %>
 </p>
 
 <p>
   <strong>War:</strong>
-  <%= @user.war %>
+  <%= @profile.war %>
 </p>
 
 <p>
   <strong>Match count:</strong>
-  <%= @user.match_count %>
+  <%= @profile.match_count %>
 </p>
 
 <p>
   <strong>Wins:</strong>
-  <%= @user.wins %>
+  <%= @profile.wins %>
 </p>
 
 <p>
   <strong>Losses:</strong>
-  <%= @user.losses %>
+  <%= @profile.losses %>
 </p>
 
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+<%= link_to 'Edit', edit_profile_path(@profile) %> |
+<%= link_to 'Back', profiles_path %>

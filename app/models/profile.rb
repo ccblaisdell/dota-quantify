@@ -1,4 +1,4 @@
-class User
+class Profile
   include Mongoid::Document
   field :name, type: String
   field :steam_id, type: String
