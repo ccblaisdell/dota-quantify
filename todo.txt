@@ -1,0 +1,8 @@
+Todos
+=====
+
+- import players from match
+- convert User to Profile
+- get list of matches by profile
+- batch download matches by profile
+- export batches of matches

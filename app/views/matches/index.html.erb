@@ -1,12 +1,16 @@
-<h1>Listing matches</h1>
+<h1>Matches</h1>
+
+<h2>Find a match</h2>
+
+<%= render partial: "find" %>
+
+<h2>Listing matches</h2>
 
 <table>
   <thead>
     <tr>
-      <th>Type</th>
       <th>Mode</th>
-      <th>Date</th>
-      <th>Region</th>
+      <th>Start</th>
       <th>Duration</th>
       <th>Winner</th>
       <th></th>
@@ -18,10 +22,8 @@
   <tbody>
     <% @matches.each do |match| %>
       <tr>
-        <td><%= match.type %></td>
         <td><%= match.mode %></td>
-        <td><%= match.date %></td>
-        <td><%= match.region %></td>
+        <td><%= match.start %></td>
         <td><%= match.duration %></td>
         <td><%= match.winner %></td>
         <td><%= link_to 'Show', match %></td>

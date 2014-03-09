@@ -1,0 +1,54 @@
+<h1>Match <%= @match.id %></h1>
+
+<ul>
+  <li><strong>Winner:</strong> <%= @match.winner %></li>
+  <li><strong>first_blood:</strong> <%= @match.first_blood %></li>
+  <li><strong>duration:</strong> <%= @match.duration %></li>
+  <li><strong>mode:</strong> <%= @match.mode %></li>
+</ul>
+
+<table>
+  <tr>
+    <th>ID</th>
+    <th>Slot</th>
+    <th>Hero</th>
+    <th>Level</th>
+    <th>Kills</th>
+    <th>Deaths</th>
+    <th>Assists</th>
+    <th>Gold</th>
+    <th>Last hits</th>
+    <th>Denies</th>
+    <th>Gold spent</th>
+    <th>Hero damage</th>
+    <th>Tower damage</th>
+    <th>Hero healing</th>
+    <th>XPM</th>
+    <th>GPM</th>
+    <th>GPM</th>
+  </tr>
+  <% for player in @match.players %>
+    <tr>
+      <th><%= player.id %></th>
+      <th><%= player.slot %></th>
+      <th><%= player.hero %></th>
+      <th><%= player.level %></th>
+      <th><%= player.kills %></th>
+      <th><%= player.deaths %></th>
+      <th><%= player.assists %></th>
+      <th><%= player.gold %></th>
+      <th><%= player.last_hits %></th>
+      <th><%= player.denies %></th>
+      <th><%= player.gold_spent %></th>
+      <th><%= player.hero_damage %></th>
+      <th><%= player.tower_damage %></th>
+      <th><%= player.hero_healing %></th>
+      <th><%= player.xpm %></th>
+      <th><%= player.gpm %></th>
+      <th><%= player.gpm %></th>
+    </tr>
+  <% end %>
+</table>
+
+<h2>Find another match</h2>
+<%= render partial: "find" %>
