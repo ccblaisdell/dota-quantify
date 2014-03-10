@@ -28,8 +28,19 @@ class Match
   
   has_many :players
 
+  # This should do real matches only
+  default_scope lambda { where :human_players.gte => 9 }
+
   def to_param
     match_id.to_s
+  end
+
+  def followed_players
+    self.players.collect {|player| player if player.profile.try(:follow?)}.compact
+  end
+
+  def won?(player)
+    (self.winner == 'radiant' and player.slot < 128) or (self.winner == 'dire' and player.slot >= 128)
   end
 
   def self.find_or_fetch_from_steam(match_id)

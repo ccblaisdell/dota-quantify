@@ -1,0 +1,18 @@
+<h1>Dashboard</h1>
+
+<ul>
+  <% for match in @matches %>
+    <li>
+      <%= match.won?(match.followed_players.first) ? "WIN" : "LOSS" %>
+      <%= time_ago_in_words match.start %> ago
+      <% for player in match.followed_players %>
+        <p>
+          <%= image_tag player.profile.small_avatar_url, alt: player.name %>
+          <%= player.name %> went
+          <%= player.kda %> as
+          <%= player.hero %>
+        </p>
+      <% end %>
+    </li>
+  <% end %>
+</ul>

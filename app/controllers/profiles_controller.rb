@@ -9,7 +9,7 @@ class ProfilesController < ApplicationController
 
   def dashboard
     @profiles = Profile.where follow: true
-    render 'index'
+    @matches = Match.order_by(:start.desc).limit(10)
   end
 
   # GET /profiles/1
