@@ -7,6 +7,11 @@ class ProfilesController < ApplicationController
     @profiles = Profile.all
   end
 
+  def dashboard
+    @profiles = Profile.where follow: true
+    render 'index'
+  end
+
   # GET /profiles/1
   # GET /profiles/1.json
   def show

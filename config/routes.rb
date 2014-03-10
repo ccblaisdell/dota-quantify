@@ -6,10 +6,15 @@ DotaQuantify::Application.routes.draw do
   resources :matches do
     collection do
       get 'fetch'
+      get 'fetch_for_followed'
     end
   end
 
-  resources :profiles
+  resources :profiles do
+    collection do
+      get 'dashboard'
+    end
+  end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

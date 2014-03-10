@@ -58,6 +58,4 @@ class Profile
       commentable: steam_profile.commentable?
     }.merge additional_attributes
   end
-
-
 end

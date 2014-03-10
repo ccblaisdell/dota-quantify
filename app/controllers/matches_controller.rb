@@ -7,6 +7,12 @@ class MatchesController < ApplicationController
     redirect_to action: 'index'
   end
 
+  def fetch_for_followed
+    Match.delay.fetch_matches_for_followed
+    flash[:notice] = "Fetching matches, please refresh the page in a few moments."
+    redirect_to action: 'index'
+  end
+
   # GET /matches
   # GET /matches.json
   def index

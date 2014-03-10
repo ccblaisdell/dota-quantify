@@ -66,8 +66,14 @@ class Match
 
   def self.fetch(options={})
     history = Dota.history(options)
-    for history_match in history.matches[0..10]
+    for history_match in history.matches
       Match.find_or_fetch_from_steam history_match.id
+    end
+  end
+
+  def self.fetch_matches_for_followed(options={})
+    for profile in Profile.where follow: true
+      Match.fetch({account_id: profile.dota_account_id}.merge(options))
     end
   end
 
