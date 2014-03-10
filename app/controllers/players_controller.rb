@@ -69,6 +69,6 @@ class PlayersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def player_params
-      params.require(:player).permit(:steam_profile_id, :slot, :hero_id, :hero, :kills, :deaths, :assists, :kda, :leaver_status, :gold, :last_hits, :denies, :gold_spent, :hero_damage, :tower_damage, :hero_healing, :level, :xpm, :gpm, :items, :addition_unit_items, :additional_unit_names, :upgrades)
+      params.require(:player).permit(:steam_account_id, :dota_account_id)
     end
 end

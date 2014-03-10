@@ -1,10 +1,6 @@
 <h1>Matches</h1>
 
-<h2>Find a match</h2>
-
 <%= render partial: "find" %>
-
-<h2>Listing matches</h2>
 
 <table>
   <thead>
@@ -25,7 +21,7 @@
       <tr>
         <td><%= match.match_id %></td>
         <td><%= match.mode %></td>
-        <td><%= match.start %></td>
+        <td><%= time_ago_in_words match.start %> ago</td>
         <td><%= match.duration %></td>
         <td><%= match.winner %></td>
         <td><%= link_to 'Show', match %></td>
@@ -36,6 +32,3 @@
   </tbody>
 </table>
 
-<br>
-
-<%= link_to 'New Match', new_match_path %>

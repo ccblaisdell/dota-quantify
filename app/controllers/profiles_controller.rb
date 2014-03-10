@@ -21,22 +21,6 @@ class ProfilesController < ApplicationController
   def edit
   end
 
-  # POST /profiles
-  # POST /profiles.json
-  def create
-    @profile = Profile.find_or_new_from_steam_profile_id(params[:profile][:steam_profile_id])
-
-    respond_to do |format|
-      if @profile.save
-        format.html { redirect_to @profile, notice: 'Profile was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @profile }
-      else
-        format.html { render action: 'new' }
-        format.json { render json: @profile.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
   # PATCH/PUT /profiles/1
   # PATCH/PUT /profiles/1.json
   def update
@@ -64,11 +48,11 @@ class ProfilesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_profile
-      @profile = Profile.find_by(steam_profile_id: params[:id])
+      @profile = Profile.find_by(steam_account_id: params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def profile_params
-      params.require(:profile).permit(:name, :id, :last_match, :war, :match_count, :wins, :losses)
+      params.require(:profile).permit(:name, :steam_profile_id, :dota_account_id, :follow)
     end
 end

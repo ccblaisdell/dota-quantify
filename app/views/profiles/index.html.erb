@@ -1,10 +1,14 @@
 <h1>Listing profiles</h1>
 
+<%= render partial: "find" %>
+
 <table>
   <thead>
     <tr>
+      <th>★</th>
       <th>Name</th>
       <th>Steam Id</th>
+      <th>Dota Id</th>
       <th>Last match</th>
       <th>War</th>
       <th>Match count</th>
@@ -19,8 +23,10 @@
   <tbody>
     <% @profiles.each do |profile| %>
       <tr>
+        <td><%= "★" if profile.follow? %></td>
         <td><%= profile.name %></td>
-        <td><%= profile.steam_profile_id %></td>
+        <td><%= profile.steam_account_id %></td>
+        <td><%= profile.dota_account_id %></td>
         <td><%= profile.last_match %></td>
         <td><%= profile.war %></td>
         <td><%= profile.match_count %></td>
@@ -34,6 +40,3 @@
   </tbody>
 </table>
 
-<br>
-
-<%= link_to 'New Profile', new_profile_path %>

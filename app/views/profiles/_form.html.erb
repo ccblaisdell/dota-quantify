@@ -2,7 +2,6 @@
   <% if @profile.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@profile.errors.count, "error") %> prohibited this profile from being saved:</h2>
-
       <ul>
       <% @profile.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
@@ -12,10 +11,18 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :steam_profile_id %><br>
-    <%= f.text_field :steam_profile_id %>
+    <%= f.label :steam_account_id %><br>
+    <%= f.text_field :steam_account_id %>
+  </div>
+  <div class="field">
+    <%= f.label :dota_account_id %><br>
+    <%= f.text_field :dota_account_id %>
+  </div>
+  <div class="field">
+    <%= f.label :follow %><br>
+    <%= f.check_box :follow %>
   </div>
   <div class="actions">
-    <%= f.submit "Fetch profile" %>
+    <%= f.submit "Submit" %>
   </div>
 <% end %>

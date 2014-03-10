@@ -1,6 +1,7 @@
 class Profile
   include Mongoid::Document
-  field :steam_profile_id, type: Integer
+  field :steam_account_id, type: Integer
+  field :dota_account_id, type: Integer
   field :name, type: String
   field :real_name, type: String
   field :steam_clan_id, type: Integer
@@ -13,6 +14,7 @@ class Profile
   field :small_avatar_url, type: String
   field :big_avatar_url, type: String
   field :commentable, type: Boolean
+  field :follow, type: Boolean, default: false
 
   # game user is currently playing
   field :game_id, type: Integer
@@ -28,20 +30,20 @@ class Profile
   has_many :players
 
   def to_param
-    steam_profile_id.to_s
+    steam_account_id.to_s
   end
 
-  def self.find_or_new_from_steam_profile_id(steam_profile_id)
-    self.find_by(steam_profile_id: steam_profile_id) || self.new(self.profile_attributes_from_steam_profile( Dota.profiles(steam_profile_id)[0] ))
+  def self.find_or_new_from_steam_account_id(steam_account_id)
+    self.find_by(steam_account_id: steam_account_id) || self.new(self.profile_attributes_from_steam_profile( Dota.profiles(steam_account_id)[0] ))
   end
 
-  def self.find_or_create_by_steam_profile_id(steam_profile_id)
-    self.find_by(steam_profile_id: steam_profile_id) || self.create(self.profile_attributes_from_steam_profile( Dota.profiles(steam_profile_id)[0] ))
+  def self.find_or_create_by_steam_account_id(steam_account_id, additional_attributes={})
+    self.find_by(steam_account_id: steam_account_id) || self.create(self.profile_attributes_from_steam_profile( Dota.profiles(steam_account_id)[0], additional_attributes ))
   end
 
-  def self.profile_attributes_from_steam_profile(steam_profile)
+  def self.profile_attributes_from_steam_profile(steam_profile, additional_attributes={})
     {
-      steam_profile_id: steam_profile.id,
+      steam_account_id: steam_profile.id,
       name: steam_profile.person_name,
       real_name: steam_profile.real_name,
       steam_clan_id: steam_profile.clan_id,
@@ -54,7 +56,7 @@ class Profile
       small_avatar_url: steam_profile.small_avatar_url,
       big_avatar_url: steam_profile.big_avatar_url,
       commentable: steam_profile.commentable?
-    }
+    }.merge additional_attributes
   end
 
 

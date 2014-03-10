@@ -7,7 +7,16 @@
 
 <p>
   <strong>Steam Id:</strong>
-  <%= @profile.steam_profile_id %>
+  <%= @profile.steam_account_id %>
+</p>
+<p>
+  <strong>Steam Id:</strong>
+  <%= @profile.dota_account_id %>
+</p>
+
+<p>
+  <strong>Following?:</strong>
+  <%= @profile.follow %>
 </p>
 
 <p>
@@ -35,5 +44,16 @@
   <%= @profile.losses %>
 </p>
 
+<ul>
+  <% for player in @profile.players %>
+    <li>
+      <%= player.hero %> | 
+      XPM:<%= player.xpm %> |
+      GPM:<%= player.gpm %>
+    </li>
+  <% end %>
+</ul>
+
+<%= link_to 'Get some matches', fetch_matches_path(account_id: @profile.dota_account_id) %> |
 <%= link_to 'Edit', edit_profile_path(@profile) %> |
 <%= link_to 'Back', profiles_path %>

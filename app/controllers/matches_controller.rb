@@ -1,6 +1,11 @@
 class MatchesController < ApplicationController
   before_action :set_match, only: [:show, :edit, :update, :destroy]
 
+  def fetch
+    Match.fetch(params)
+    redirect_to action: 'index'
+  end
+
   # GET /matches
   # GET /matches.json
   def index

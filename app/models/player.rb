@@ -1,6 +1,7 @@
 class Player
   include Mongoid::Document
-  field :steam_profile_id, type: Integer
+  field :dota_account_id, type: Integer
+  field :steam_account_id, type: Integer
   field :slot, type: Integer
   field :hero_id, type: Integer
   field :hero, type: String
@@ -33,7 +34,7 @@ class Player
 
   def self.create_from_steam_player(match, steam_player)
     match.players.create({
-      steam_profile_id: steam_player.id,
+      dota_account_id: steam_player.id,
       slot: steam_player.slot,
       hero_id: steam_player.hero_id,
       hero: steam_player.hero,
@@ -68,14 +69,13 @@ class Player
   # http://dev.dota2.com/showthread.php?t=108926
   # There has got to be a better way
   def convert_32_bit_account_id_to_64_bit_steam_id
-    self.update_attributes(anonymous: true) and return if self.steam_profile_id == 4294967295 # Means the profile is private
-    self.steam_profile_id += 76561197960265728
-    self.save
+    self.update_attributes(anonymous: true) and return if self.dota_account_id == 4294967295 # Means the profile is private
+    self.update_attributes(steam_account_id: self.dota_account_id + 76561197960265728)
   end
 
   def associate_with_profile
     return nil if self.anonymous?
-    profile = Profile.find_or_create_by_steam_profile_id( self.steam_profile_id )
+    profile = Profile.find_or_create_by_steam_account_id( self.steam_account_id, {dota_account_id: self.dota_account_id} )
     profile.players << self
   end
 end

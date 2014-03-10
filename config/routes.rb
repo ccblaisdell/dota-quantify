@@ -3,7 +3,11 @@ DotaQuantify::Application.routes.draw do
 
   resources :heros
 
-  resources :matches
+  resources :matches do
+    collection do
+      get 'fetch'
+    end
+  end
 
   resources :profiles
 

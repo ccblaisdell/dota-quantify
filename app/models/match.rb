@@ -64,6 +64,13 @@ class Match
     }
   end
 
+  def self.fetch(options={})
+    history = Dota.history(options)
+    for history_match in history.matches[0..10]
+      Match.find_or_fetch_from_steam history_match.id
+    end
+  end
+
   def associate_players(steam_players)
     for steam_player in steam_players
       player = Player.create_from_steam_player(self, steam_player)
