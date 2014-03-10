@@ -2,7 +2,8 @@ class MatchesController < ApplicationController
   before_action :set_match, only: [:show, :edit, :update, :destroy]
 
   def fetch
-    Match.fetch(params)
+    Match.delay.fetch(params)
+    flash[:notice] = "Fetching matches, please refresh the page in a few moments."
     redirect_to action: 'index'
   end
 

@@ -55,6 +55,9 @@ gem 'dota', git: 'https://github.com/nashby/dota.git'
 # Set environment variables
 gem "figaro"
 
+# Work fetching and analysis in the background
+gem "delayed_job_mongoid", git: 'https://github.com/collectiveidea/delayed_job_mongoid.git'
+
 group :development do
   gem 'pry-rails'
   gem 'pry-stack_explorer'
