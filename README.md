@@ -9,7 +9,7 @@ To install dota-quantify on windows:
 - install mongodb
 
 - run mongo if it's not running via a service
-	*C:\mongodb\bin\mongod
+	1. C:\mongodb\bin\mongod
 
 - clone the git repo
 	*https://github.com/ccblaisdell/dota-quantify
