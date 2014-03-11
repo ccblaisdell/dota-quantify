@@ -36,6 +36,10 @@ To install dota-quantify on windows:
 - put the following in your new config\application.yml
 	- STEAM_WEB_API_KEY: 79ABCDEFYOURNEWAPIKEY
 
+- give ruby a SSL authority, otherwise trying to get a match will fail with a Figaro/SSL error
+	- http://stackoverflow.com/questions/10775640/omniauth-facebook-error-faradayerrorconnectionfailed
+	- https://gist.github.com/fnichol/867550
+
 - rails s
 
 - rake jobs:work
