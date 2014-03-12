@@ -1,6 +1,7 @@
 Todos
 =====
 
+- get gem to recognize AD and ranked
 - add profiles to follow
 - get list of matches by profile
 - batch download matches by profile
