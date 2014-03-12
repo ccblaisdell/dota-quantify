@@ -43,6 +43,10 @@ class Match
     (self.winner == 'radiant' and player.slot < 128) or (self.winner == 'dire' and player.slot >= 128)
   end
 
+  def ranked?
+    lobby == 'Ranked'
+  end
+
   def self.find_or_fetch_from_steam(match_id)
     self.find_by(match_id: match_id) || Match.create_from_steam_match(Dota.match(match_id))
   end
