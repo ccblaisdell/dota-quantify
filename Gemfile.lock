@@ -1,4 +1,13 @@
 GIT
+  remote: https://github.com/ccblaisdell/dota.git
+  revision: bec818e2783a2fa3c40fa7b987ba9925f334a6e5
+  branch: new-game-modes
+  specs:
+    dota (0.0.1)
+      faraday (~> 0.8.4)
+      faraday_middleware (~> 0.9.0)
+
+GIT
   remote: https://github.com/collectiveidea/delayed_job_mongoid.git
   revision: 14c73bb584358838339ad9a7b50065279437be77
   specs:
@@ -15,14 +24,6 @@ GIT
       moped (~> 2.0.beta6)
       origin (~> 2.1)
       tzinfo (>= 0.3.37)
-
-GIT
-  remote: https://github.com/nashby/dota.git
-  revision: 840a15952609324874c3b0218349f2b34cb88c71
-  specs:
-    dota (0.0.1)
-      faraday (~> 0.8.4)
-      faraday_middleware (~> 0.9.0)
 
 GEM
   remote: https://rubygems.org/

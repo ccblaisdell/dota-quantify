@@ -50,7 +50,8 @@ gem 'rails_12factor', group: :production
 gem 'mongoid', git: 'https://github.com/mongoid/mongoid.git'
 
 # Dota Web API
-gem 'dota', git: 'https://github.com/nashby/dota.git'
+# gem 'dota', git: 'https://github.com/nashby/dota.git'
+gem 'dota', git: 'https://github.com/ccblaisdell/dota.git', branch: "new-game-modes"
 
 # Set environment variables
 gem "figaro"
