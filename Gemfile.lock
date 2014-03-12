@@ -1,13 +1,4 @@
 GIT
-  remote: https://github.com/ccblaisdell/dota.git
-  revision: bec818e2783a2fa3c40fa7b987ba9925f334a6e5
-  branch: new-game-modes
-  specs:
-    dota (0.0.1)
-      faraday (~> 0.8.4)
-      faraday_middleware (~> 0.9.0)
-
-GIT
   remote: https://github.com/collectiveidea/delayed_job_mongoid.git
   revision: 14c73bb584358838339ad9a7b50065279437be77
   specs:
@@ -24,6 +15,14 @@ GIT
       moped (~> 2.0.beta6)
       origin (~> 2.1)
       tzinfo (>= 0.3.37)
+
+GIT
+  remote: https://github.com/nashby/dota.git
+  revision: 8520aa02967ed95bf4ab55d96c1f2cb001bbfef1
+  specs:
+    dota (0.0.1)
+      faraday (~> 0.8.4)
+      faraday_middleware (~> 0.9.0)
 
 GEM
   remote: https://rubygems.org/
@@ -88,6 +87,9 @@ GEM
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
     json (1.8.1)
+    kaminari (0.15.1)
+      actionpack (>= 3.0.0)
+      activesupport (>= 3.0.0)
     kgio (2.9.2)
     mail (2.5.4)
       mime-types (~> 1.16)
@@ -185,6 +187,7 @@ DEPENDENCIES
   figaro
   jbuilder (~> 1.2)
   jquery-rails
+  kaminari
   mongoid!
   pry-rails
   pry-stack_explorer

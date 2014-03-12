@@ -4,7 +4,7 @@ class ProfilesController < ApplicationController
   # GET /profiles
   # GET /profiles.json
   def index
-    @profiles = Profile.all
+    @profiles = Profile.page params[:page]
   end
 
   def dashboard
@@ -15,6 +15,7 @@ class ProfilesController < ApplicationController
   # GET /profiles/1
   # GET /profiles/1.json
   def show
+    @matches = @profile.players.collect{|pp| pp.match}.sort{|a,b| b.start <=> a.start}[0..10]
   end
 
   # GET /profiles/new

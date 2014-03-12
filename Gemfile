@@ -50,14 +50,16 @@ gem 'rails_12factor', group: :production
 gem 'mongoid', git: 'https://github.com/mongoid/mongoid.git'
 
 # Dota Web API
-# gem 'dota', git: 'https://github.com/nashby/dota.git'
-gem 'dota', git: 'https://github.com/ccblaisdell/dota.git', branch: "new-game-modes"
+gem 'dota', git: 'https://github.com/nashby/dota.git'
 
 # Set environment variables
 gem "figaro"
 
 # Work fetching and analysis in the background
 gem "delayed_job_mongoid", git: 'https://github.com/collectiveidea/delayed_job_mongoid.git'
+
+# Pagination
+gem 'kaminari'
 
 group :development do
   gem 'pry-rails'

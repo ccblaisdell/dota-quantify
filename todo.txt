@@ -1,9 +1,8 @@
 Todos
 =====
 
-- get gem to recognize AD and ranked
-- add profiles to follow
-- get list of matches by profile
-- batch download matches by profile
-- export batches of matches
+- nice list of matches on profile show page
+- download older matches for followed profiles
+- 'get lots of matches' button should only ask for matches newer than the ones it has
+- export batches of matches (ging wants CSV)
 - catch up on test coverage

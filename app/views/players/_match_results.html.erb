@@ -20,7 +20,7 @@
   </tr>
   <% for player in @match.players %>
     <tr>
-      <th><%= player.name %></th>
+      <th><%= link_to_unless player.anonymous?, player.name, player.profile %></th>
       <th><%= player.slot %></th>
       <th><%= player.hero %></th>
       <th><%= player.level %></th>

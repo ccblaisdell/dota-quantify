@@ -45,13 +45,7 @@
 </p>
 
 <ul>
-  <% for player in @profile.players %>
-    <li>
-      <%= player.hero %> | 
-      XPM:<%= player.xpm %> |
-      GPM:<%= player.gpm %>
-    </li>
-  <% end %>
+  <%= render partial: "matches/listing", collection: @matches, as: :match %>
 </ul>
 
 <%= link_to 'Get some matches', fetch_matches_path(account_id: @profile.dota_account_id) %> |
