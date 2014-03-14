@@ -31,7 +31,7 @@
 
 <p>
   <strong>Match count:</strong>
-  <%= @profile.match_count %>
+  <%= @profile.match_count || @profile.players.count %>
 </p>
 
 <p>

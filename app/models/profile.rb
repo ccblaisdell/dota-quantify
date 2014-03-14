@@ -29,8 +29,14 @@ class Profile
 
   has_many :players
 
+  scope :following, ->{where(follow: true)}
+
   def to_param
     steam_account_id.to_s
+  end
+
+  def matches
+    players.collect {|player| player.match}.compact
   end
 
   def self.find_or_new_from_steam_account_id(steam_account_id)

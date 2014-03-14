@@ -8,14 +8,14 @@ class ProfilesController < ApplicationController
   end
 
   def dashboard
-    @profiles = Profile.where follow: true
+    @profiles = Profile.following
     @matches = Match.order_by(:start.desc).limit(10)
   end
 
   # GET /profiles/1
   # GET /profiles/1.json
   def show
-    @matches = @profile.players.collect{|pp| pp.match}.sort{|a,b| b.start <=> a.start}[0..10]
+    @matches = @profile.matches.sort{|a,b| b.start <=> a.start}[0..10]
   end
 
   # GET /profiles/new
