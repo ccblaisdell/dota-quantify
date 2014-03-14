@@ -2,7 +2,11 @@
 
 <%= render partial: "find" %>
 
-<p><%= link_to 'Get lots of matches', fetch_for_followed_matches_path %></p>
+<p>
+  <%= link_to 'Get lots of matches', fetch_for_followed_matches_path %>
+  | <%= link_to 'Followed', profiles_path %>
+  | <%= link_to 'All', all_profiles_path %>
+</p>
 
 <table>
   <thead>

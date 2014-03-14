@@ -12,7 +12,7 @@
   <%= link_to "Profiles", profiles_path %>
 </nav>
 
-<% if flash[:message] %><p><%= flash[:message] %></p><% end %>
+<% if flash[:notice] %><p><%= flash[:notice] %></p><% end %>
 <% if flash[:error] %><p><%= flash[:error] %></p><% end %>
 
 <%= yield %>

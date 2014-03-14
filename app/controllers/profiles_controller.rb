@@ -4,7 +4,12 @@ class ProfilesController < ApplicationController
   # GET /profiles
   # GET /profiles.json
   def index
+    @profiles = Profile.following.page params[:page]
+  end
+
+  def all
     @profiles = Profile.page params[:page]
+    render 'index'
   end
 
   def dashboard
