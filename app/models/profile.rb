@@ -34,7 +34,7 @@ class Profile
   scope :following, ->{where(follow: true)}
 
   def to_param
-    steam_account_id.to_s
+    dota_account_id.to_s
   end
 
   def matches
