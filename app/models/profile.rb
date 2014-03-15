@@ -28,6 +28,8 @@ class Profile
   field :losses, type: Integer
 
   has_many :players
+  has_and_belongs_to_many :matches
+  has_and_belongs_to_many :parties
 
   scope :following, ->{where(follow: true)}
 

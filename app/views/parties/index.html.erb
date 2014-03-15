@@ -1,0 +1,28 @@
+<h1>Listing parties</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Winrate</th>
+      <th>1</th>
+      <th>2</th>
+      <th>3</th>
+      <th>4</th>
+      <th>5</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @parties.each do |party| %>
+      <tr>
+        <td><%= party.winrate %>%</td>
+        <% (0..5).each do |i| %>
+          <td>
+            <%= party.profiles[i].try(:name) %>
+          </td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+

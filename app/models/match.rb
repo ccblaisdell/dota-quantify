@@ -27,9 +27,14 @@ class Match
   # End of attributes from the Steam API
   
   has_many :players
+  belongs_to :party
+  has_and_belongs_to_many :profiles
 
-  # This should do real matches only
+  # This should do real matches only, right now it sucks
   default_scope lambda { where :human_players.gte => 9 }
+
+  after_create :associate_with_profiles
+  after_create :associate_with_party
 
   def to_param
     match_id.to_s
@@ -40,7 +45,15 @@ class Match
   end
 
   def won?(player)
-    (self.winner == 'radiant' and player.slot < 128) or (self.winner == 'dire' and player.slot >= 128)
+    player.won?
+  end
+
+  def radiant_won?
+    winner == 'radiant'
+  end
+
+  def dire_won?
+    winner == 'dire'
   end
 
   def ranked?
@@ -96,5 +109,16 @@ class Match
     for steam_player in steam_players
       player = Player.create_from_steam_player(self, steam_player)
     end
+  end
+
+  def associate_with_profiles
+    for player in players
+      profiles << player.profile
+    end
+  end
+
+  def associate_with_party
+    party = Party.find_by_players followed_players if followed_players.length > 1
+    party.matches << self if party
   end
 end

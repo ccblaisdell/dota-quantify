@@ -25,12 +25,14 @@ class Player
   field :additional_unit_names, type: Array
   field :upgrades, type: Array
   field :anonymous, type: Boolean
+  field :won, type: Boolean
 
   belongs_to :match, index: true
   belongs_to :profile, index: true
 
   after_create :convert_32_bit_account_id_to_64_bit_steam_id
   after_create :associate_with_profile
+  after_create :determine_win
 
   def self.create_from_steam_player(match, steam_player)
     match.players.create({
@@ -77,5 +79,18 @@ class Player
     return nil if self.anonymous?
     profile = Profile.find_or_create_by_steam_account_id( self.steam_account_id, {dota_account_id: self.dota_account_id} )
     profile.players << self
+  end
+
+  def radiant?
+    slot < 128
+  end
+
+  def dire?
+    slot >= 128
+  end
+
+  def determine_win!
+    # shouldn't need these tries
+    update_attributes won: (match.try(:radiant_won?) && radiant?) || (match.try(:dire_won?) && dire?)
   end
 end

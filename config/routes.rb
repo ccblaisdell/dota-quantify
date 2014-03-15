@@ -2,6 +2,8 @@ DotaQuantify::Application.routes.draw do
   resources :players
 
   resources :heros
+  
+  resources :parties
 
   resources :matches do
     collection do
