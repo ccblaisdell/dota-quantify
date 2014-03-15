@@ -31,7 +31,9 @@ class Match
   has_and_belongs_to_many :profiles
 
   # This should do real matches only, right now it sucks
-  default_scope lambda { where :human_players.gte => 9 }
+  default_scope ->{ where :human_players.gte => 9 }
+  
+  scope :by_date, ->{order_by(:start.desc)}
 
   after_create :associate_with_profiles
   after_create :associate_with_party

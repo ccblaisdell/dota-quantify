@@ -9,6 +9,7 @@
       <th>3</th>
       <th>4</th>
       <th>5</th>
+      <th></th>
     </tr>
   </thead>
 
@@ -27,6 +28,9 @@
             <%= party.profiles[i].try(:name) %>
           </td>
         <% end %>
+        <td>
+          <%= link_to "Show", party_path(party) %>
+        </td>
       </tr>
     <% end %>
   </tbody>

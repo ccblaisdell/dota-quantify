@@ -7,3 +7,4 @@ Todos
 - export batches of matches (ging wants CSV)
 - catch up on test coverage
 - lazily create Parties
+- figure out how to determine Real matches

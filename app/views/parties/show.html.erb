@@ -1,0 +1,26 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>ID:</strong>
+  <%= @party.id %>
+</p>
+
+<p>
+  <strong>Winrate:</strong>
+  <%= @party.winrate %>%
+  <small><%= @party.wins.count %>/<%= @party.matches.count %></small>
+</p>
+
+<ul>
+  <li>Game modes</li>
+  <li>Frequent heroes (for/against?)</li>
+  <li>Roles</li>
+  <li>Top performances</li>
+  <li>Games on calendar</li>
+  <li>Winrate chart</li>
+  <li>Paginate matches</li>
+</ul>
+
+<ul>
+  <%= render partial: "matches/listing", collection: @party.matches.by_date, as: :match %>
+</ul>
