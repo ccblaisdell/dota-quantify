@@ -6,5 +6,6 @@ Todos
 - 'get lots of matches' button should only ask for matches newer than the ones it has
 - export batches of matches (ging wants CSV)
 - catch up on test coverage
-- lazily create Parties
 - figure out how to determine Real matches
+- make Party list sortable
+- magical super-robust sorting and filtering framework!

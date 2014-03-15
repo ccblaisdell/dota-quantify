@@ -38,22 +38,27 @@ class Match
   after_create :associate_with_profiles
   after_create :associate_with_party
 
+  # URLs will use the match_id instead of MongoID BSON ID
   def to_param
     match_id.to_s
   end
 
+  # Filter this match's Players down to those who are Followed
   def followed_players
     self.players.collect {|player| player if player.profile.try(:follow?)}.compact
   end
 
+  # Was this player on the winning team?
   def won?(player)
     player.won?
   end
 
+  # This is a stupid method
   def radiant_won?
     winner == 'radiant'
   end
 
+  # So is this one
   def dire_won?
     winner == 'dire'
   end
@@ -62,6 +67,7 @@ class Match
     lobby == 'Ranked'
   end
 
+  
   def self.find_or_fetch_from_steam(match_id)
     self.find_by(match_id: match_id) || Match.create_from_steam_match(Dota.match(match_id))
   end
@@ -120,7 +126,7 @@ class Match
   end
 
   def associate_with_party
-    party = Party.find_by_players followed_players if followed_players.length > 1
+    party = Party.find_or_create_by_players followed_players if followed_players.length > 1
     party.matches << self if party
   end
 end
