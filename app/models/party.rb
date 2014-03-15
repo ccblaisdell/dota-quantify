@@ -4,12 +4,14 @@ class Party
   # Game count
   field :count, type: Integer, default: 0
   field :wins, type: Integer, default: 0
+  field :strict_count, type: Integer, default: 0
+  field :strict_wins, type: Integer, default: 0
 
   # Number of profiles
   field :size, type: Integer
 
   has_and_belongs_to_many :profiles
-  has_many :matches, after_add: :update_counts
+  has_and_belongs_to_many :matches, after_add: :update_counts
 
   scope :by_size, ->{order_by(:size.desc)}
 
@@ -26,7 +28,6 @@ class Party
   def self.generate(profile_ids)
     party = Party.create size: profile_ids.count, profile_ids: profile_ids
     party.matches = Match.all_in(profile_ids: profile_ids)
-      .select {|match| party.profiles == match.profiles.following}
   end
 
   # Takes a list of players and finds (or creates) and returns the Party for that list
@@ -45,14 +46,33 @@ class Party
   end
 
   # Calculate winrate
-  def winrate
+  def winrate(wins=wins, count=count)
     ((wins.to_f / count.to_f) * 100).to_i rescue 0
   end
 
   # Runs after a new match is added to increment counts
   def update_counts(match)
-    new_wins = match.followed_players.first.won? ? wins + 1 : wins
-    new_count = count + 1
-    update_attributes wins: new_wins, count: new_count
+    win = match.followed_players.first.won?
+    new_attributes = {
+      count: count + 1,
+      wins: win ? wins + 1 : wins
+    }
+    if is_strict? match
+      new_attributes[:strict_count] = strict_count + 1
+      new_attributes[:strict_wins] = strict_wins + 1 if win
+    end
+    update_attributes new_attributes
+  end
+
+  def is_strict?(match)
+    match.profiles.following == profiles
+  end
+
+  def strict_matches
+    matches.select {|match| match.profiles.following == profiles}
+  end
+
+  def strict_winrate
+    winrate strict_wins, strict_count
   end
 end

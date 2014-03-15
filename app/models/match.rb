@@ -27,7 +27,7 @@ class Match
   # End of attributes from the Steam API
   
   has_many :players
-  belongs_to :party
+  has_and_belongs_to_many :parties
   has_and_belongs_to_many :profiles
 
   # This should do real matches only, right now it sucks
@@ -125,8 +125,13 @@ class Match
     end
   end
 
-  def associate_with_party
-    party = Party.find_or_create_by_players followed_players if followed_players.length > 1
-    party.matches << self if party
+  # Find every possible party in this batch of players
+  def associate_with_parties
+    return nil unless followed_players.length > 1
+    for i in 2..5
+      for combination in followed_players.combination(i)
+        Party.find_or_create_by_players(combination).matches << self
+      end
+    end
   end
 end
