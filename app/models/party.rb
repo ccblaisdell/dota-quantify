@@ -16,18 +16,17 @@ class Party
   # generates a Party for each possible combination of followed profiles
   def self.generate_all
     for i in (2..5)
-      for combination in Profile.following.combination(i).to_a
+      for combination in Profile.following.collect{|profile| profile.id}.combination(i).to_a
         Party.generate(combination)
       end
     end    
   end
 
   # Takes a group of up to 5 profiles and creates a new Party
-  def self.generate(profiles)
-    party = Party.create
-    party.size = profiles.count
-    party.profiles = profiles.to_a
-    party.save
+  def self.generate(profile_ids)
+    party = Party.create size: profile_ids.count, profile_ids: profile_ids
+    party.matches = Match.all_in(profile_ids: profile_ids)
+      .select {|match| party.profiles == match.profiles.following}
   end
 
   # Takes a list of players and finds (or creates) and returns the Party for that list
