@@ -15,7 +15,13 @@
   <tbody>
     <% @parties.each do |party| %>
       <tr>
-        <td><%= party.winrate %>%</td>
+        <td>
+          <strong><%= party.winrate %>%</strong>
+          <br>
+          <small>
+            <%= party.wins.length %>/<%= party.matches.length %>
+          </small>
+        </td>
         <% (0..5).each do |i| %>
           <td>
             <%= party.profiles[i].try(:name) %>
