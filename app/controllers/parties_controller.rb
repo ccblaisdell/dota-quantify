@@ -6,6 +6,7 @@ class PartiesController < ApplicationController
   end
 
   def show
+    @matches = @party.matches.by_date.page params[:page]
   end
 
   private

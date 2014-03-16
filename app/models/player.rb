@@ -89,7 +89,7 @@ class Player
     slot >= 128
   end
 
-  def determine_win!
+  def determine_win
     # shouldn't need these tries
     update_attributes won: (match.try(:radiant_won?) && radiant?) || (match.try(:dire_won?) && dire?)
   end

@@ -1,3 +1,7 @@
+<% for profile in @party.profiles %>
+  <%= avatar profile %>
+<% end %>
+
 <p id="notice"><%= notice %></p>
 
 <p>
@@ -22,5 +26,5 @@
 </ul>
 
 <ul>
-  <%= render partial: "matches/listing", collection: @party.matches.by_date, as: :match %>
+  <%= render partial: "matches/listing", collection: @matches, as: :match %>
 </ul>

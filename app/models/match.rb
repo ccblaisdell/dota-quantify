@@ -36,7 +36,7 @@ class Match
   scope :by_date, ->{order_by(:start.desc)}
 
   after_create :associate_with_profiles
-  after_create :associate_with_party
+  after_create :associate_with_parties
 
   # URLs will use the match_id instead of MongoID BSON ID
   def to_param
