@@ -1,2 +1,0 @@
-module HerosHelper
-end
