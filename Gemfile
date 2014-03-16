@@ -65,3 +65,11 @@ group :development do
   gem 'pry-rails'
   gem 'pry-stack_explorer'
 end
+
+group :test do
+  gem 'simplecov'
+  gem 'rails_best_practices'
+  gem "factory_girl_rails", "~> 4.0"
+  gem 'pry-rails'
+  gem 'pry-stack_explorer'
+end

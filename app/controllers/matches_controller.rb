@@ -1,5 +1,5 @@
 class MatchesController < ApplicationController
-  before_action :set_match, only: [:show, :edit, :update, :destroy]
+  before_action :set_match, only: [:show]
 
   def fetch
     Match.delay.fetch(params)
@@ -22,30 +22,6 @@ class MatchesController < ApplicationController
   # GET /matches/1
   # GET /matches/1.json
   def show
-  end
-
-  # PATCH/PUT /matches/1
-  # PATCH/PUT /matches/1.json
-  def update
-    respond_to do |format|
-      if @match.update(match_params)
-        format.html { redirect_to @match, notice: 'Match was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: 'edit' }
-        format.json { render json: @match.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /matches/1
-  # DELETE /matches/1.json
-  def destroy
-    @match.destroy
-    respond_to do |format|
-      format.html { redirect_to matches_url }
-      format.json { head :no_content }
-    end
   end
 
   private
