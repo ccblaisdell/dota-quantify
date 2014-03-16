@@ -79,6 +79,7 @@ class Player
     return nil if self.anonymous?
     profile = Profile.find_or_create_by_steam_account_id( self.steam_account_id, {dota_account_id: self.dota_account_id} )
     profile.players << self
+    profile.matches << self.match
   end
 
   def radiant?

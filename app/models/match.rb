@@ -29,14 +29,9 @@ class Match
   has_many :players
   has_and_belongs_to_many :parties
   has_and_belongs_to_many :profiles
-
-  # This should do real matches only, right now it sucks
-  default_scope ->{ where :human_players.gte => 9 }
   
-  scope :by_date, ->{order_by(:start.desc)}
-
-  after_create :associate_with_profiles
-  after_create :associate_with_parties
+  scope :by_date, ->{ order_by(:start.desc) }
+  scope :real, ->{ where :duration.gte => 600, :human_players.gte => 9 }
 
   # URLs will use the match_id instead of MongoID BSON ID
   def to_param
@@ -67,7 +62,6 @@ class Match
     lobby == 'Ranked'
   end
 
-  
   def self.find_or_fetch_from_steam(match_id)
     self.find_by(match_id: match_id) || Match.create_from_steam_match(Dota.match(match_id))
   end
@@ -117,12 +111,9 @@ class Match
     for steam_player in steam_players
       player = Player.create_from_steam_player(self, steam_player)
     end
-  end
 
-  def associate_with_profiles
-    for player in players
-      profiles << player.profile
-    end
+    # Parties can't be found until players and profiles are attached
+    associate_with_parties
   end
 
   # Find every possible party in this batch of players

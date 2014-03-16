@@ -37,10 +37,6 @@ class Profile
     dota_account_id.to_s
   end
 
-  def matches
-    players.collect {|player| player.match}.compact
-  end
-
   def self.find_or_new_from_steam_account_id(steam_account_id)
     self.find_by(steam_account_id: steam_account_id) || self.new(self.profile_attributes_from_steam_profile( Dota.profiles(steam_account_id)[0] ))
   end
