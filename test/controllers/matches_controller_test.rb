@@ -2,7 +2,7 @@ require 'test_helper'
 
 class MatchesControllerTest < ActionController::TestCase
   setup do
-    @match = FactoryGirl.create :match
+    @match = FactoryGirl.create(:match)
   end
 
   test "should asyncrhonously fetch a match" do

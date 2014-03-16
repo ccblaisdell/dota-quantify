@@ -6,5 +6,13 @@ require 'rails/test_help'
 
 class ActiveSupport::TestCase
   include FactoryGirl::Syntax::Methods
-  # Add more helper methods to be used by all tests here...
+
+  setup do
+    I18n.locale = :en
+    Mongoid.purge!
+  end
+
+  teardown do
+    Mongoid.purge!
+  end
 end

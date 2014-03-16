@@ -32,6 +32,6 @@ class MatchesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def match_params
-      params.require(:match).permit(:type, :mode, :date, :region, :duration, :winner)
+      params.require(:match).permit(:match_id)
     end
 end
