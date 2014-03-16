@@ -31,7 +31,35 @@ class Match
   has_and_belongs_to_many :profiles
   
   scope :by_date, ->{ order_by(:start.desc) }
-  scope :real, ->{ where :duration.gte => 600, :human_players.gte => 9 }
+  scope :real, ->{ 
+    where :duration.gte => 600, 
+    :human_players.gte => 9 ,
+    :lobby.nin => [
+      'Invalid',
+      'Practice',
+      'Tournament',
+      'Tutorial',
+      'Co-op with bots'
+    ], :mode.nin => [
+      '?? INTRO/DEATH ??',
+      'The Diretide',
+      'Reverse Captains Mode',
+      'Greeviling',
+      'Tutorial',
+      'Mid Only',
+      'Compendium Matchmaking',
+      'Custom',
+      'Ability Draft'
+    ]
+  }
+
+  # Did this match count? (best guess)
+  def real?
+    human_players == 10 \
+    && duration >= 600 \
+    && !['Invalid','Practice','Tournament','Tutorial','Co-op with bots'].include?(lobby) \
+    && !['?? INTRO/DEATH ??','The Diretide','Reverse Captains Mode','Greeviling','Tutorial','Mid Only','Compendium Matchmaking','Custom','Ability Draft'].include?(mode)
+  end
 
   # URLs will use the match_id instead of MongoID BSON ID
   def to_param
@@ -109,7 +137,7 @@ class Match
 
   def associate_players(steam_players)
     for steam_player in steam_players
-      player = Player.create_from_steam_player(self, steam_player)
+      player = Match.players.create_from_steam_player(self, steam_player)
     end
 
     # Parties can't be found until players and profiles are attached

@@ -22,10 +22,16 @@ class Profile
   field :game_server_ip, type: String
 
   field :last_match, type: Date
+  
   field :match_count, type: Integer
-  field :war, type: Integer
   field :wins, type: Integer
   field :losses, type: Integer
+  
+  field :real_match_count, type: Integer
+  field :real_wins, type: Integer
+  field :real_losses, type: Integer
+
+  field :war, type: Integer
 
   has_many :players
   has_and_belongs_to_many :matches
@@ -61,5 +67,26 @@ class Profile
       big_avatar_url: steam_profile.big_avatar_url,
       commentable: steam_profile.commentable?
     }.merge additional_attributes
+  end
+
+  def count_games
+    w   = 0
+    l   = 0
+    mc  = 0
+    rw  = 0
+    rl  = 0
+    rmc = 0
+    
+    for player in players
+      mc +=1
+      player.won? ? w += 1 : l += 1
+
+      next unless player.match.real?
+      
+      rmc +=1
+      player.won? ? rw += 1 : rl += 1
+    end
+
+    update_attributes match_count: mc, wins: w, losses: l, real_match_count: rmc, real_wins: rw, real_losses: rl
   end
 end

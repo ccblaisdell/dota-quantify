@@ -14,13 +14,13 @@ class ProfilesController < ApplicationController
 
   def dashboard
     @profiles = Profile.following
-    @matches = Match.real.by_date.limit(10)
+    @matches = Match.by_date.limit(10)
   end
 
   # GET /profiles/1
   # GET /profiles/1.json
   def show
-    @matches = @profile.matches.real.by_date.limit(10)
+    @matches = @profile.matches.by_date.limit(10)
   end
 
   # DELETE /profiles/1
