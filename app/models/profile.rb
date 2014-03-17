@@ -33,7 +33,6 @@ class Profile
 
   field :war, type: Integer
 
-  has_many :players
   has_and_belongs_to_many :matches
   has_and_belongs_to_many :parties
 
@@ -77,14 +76,14 @@ class Profile
     rl  = 0
     rmc = 0
     
-    for player in players
+    for match in matches
       mc +=1
-      player.won? ? w += 1 : l += 1
+      match.won? ? w += 1 : l += 1
 
-      next unless player.match.real?
+      next unless match.real?
       
       rmc +=1
-      player.won? ? rw += 1 : rl += 1
+      match.won? ? rw += 1 : rl += 1
     end
 
     update_attributes match_count: mc, wins: w, losses: l, real_match_count: rmc, real_wins: rw, real_losses: rl

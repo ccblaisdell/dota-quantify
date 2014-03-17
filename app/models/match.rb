@@ -24,9 +24,11 @@ class Match
   field :cluster, type: Integer
   field :league_id, type: Integer
 
+  field :won, type: Boolean
+
   # End of attributes from the Steam API
   
-  has_many :players
+  embeds_many :players
   has_and_belongs_to_many :parties
   has_and_belongs_to_many :profiles
   
@@ -52,6 +54,15 @@ class Match
       'Ability Draft'
     ]
   }
+  scope :wins, ->{ where won: true }
+  scope :losses, ->{ where won: false }
+
+  scope :ap, ->{ where mode: "All Pick" }
+  scope :rd, ->{ where mode: "Random Draft" }
+  scope :sd, ->{ where mode: "Single Draft" }
+  scope :cm, ->{ where mode: "Captains Mode" }
+  scope :cd, ->{ where mode: "Captains Draft" }
+  scope :ad, ->{ where mode: "Ability Draft" }
 
   # Did this match count? (best guess)
   def real?
@@ -66,24 +77,17 @@ class Match
     match_id.to_s
   end
 
-  # Filter this match's Players down to those who are Followed
+  # Get the player record for this profile
+  def player(profile)
+    players.find_by steam_account_id: profile.steam_account_id
+  end
+
   def followed_players
-    self.players.collect {|player| player if player.profile.try(:follow?)}.compact
+    profiles.following.collect {|profile| player(profile)}
   end
 
-  # Was this player on the winning team?
-  def won?(player)
-    player.won?
-  end
-
-  # This is a stupid method
-  def radiant_won?
-    winner == 'radiant'
-  end
-
-  # So is this one
-  def dire_won?
-    winner == 'dire'
+  def team
+    followed_players.first.team
   end
 
   def ranked?
@@ -97,6 +101,9 @@ class Match
   def self.create_from_steam_match(steam_match)
     match = Match.create Match.attributes_from_steam_match(steam_match)
     match.associate_players(steam_match.players)
+    match.associate_with_profiles
+    match.determine_win
+    match.associate_with_parties
     match
   end
 
@@ -137,19 +144,27 @@ class Match
 
   def associate_players(steam_players)
     for steam_player in steam_players
-      player = Match.players.create_from_steam_player(self, steam_player)
+      player = Player.create_from_steam_player(self, steam_player)
     end
+  end
 
-    # Parties can't be found until players and profiles are attached
-    associate_with_parties
+  def determine_win
+    update_attributes won: (team.downcase == winner.downcase)
+  end
+
+  def associate_with_profiles
+    for player in players.named
+      profile = Profile.find_or_create_by_steam_account_id player.steam_account_id, dota_account_id: player.dota_account_id
+      profile.matches << self
+    end
   end
 
   # Find every possible party in this batch of players
   def associate_with_parties
-    return nil unless followed_players.length > 1
+    return nil unless profiles.following.length > 1
     for i in 2..5
-      for combination in followed_players.combination(i)
-        Party.find_or_create_by_players(combination).matches << self
+      for combination in profiles.following.combination(i)
+        Party.find_or_create_by_profiles(combination).matches << self
       end
     end
   end

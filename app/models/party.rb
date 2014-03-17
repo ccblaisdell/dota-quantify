@@ -30,13 +30,13 @@ class Party
     party.matches = Match.all_in(profile_ids: profile_ids)
   end
 
-  # Takes a list of players and finds (or creates) and returns the Party for that list
-  def self.find_or_create_by_players(players)
-    player_profile_ids = players.collect {|player| player.profile.try(:id)}.compact
+  # Takes a list of profiles and finds (or creates) and returns the Party for that list
+  def self.find_or_create_by_profiles(profiles)
+    player_profile_ids = profiles.collect {|profile| profile.id}.compact
     parties = Party.all.select {|party| party.profile_ids.sort == player_profile_ids.sort}
     return parties.first unless parties.blank?
-    party = Party.create size: players.count
-    party.profiles = Profile.find(player_profile_ids)
+    party = Party.create size: profiles.count
+    party.profiles = profiles # Profile.find(player_profile_ids)
     party
   end
 
@@ -52,7 +52,7 @@ class Party
 
   # Runs after a new match is added to increment counts
   def update_counts(match)
-    win = match.followed_players.first.won?
+    win = match.won?
     new_attributes = {
       count: count + 1,
       wins: win ? wins + 1 : wins
