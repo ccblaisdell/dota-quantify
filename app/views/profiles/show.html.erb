@@ -1,49 +1,9 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Name:</strong>
+<h1>
+  <%= avatar @profile %>
   <%= @profile.name %>
-</p>
+</h1>
 
-<p>
-  <strong>Steam Id:</strong>
-  <%= @profile.steam_account_id %>
-</p>
-<p>
-  <strong>Dota Id:</strong>
-  <%= @profile.dota_account_id %>
-</p>
-
-<p>
-  <strong>Following?:</strong>
-  <%= @profile.follow %>
-</p>
-
-<p>
-  <strong>Last match:</strong>
-  <%= @profile.last_match %>
-</p>
-
-<p>
-  <strong>War:</strong>
-  <%= @profile.war %>
-</p>
-
-<p>
-  <strong>Match count:</strong>
-  <%= @profile.match_count || @profile.matches.count %>
-</p>
-
-<p>
-  <strong>Wins:</strong>
-  <%= @profile.wins %>
-</p>
-
-<p>
-  <strong>Losses:</strong>
-  <%= @profile.losses %>
-</p>
-
+<h2>Latest matches</h2>
 <ul>
   <%= render partial: "matches/listing", collection: @matches, as: :match %>
 </ul>
