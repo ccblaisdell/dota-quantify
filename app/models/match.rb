@@ -62,6 +62,7 @@ class Match
   scope :sd, ->{ where mode: "Single Draft" }
   scope :cm, ->{ where mode: "Captains Mode" }
   scope :cd, ->{ where mode: "Captains Draft" }
+  scope :ar, ->{ where mode: "All Random" }
   scope :ad, ->{ where mode: "Ability Draft" }
 
   # Did this match count? (best guess)

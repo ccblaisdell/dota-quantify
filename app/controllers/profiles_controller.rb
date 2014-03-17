@@ -15,6 +15,11 @@ class ProfilesController < ApplicationController
   def dashboard
     @profiles = Profile.following
     @matches = Match.by_date.limit(10)
+    @ap = Match.ap
+    @sd = Match.sd
+    @rd = Match.rd
+    @ar = Match.ar
+    @cm = Match.cm
   end
 
   # GET /profiles/1
