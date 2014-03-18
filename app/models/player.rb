@@ -24,15 +24,12 @@ class Player
   field :additional_unit_items, type: Array
   field :additional_unit_names, type: Array
   field :upgrades, type: Array
-  field :anonymous, type: Boolean
-  field :won, type: Boolean
 
-  belongs_to :match, index: true
-  belongs_to :profile, index: true
+  embedded_in :match
+
+  scope :named, ->{ where :dota_account_id.ne => 4294967295 }
 
   after_create :convert_32_bit_account_id_to_64_bit_steam_id
-  after_create :associate_with_profile
-  after_create :determine_win
 
   def self.create_from_steam_player(match, steam_player)
     match.players.create({
@@ -55,11 +52,15 @@ class Player
       level: steam_player.level,
       xpm: steam_player.xpm,
       gpm: steam_player.gpm,
-      items: steam_player.items
+      items: steam_player.items,
       # additional_unit_items: steam_player.additional_unit_items,
       # additional_unit_names: steam_player.additional_unit_names,
-      # upgrades: steam_player.upgrades || [],
+      upgrades: steam_player.upgrades,
     })
+  end
+
+  def won?
+    match.won?
   end
 
   def name
@@ -71,15 +72,20 @@ class Player
   # http://dev.dota2.com/showthread.php?t=108926
   # There has got to be a better way
   def convert_32_bit_account_id_to_64_bit_steam_id
-    self.update_attributes(anonymous: true) and return if self.dota_account_id == 4294967295 # Means the profile is private
+    return nil if anonymous?
     self.update_attributes(steam_account_id: self.dota_account_id + 76561197960265728)
   end
 
-  def associate_with_profile
-    return nil if self.anonymous?
-    profile = Profile.find_or_create_by_steam_account_id( self.steam_account_id, {dota_account_id: self.dota_account_id} )
-    profile.players << self
-    profile.matches << self.match
+  def anonymous?
+    self.dota_account_id == 4294967295 # Means the profile is private    
+  end
+
+  def profile
+    Profile.find_by steam_account_id: steam_account_id
+  end
+
+  def team
+    slot < 128 ? "Radiant" : "Dire"
   end
 
   def radiant?
@@ -88,10 +94,5 @@ class Player
 
   def dire?
     slot >= 128
-  end
-
-  def determine_win
-    # shouldn't need these tries
-    update_attributes won: (match.try(:radiant_won?) && radiant?) || (match.try(:dire_won?) && dire?)
   end
 end

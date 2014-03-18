@@ -1,7 +1,7 @@
 <li>
   <strong>
     <%= link_to match do %>
-      <%= match.followed_players.first.try(:won?) ? "WIN" : "LOSS" %>
+      <%= match.won? ? "WON" : "LOST" %>
       <%= time_ago_in_words match.start %> ago
     <% end %>
   </strong>

@@ -58,6 +58,9 @@ gem "figaro"
 # Work fetching and analysis in the background
 gem "delayed_job_mongoid", git: 'https://github.com/collectiveidea/delayed_job_mongoid.git'
 
+# Run Heroku workers only when needed
+# gem "workless"
+
 # Pagination
 gem 'kaminari'
 

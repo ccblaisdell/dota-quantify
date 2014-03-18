@@ -1,5 +1,51 @@
 <h1>Dashboard</h1>
 
+<p>
+  AP: 
+  <%= (@ap.wins.count.to_f / @ap.count.to_f * 100).to_i %>%
+  <small>
+    <%= @ap.wins.count %>
+    /
+    <%= @ap.count %>
+  </small>
+</p>
+<p>
+  RD: 
+  <%= (@rd.wins.count.to_f / @rd.count.to_f * 100).to_i %>%
+  <small>
+    <%= @rd.wins.count %>
+    /
+    <%= @rd.count %>
+  </small>
+</p>
+<p>
+  AR: 
+  <%= (@ar.wins.count.to_f / @ar.count.to_f * 100).to_i %>%
+  <small>
+    <%= @ar.wins.count %>
+    /
+    <%= @ar.count %>
+  </small>
+</p>
+<p>
+  SD: 
+  <%= (@sd.wins.count.to_f / @sd.count.to_f * 100).to_i %>%
+  <small>
+    <%= @sd.wins.count %>
+    /
+    <%= @sd.count %>
+  </small>
+</p>
+<p>
+  CM: 
+  <%= (@cm.wins.count.to_f / @cm.count.to_f * 100).to_i %>%
+  <small>
+    <%= @cm.wins.count %>
+    /
+    <%= @cm.count %>
+  </small>
+</p>
+
 <ul>
   <%= render partial: "matches/listing", collection: @matches, as: :match %>
 </ul>
