@@ -1,3 +1,45 @@
+@import "base";
+
 // Place all the styles related to the Matches controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.match {
+  padding: 10px;
+  position: relative;
+  background: #F1F1F1;
+  margin-bottom: 10px;
+}
+
+.match-link {
+  display: block;
+  text-decoration: none;
+  &:hover {
+
+  }
+}
+
+.match-outcome {
+  display: inline-block;
+  background: gray;
+  color: #fff;
+  width: 44px;
+  text-transform: uppercase;
+  font-size: 11px;
+  font-weight: bold;
+  text-align: center;
+  &.match-outcome-won {
+    background: $green;
+  }
+  &.match-outcome-lost {
+    background: $red;
+  }
+}
+
+.match-time {
+  color: #aaa;
+}
+
+.match-mode {
+  float: right;
+}

@@ -1,17 +1,18 @@
-<li>
-  <strong>
-    <%= link_to match do %>
-      <%= match.won? ? "WON" : "LOST" %>
-      <%= time_ago_in_words match.start %> ago
-    <% end %>
-  </strong>
-  <small>(<%= match.mode %><%= " | RANKED" if match.ranked? %>)</small>
-  <% for player in match.followed_players %>
-    <p>
-      <%= image_tag player.profile.small_avatar_url, alt: player.name %>
-      <%= link_to player.name, player.profile %> went
-      <%= player.kda %> as
-      <%= player.hero %>
-    </p>
+<div class="match">
+  <%= link_to match, class: "match-link" do %>
+    <%= match_outcome match %>
+    <%= match_time match %>
+    <%= match_mode match %>
   <% end %>
-</li>
+
+  <% for player in match.followed_players %>
+    <div class="player">
+      <%= player_hero_avatar player %>
+      <%= link_to player.profile, class: "player-link" do %>
+        <%= avatar player.profile %>
+        <%= player.name %>
+      <% end %>
+      <%= player_kda player %>
+    </div>
+  <% end %>
+</div>
