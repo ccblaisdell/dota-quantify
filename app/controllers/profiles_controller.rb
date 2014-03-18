@@ -14,7 +14,7 @@ class ProfilesController < ApplicationController
 
   def dashboard
     @profiles = Profile.following
-    @matches = Match.by_date.limit(10)
+    @matches = Match.by_date.page params[:page]
     @ap = Match.ap
     @sd = Match.sd
     @rd = Match.rd
