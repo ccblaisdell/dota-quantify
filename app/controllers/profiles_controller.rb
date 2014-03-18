@@ -13,13 +13,7 @@ class ProfilesController < ApplicationController
   end
 
   def dashboard
-    @profiles = Profile.following
     @matches = Match.by_date.page params[:page]
-    @ap = Match.ap
-    @sd = Match.sd
-    @rd = Match.rd
-    @ar = Match.ar
-    @cm = Match.cm
   end
 
   # GET /profiles/1
