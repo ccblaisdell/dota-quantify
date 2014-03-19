@@ -12,6 +12,11 @@ class ProfilesController < ApplicationController
     render 'index'
   end
 
+  def export
+    @profiles = Profile.all
+    render 'index'
+  end
+
   def dashboard
     @matches = Match.by_date.page params[:page]
   end

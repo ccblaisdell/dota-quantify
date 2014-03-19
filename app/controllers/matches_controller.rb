@@ -19,6 +19,11 @@ class MatchesController < ApplicationController
     @matches = Match.order(:start.desc).page params[:page]
   end
 
+  def export
+    @matches = Match.by_date
+    render 'index'
+  end
+
   # GET /matches/1
   # GET /matches/1.json
   def show

@@ -5,6 +5,7 @@ DotaQuantify::Application.routes.draw do
     collection do
       get 'fetch'
       get 'fetch_for_followed'
+      get 'export'
     end
   end
 
@@ -12,6 +13,7 @@ DotaQuantify::Application.routes.draw do
     collection do
       get 'dashboard'
       get 'all'
+      get 'export'
     end
   end
 
