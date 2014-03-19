@@ -1,0 +1,23 @@
+<table class="team">
+  <thead>
+    <th class="team-hero"></th>
+    <th class="team-profile">Player</th>
+    <th class="team-avatar"></th>
+    <th class="team-level text-right">Level</th>
+    <th class="team-kills text-right">K</th>
+    <th class="team-deaths text-right">D</th>
+    <th class="team-assists text-right">A</th>
+    <th class="team-gold text-right">Gold</th>
+    <th class="team-last-hits text-right">LH</th>
+    <th class="team-denies text-right">DN</th>
+    <th class="team-xpm text-right">XPM</th>
+    <th class="team-gpm text-right">GPM</th>
+    <th class="team-hero-damage text-right">HD</th>
+    <th class="team-hero-healing text-right">HH</th>
+    <th class="team-tower-damage text-right">TD</th>
+    <th class="team-items">Items</th>
+  </thead>
+  <tbody>
+    <%= render partial: "players/player", collection: players %>
+  </tbody>
+</table>

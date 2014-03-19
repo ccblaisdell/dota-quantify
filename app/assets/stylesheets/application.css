@@ -13,3 +13,7 @@
  */
 
 @include "base";
+
+.text-right {
+  text-align: right;
+}

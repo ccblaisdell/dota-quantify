@@ -1,0 +1,18 @@
+<tr class="team-player">
+  <td class="team-hero"><%= player_hero_avatar player %></td>
+  <td class="team-profile"><%= profile_link player.profile %></td>
+  <td class="team-avatar"><%= link_to_unless player.anonymous?, avatar(player.profile), player.profile %></td>
+  <td class="team-level text-right"><%= player.level %></td>
+  <td class="team-kills text-right"><%= player.kills %></td>
+  <td class="team-deaths text-right"><%= player.deaths %></td>
+  <td class="team-assists text-right"><%= player.assists %></td>
+  <td class="team-gold text-right"><%= player.gold %></td>
+  <td class="team-last-hits text-right"><%= player.last_hits %></td>
+  <td class="team-denies text-right"><%= player.denies %></td>
+  <td class="team-xpm text-right"><%= player.xpm %></td>
+  <td class="team-gpm text-right"><%= player.gpm %></td>
+  <td class="team-hero-damage text-right"><%= player.hero_damage %></td>
+  <td class="team-hero-healing text-right"><%= player.hero_healing %></td>
+  <td class="team-tower-damage text-right"><%= player.tower_damage %></td>
+  <td class="team-items">Items</td>
+</tr>

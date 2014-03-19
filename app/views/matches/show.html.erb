@@ -1,26 +1,17 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Mode:</strong>
-  <%= @match.mode %>
-</p>
-
-<p>
-  <strong>start:</strong>
-  <%= @match.start %>
-</p>
-
-<p>
-  <strong>Duration:</strong>
-  <%= @match.duration %>
-</p>
-
-<p>
-  <strong>Winner:</strong>
-  <%= @match.winner %>
-</p>
-
-<%= render partial: "players/match_results", locals: {players: @match.players} %>
+<div class="match">
+  <header class="match-header">
+    <%= match_outcome  @match %>
+    <%= match_mode     @match %>
+    <%= match_time     @match %>
+    <%= match_duration @match %>
+    <%= match_lobby    @match %>
+  </header>
+  <%= dotabuff_link @match %>
+  <h2>Radiant</h2>
+  <%= render partial: "players/team", locals: {players: @match.players.radiant.by_slot} %>
+  <h2>Dire</h2>
+  <%= render partial: "players/team", locals: {players: @match.players.dire.by_slot} %>
+</div>
 
 <%= link_to 'Edit', edit_match_path(@match) %> |
 <%= link_to 'Back', matches_path %>

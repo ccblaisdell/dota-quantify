@@ -28,6 +28,9 @@ class Player
   embedded_in :match
 
   scope :named, ->{ where :dota_account_id.ne => 4294967295 }
+  scope :radiant, ->{ where :slot.lte => 127 }
+  scope :dire, ->{ where :slot.gte => 128 }
+  scope :by_slot, ->{ order_by(:slot.asc) }
 
   after_create :convert_32_bit_account_id_to_64_bit_steam_id
 

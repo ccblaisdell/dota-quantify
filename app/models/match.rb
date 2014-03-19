@@ -87,6 +87,11 @@ class Match
     profiles.following.collect {|profile| player(profile)}
   end
 
+  def end
+    start + duration
+  end
+
+  # What team were we on? (result is worthless if we're on both teams)
   def team
     followed_players.first.team
   end

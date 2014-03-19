@@ -10,3 +10,59 @@
   width: 44px;
   vertical-align: middle;
 }
+
+// Team table
+.team {
+  background: #fff;
+  border-collapse: collapse;
+  text-align: left;
+  width: 100%;
+  th, td {
+    padding: 3px 8px;
+  }
+}
+.team-player {
+  &:nth-child(odd) {
+    td {
+      background: #fafafa;
+    }
+  }
+  td {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+}
+.team-hero {
+  width: 44px;
+}
+.team-profile {
+}
+.team-avatar {
+  width: 25px;
+}
+.team-level {
+  width: 30px;
+}
+.team-kills, 
+.team-deaths, 
+.team-assists {
+  width: 20px;
+}
+.team-gold {
+  width: 60px;
+}
+.team-last-hits,
+.team-denies {
+  width: 30px;
+}
+.team-xpm,
+.team-gpm {
+  width: 40px;
+}
+.team-hero-damage,
+.team-tower-damage {
+  width: 60px;
+}
+.team-hero-healing {
+  width: 40px;
+}
