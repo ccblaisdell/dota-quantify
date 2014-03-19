@@ -36,6 +36,7 @@
   width: 44px;
 }
 .team-profile {
+  width: auto;
 }
 .team-avatar {
   width: 25px;
@@ -65,4 +66,10 @@
 }
 .team-hero-healing {
   width: 40px;
+}
+.team-items {
+  width: 240px;
+  .item {
+    height: 25px;
+  }
 }

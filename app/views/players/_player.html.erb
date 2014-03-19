@@ -1,7 +1,11 @@
 <tr class="team-player">
   <td class="team-hero"><%= player_hero_avatar player %></td>
   <td class="team-profile"><%= profile_link player.profile %></td>
-  <td class="team-avatar"><%= link_to_unless player.anonymous?, avatar(player.profile), player.profile %></td>
+  <td class="team-avatar">
+    <% if player.profile.try(:follow) %>
+      <%= link_to avatar(player.profile), player.profile %>
+    <% end %>
+  </td>
   <td class="team-level text-right"><%= player.level %></td>
   <td class="team-kills text-right"><%= player.kills %></td>
   <td class="team-deaths text-right"><%= player.deaths %></td>
@@ -14,5 +18,5 @@
   <td class="team-hero-damage text-right"><%= player.hero_damage %></td>
   <td class="team-hero-healing text-right"><%= player.hero_healing %></td>
   <td class="team-tower-damage text-right"><%= player.tower_damage %></td>
-  <td class="team-items">Items</td>
+  <td class="team-items"><%= player_items player %></td>
 </tr>
