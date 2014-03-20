@@ -3,13 +3,11 @@
 <table>
   <thead>
     <tr>
-      <th>Winrate</th>
-      <th>Strict</th>
-      <th>1</th>
-      <th>2</th>
-      <th>3</th>
-      <th>4</th>
-      <th>5</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
       <th></th>
     </tr>
   </thead>
@@ -18,27 +16,18 @@
     <% @parties.each do |party| %>
       <tr>
         <td>
-          <strong><%= party.winrate %>%</strong>
-          <br>
-          <small>
-            <%= party.wins %>/<%= party.count %>
-          </small>
+          <%= link_to party do %>
+            <%= party.wins %>
+            /
+            <%= party.count %>
+          <% end %>
         </td>
-        <td>
-          <strong><%= party.strict_winrate %>%</strong>
-          <br>
-          <small>
-            <%= party.strict_wins %>/<%= party.strict_count %>
-          </small>
-        </td>
-        <% (0..5).each do |i| %>
+        <% for profile in party.profiles %>
           <td>
-            <%= party.profiles[i].try(:name) %>
+            <%= avatar profile %>
+            <%= profile.nickname %>
           </td>
         <% end %>
-        <td>
-          <%= link_to "Show", party_path(party) %>
-        </td>
       </tr>
     <% end %>
   </tbody>

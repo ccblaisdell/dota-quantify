@@ -98,4 +98,8 @@ class Player
   def dire?
     slot >= 128
   end
+
+  def net_worth
+    gold + gold_spent
+  end
 end

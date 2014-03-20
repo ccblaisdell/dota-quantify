@@ -14,7 +14,7 @@ module MatchesHelper
 
   def match_duration(match)
     duration = format("%02d:%02d", (match.duration/60), (match.duration%60))
-    content_tag :span, "duration: #{duration}", class: "match-duration"
+    content_tag :span, duration, class: "match-duration"
   end
 
   def match_lobby(match)

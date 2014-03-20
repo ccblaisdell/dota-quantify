@@ -10,13 +10,13 @@
   <td class="team-kills text-right"><%= player.kills %></td>
   <td class="team-deaths text-right"><%= player.deaths %></td>
   <td class="team-assists text-right"><%= player.assists %></td>
-  <td class="team-gold text-right"><%= player.gold %></td>
+  <td class="team-gold text-right"><%= number_to_human player.net_worth %></td>
   <td class="team-last-hits text-right"><%= player.last_hits %></td>
   <td class="team-denies text-right"><%= player.denies %></td>
   <td class="team-xpm text-right"><%= player.xpm %></td>
   <td class="team-gpm text-right"><%= player.gpm %></td>
-  <td class="team-hero-damage text-right"><%= player.hero_damage %></td>
-  <td class="team-hero-healing text-right"><%= player.hero_healing %></td>
-  <td class="team-tower-damage text-right"><%= player.tower_damage %></td>
+  <td class="team-hero-damage text-right"><%= number_to_human player.hero_damage %></td>
+  <td class="team-hero-healing text-right"><%= number_to_human player.hero_healing %></td>
+  <td class="team-tower-damage text-right"><%= number_to_human player.tower_damage %></td>
   <td class="team-items"><%= player_items player %></td>
 </tr>

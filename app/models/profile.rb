@@ -15,6 +15,7 @@ class Profile
   field :big_avatar_url, type: String
   field :commentable, type: Boolean
   field :follow, type: Boolean, default: false
+  field :nickname, type: String
 
   # game user is currently playing
   field :game_id, type: Integer

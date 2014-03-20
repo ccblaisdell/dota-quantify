@@ -27,6 +27,11 @@ class ProfilesController < ApplicationController
     @matches = @profile.matches.by_date.limit(10)
   end
 
+  def update
+    @profile.update_attributes profile_params
+    redirect_to 'show'
+  end
+
   # DELETE /profiles/1
   # DELETE /profiles/1.json
   def destroy
@@ -45,6 +50,6 @@ class ProfilesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def profile_params
-      params.require(:profile).permit(:name, :steam_profile_id, :dota_account_id, :follow)
+      params.require(:profile).permit(:name, :steam_profile_id, :dota_account_id, :follow, :nickname)
     end
 end

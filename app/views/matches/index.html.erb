@@ -1,34 +1,32 @@
 <h1>Matches</h1>
 
-<%= render partial: "find" %>
+<%= paginate @matches %>
 
 <table>
   <thead>
     <tr>
-      <th>ID</th>
+      <th></th>
+      <% for profile in Profile.following %>
+        <th><%= avatar profile %></th>
+      <% end %>
       <th>Mode</th>
       <th>Lobby</th>
-      <th>Start</th>
+      <th>When</th>
       <th>Duration</th>
-      <th>Winner</th>
-      <th></th>
-      <th></th>
-      <th></th>
     </tr>
   </thead>
 
   <tbody>
     <% @matches.each do |match| %>
       <tr>
-        <td><%= match.match_id %></td>
+        <td><%= link_to match_outcome(match), match %></td>
+        <% for profile in Profile.following %>
+          <td><%= avatar(profile) if match.profiles.include?(profile) %></td>
+        <% end %>
         <td><%= match.mode %></td>
         <td><%= match.lobby %></td>
-        <td><%= time_ago_in_words match.start %> ago</td>
-        <td><%= match.duration %></td>
-        <td><%= match.winner %></td>
-        <td><%= link_to 'Show', match %></td>
-        <td><%= link_to 'Edit', edit_match_path(match) %></td>
-        <td><%= link_to 'Destroy', match, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= time_ago_in_words match.end %> ago</td>
+        <td><%= match_duration match %></td>
       </tr>
     <% end %>
   </tbody>
