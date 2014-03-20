@@ -34,9 +34,6 @@ end
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'
 
-# Use unicorn as the app server
-#gem 'unicorn'
-
 # Use Capistrano for deployment
 # gem 'capistrano', group: :development
 
@@ -75,4 +72,9 @@ group :test do
   gem "factory_girl_rails", "~> 4.0"
   gem 'pry-rails'
   gem 'pry-stack_explorer'
+end
+
+group :production do
+  # Use unicorn as the app server
+  gem 'unicorn'
 end
