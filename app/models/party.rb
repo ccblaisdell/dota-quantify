@@ -30,6 +30,16 @@ class Party
     party.matches = Match.all_in(profile_ids: profile_ids)
   end
 
+  def self.collect(profiles)
+    parties = []
+    for i in (2..profiles.count)
+      for combination in profiles.combination(i)
+        parties << Party.all(profile_ids: combination.collect{|p|p.id}).where(:profile_ids.with_size => combination.length).first
+      end
+    end
+    parties.reverse
+  end
+
   # Takes a list of profiles and finds (or creates) and returns the Party for that list
   def self.find_or_create_by_profiles(profiles)
     player_profile_ids = profiles.collect {|profile| profile.id}.compact

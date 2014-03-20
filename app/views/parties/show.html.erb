@@ -1,18 +1,19 @@
-<% for profile in @party.profiles %>
-  <%= avatar profile %>
-<% end %>
-
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>ID:</strong>
-  <%= @party.id %>
-</p>
+<h2>
+  Party:
+  <% for profile in @party.profiles %>
+    <%= avatar profile %>
+  <% end %>
+</h2>
 
 <p>
   <strong>Winrate:</strong>
   <%= @party.winrate %>%
   <small><%= @party.wins %>/<%= @party.count %></small>
+</p>
+<p>
+  <strong>Strict winrate:</strong>
+  <%= @party.strict_winrate %>%
+  <small><%= @party.strict_wins %>/<%= @party.strict_count %></small>
 </p>
 
 <ul>
