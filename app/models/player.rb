@@ -27,7 +27,7 @@ class Player
 
   embedded_in :match
 
-  scope :named, ->{ where :dota_account_id.ne => 4294967295 }
+  scope :named, ->{ where :dota_account_id.ne => 4294967295 } # non-anonymous
   scope :radiant, ->{ where :slot.lte => 127 }
   scope :dire, ->{ where :slot.gte => 128 }
   scope :by_slot, ->{ order_by(:slot.asc) }
