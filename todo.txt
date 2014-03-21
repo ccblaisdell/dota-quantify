@@ -1,12 +1,8 @@
 Todos
 =====
-
 - catch up on test coverage
 - toggle Heroku worker as needed https://github.com/lostboy/workless
 - download older matches for followed profiles ::HOP::
-- nice list of matches on profile show page
-- 'get lots of matches' button should only ask for matches newer than the ones it has
-- export batches of matches (ging wants CSV)
-- figure out how to determine Real matches
-- make Party list sortable
+- 'get lots of matches' button should only ask for matches newer than the ones it has 
+  - max_date and min_date aren't currently functional
 - magical super-robust sorting and filtering framework!
