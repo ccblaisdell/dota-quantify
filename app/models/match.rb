@@ -93,7 +93,7 @@ class Match
 
   # What team were we on? (result is worthless if we're on both teams)
   def team
-    followed_players.first.team unless !followed_players.first
+    followed_players.first.try(:team)
   end
 
   def ranked?
@@ -171,7 +171,7 @@ class Match
   end
 
   def determine_win
-    update_attributes won: (team.downcase == winner.downcase)
+    update_attributes won: (team.try(:downcase) == winner.downcase)
   end
 
   def associate_with_profiles
