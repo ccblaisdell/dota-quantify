@@ -93,7 +93,7 @@ class Match
 
   # What team were we on? (result is worthless if we're on both teams)
   def team
-    followed_players.first.team
+    followed_players.first.team unless !followed_players.first
   end
 
   def ranked?
@@ -135,6 +135,22 @@ class Match
     }
   end
 
+  def self.fetch_max(options={})
+    puts 'Starting Fetch'
+    start = Time.now
+    match_max = 100
+    while true 
+      history = Dota.history(options)
+      for history_match in history.matches
+        puts "Fetching #{history_match.id}"
+        Match.find_or_fetch_from_steam history_match.id
+        options[:start_at_match_id] = history_match.id
+      end
+      break if history.matches.count < match_max
+    end
+    puts 'Fetch Done in #{Time.now - start}'
+  end
+
   def self.fetch(options={})
     history = Dota.history(options)
     for history_match in history.matches
@@ -144,7 +160,7 @@ class Match
 
   def self.fetch_matches_for_followed(options={})
     for profile in Profile.where follow: true
-      Match.fetch({account_id: profile.dota_account_id}.merge(options))
+      Match.fetch_max({account_id: profile.dota_account_id}.merge(options))
     end
   end
 

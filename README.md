@@ -20,7 +20,7 @@ To install dota-quantify on windows:
 - comment out unicorn from gemfile (because kgio won't run on windows)
 
 - install gems
-	- bundle install
+	- bundle install --without production
 
 - temporarily comment out the following in config\initializers\Dota.rb
 	- config.api_key = Figaro.env.steam_web_api_key
