@@ -10,12 +10,12 @@ class PartiesControllerTest < ActionController::TestCase
   test "should get index" do
     get :index
     assert_response :success
-    assert_not_nil @parties
+    assert_not_nil assigns(:parties)
   end
 
   test "should show party" do
     get :show, id: @party
     assert_response :success
-    assert_not_nil @matches
+    assert_not_nil assigns(:matches)
   end
 end

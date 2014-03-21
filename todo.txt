@@ -6,3 +6,4 @@ Todos
 - 'get lots of matches' button should only ask for matches newer than the ones it has 
   - max_date and min_date aren't currently functional
 - magical super-robust sorting and filtering framework!
+- don't fetch strangers' profiles (or maybe only when we actually go view a match)
