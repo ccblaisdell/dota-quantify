@@ -3,6 +3,8 @@ require 'test_helper'
 class PartiesControllerTest < ActionController::TestCase
   setup do
     @party = FactoryGirl.create(:party)
+    @match = FactoryGirl.create(:match)
+    @party.matches << @match
   end
 
   test "should get index" do
