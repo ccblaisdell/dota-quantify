@@ -8,7 +8,7 @@ da.parties =
 
       # Collect the column headers
       columns = d3.keys(parties[0]).filter (key) -> 
-        key != 'id' && key != 'url' && key != 'size'
+        key != 'id' && key != 'size'
 
       # Build missing table parts
       thead = table.append('thead')
@@ -49,7 +49,7 @@ da.parties =
           columns.map (column) ->
             {column: column, value: row[column]}
       .enter().append('td')
-        .html partyTableValue
+        .html (d) -> partyTableValue(d)
 
       table
 
@@ -59,8 +59,9 @@ da.parties =
 partyTableValue = (cell) ->
   text = switch cell.column
     when "_id" then ''
-    when "winrate" then cell.value + '%'
-    when "strict_winrate" then cell.value + '%'
+    when "winrate" then d3.format('%') cell.value
+    when "strict_winrate" then d3.format('%') cell.value
+    when "url" then "<a href=\"#{cell.value}\">Show</a>"
     when "profile_ids"
       urls = []
 
@@ -74,7 +75,7 @@ partyTableValue = (cell) ->
       images = urls.map (url) -> "<img src=\"#{url}\" class=\"avatar\">" unless url == null
 
       # Print them
-      "<a href=\"#{cell.url}\">#{images.join(' ')}</a>"
+      images.join(' ')
 
     else cell.value
 
@@ -83,4 +84,5 @@ partyTableValue = (cell) ->
 # Text for column header
 columnHeaderText = (d) ->
   return "Members" if d == 'profile_ids'
+  return "" if d == 'url'
   d

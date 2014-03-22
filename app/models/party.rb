@@ -57,7 +57,7 @@ class Party
 
   # Calculate winrate
   def winrate(wins=wins, count=count)
-    ((wins.to_f / count.to_f) * 100).to_i rescue 0
+    wins.to_f / count.to_f rescue 0
   end
 
   # Runs after a new match is added to increment counts
