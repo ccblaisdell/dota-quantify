@@ -2,7 +2,11 @@ class PartiesController < ApplicationController
   before_action :set_party, only: [:show]
 
   def index
-    @parties = Party.by_size
+    if request.format == 'json'
+      @parties = Party.by_size
+    else
+      @profiles_json = Profile.following.to_json except: [:match_ids]
+    end
   end
 
   def show

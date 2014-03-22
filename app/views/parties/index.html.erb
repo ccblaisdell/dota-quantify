@@ -1,37 +1,17 @@
 <h1>Listing parties</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @parties.each do |party| %>
-      <tr>
-        <td>
-          <%= link_to party do %>
-            <%= party.winrate %>
-            =
-            <%= party.wins %>
-            /
-            <%= party.count %>
-          <% end %>
-        </td>
-        <% for profile in party.profiles %>
-          <td>
-            <%= avatar profile %>
-            <%= profile.nickname %>
-          </td>
-        <% end %>
-      </tr>
-    <% end %>
-  </tbody>
+<table id="parties" class="sortable parties">
 </table>
 
+<script>
+  var parties_url = "<%= parties_path(format: :json) %>";
+  var profiles = <%= @profiles_json.html_safe %>;
+</script>
+
+<% content_for :bottom do %>
+  <script>
+    $(function(){
+      da.parties.initPartyTable()
+    })
+  </script>
+<% end %>

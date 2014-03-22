@@ -17,3 +17,43 @@
 .text-right {
   text-align: right;
 }
+
+// Sortable tables
+.sortable {
+}
+.sort-asc,
+.sort-desc {
+  &:after {
+    content: " ▴";
+    float: right;
+    width: 1em;
+    margin-right: -1em;
+  }
+}
+.sort-desc {
+  &:after {
+    content: " ▾"
+  }
+}
+
+table {
+  background: #fff;
+  border-collapse: collapse;
+  text-align: left;
+  width: 100%;
+  th, td {
+    padding: 3px 8px;
+  }
+}
+
+tr {
+  &:nth-child(odd) {
+    td {
+      background: #f4f4f4;
+    }
+  }
+  td {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+}

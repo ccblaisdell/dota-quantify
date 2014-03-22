@@ -12,26 +12,6 @@
 }
 
 // Team table
-.team {
-  background: #fff;
-  border-collapse: collapse;
-  text-align: left;
-  width: 100%;
-  th, td {
-    padding: 3px 8px;
-  }
-}
-.team-player {
-  &:nth-child(odd) {
-    td {
-      background: #fafafa;
-    }
-  }
-  td {
-    white-space: nowrap;
-    text-overflow: ellipsis;
-  }
-}
 .team-hero {
   width: 44px;
 }
