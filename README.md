@@ -20,7 +20,7 @@ To install dota-quantify on windows:
 - comment out unicorn from gemfile (because kgio won't run on windows)
 
 - install gems
-	- bundle install
+	- bundle install --without production
 
 - temporarily comment out the following in config\initializers\Dota.rb
 	- config.api_key = Figaro.env.steam_web_api_key
@@ -48,3 +48,19 @@ To install dota-quantify on windows:
 
 - try to get a match from dotabuff, using a URL like:
 	- http://localhost:3000/matches/558522793
+
+## Tips
+
+You can test calls to the dota API in your browser, eg:
+
+http://api.steampowered.com/ISteamUser/GetFriendList/v0001/?key=[YOUR_STEAM_KEY]&steamid=76561197960435530&relationship=friend
+
+http://api.steampowered.com/IDOTA2Match_570/GetMatchHistory/v1?account_id=76561198004693352&key=[YOUR_STEAM_KEY]
+
+The calls are documented here:
+
+http://wiki.teamfortress.com/wiki/WebAPI
+
+Also, here, with latest notes about bugs and changes and so forth:
+
+http://dev.dota2.com/forumdisplay.php?f=411

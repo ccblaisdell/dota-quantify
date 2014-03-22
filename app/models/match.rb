@@ -135,6 +135,26 @@ class Match
     }
   end
 
+  MATCH_MAX = 100
+  def self.fetch_max(options={})
+    count = 0
+    while true 
+      history = Dota.history(options)
+      for history_match in history.matches
+        count = count + 1
+        logger.debug "Fetching #{history_match.id} for #{options[:dota_account_id]}(#{count})"
+        begin
+          Match.find_or_fetch_from_steam history_match.id
+          options[:start_at_match_id] = history_match.id
+        rescue
+          logger.debug "Fetch failed for match #{history_match.id}, continuing"
+          next
+        end
+      end
+      break if history.matches.count < MATCH_MAX 
+    end
+  end
+
   def self.fetch(options={})
     history = Dota.history(options)
     for history_match in history.matches
@@ -144,7 +164,7 @@ class Match
 
   def self.fetch_matches_for_followed(options={})
     for profile in Profile.where follow: true
-      Match.fetch({account_id: profile.dota_account_id}.merge(options))
+      Match.fetch_max({account_id: profile.dota_account_id}.merge(options))
     end
   end
 
