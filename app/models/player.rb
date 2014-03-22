@@ -91,14 +91,6 @@ class Player
     slot < 128 ? "Radiant" : "Dire"
   end
 
-  def radiant?
-    slot < 128
-  end
-
-  def dire?
-    slot >= 128
-  end
-
   def net_worth
     gold + gold_spent
   end

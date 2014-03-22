@@ -18,6 +18,10 @@ class PlayerTest < ActiveSupport::TestCase
     assert_equal @match.players.last.name, "anonymous"
   end
 
+  test "anonymous player is anonymous" do
+    assert @match.players.last.anonymous?
+  end
+
   test "team should return team name" do
     assert_equal @player.team, "Radiant"
   end

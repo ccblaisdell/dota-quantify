@@ -37,7 +37,7 @@ class Party
         parties << Party.all(profile_ids: combination.collect{|p|p.id}).where(:profile_ids.with_size => combination.length).first
       end
     end
-    parties.reverse
+    parties.compact.reverse
   end
 
   # Takes a list of profiles and finds (or creates) and returns the Party for that list

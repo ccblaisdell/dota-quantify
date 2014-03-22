@@ -1,19 +1,21 @@
 FactoryGirl.define do
   sequence :steam_account_id do |n|
-    n + 1234567890
+    # This is the magic number in Player#convert_32_bit_account_id_to_64_bit_steam_id
+    n + 76561197960265728
   end
 
   sequence :dota_account_id do |n|
-    n + 123456
+    n
   end
 
   factory :profile do
     steam_account_id
     dota_account_id
-    name              "noobKiller"
     small_avatar_url  "small_avatar.png"
     big_avatar_url    "big_avatar.png"
     follow            false
+
+    sequence(:name) {|n| "noobKiller_#{n}"}
 
     factory :followed_profile do
       follow true
@@ -57,6 +59,10 @@ FactoryGirl.define do
     sequence :slot do |n|
       n <= 5 ? n - 1 : n + 122
     end
+
+    factory :named_player do
+      dota_account_id
+    end
   end
 
   factory :match do
@@ -76,14 +82,18 @@ FactoryGirl.define do
 
     after(:build) do |match|
       # Embed players
-      10.times do
-        match.players.build(FactoryGirl.attributes_for(:player))
-      end
+      2.times { match.players.build(FactoryGirl.attributes_for(:named_player)) }
+      8.times { match.players.build(FactoryGirl.attributes_for(:player)) }
 
-      match.profiles = [
-        FactoryGirl.create(:profile, steam_account_id: match.players.first.steam_account_id), 
-        FactoryGirl.create(:followed_profile, steam_account_id: match.players[1].steam_account_id)
-      ]
+      # Associate profiles with the named players
+      for player in match.players.named
+        match.profiles << FactoryGirl.create(:profile,
+          dota_account_id:  player.dota_account_id,
+          steam_account_id: player.steam_account_id,
+          # TODO: have some followed, some not followed profiles
+          follow: true 
+        )
+      end
 
       # Reset the sequences
       FactoryGirl.reload
