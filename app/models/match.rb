@@ -135,20 +135,24 @@ class Match
     }
   end
 
+  MATCH_MAX = 100
   def self.fetch_max(options={})
-    puts 'Starting Fetch'
-    start = Time.now
-    match_max = 100
+    count = 0
     while true 
       history = Dota.history(options)
       for history_match in history.matches
-        puts "Fetching #{history_match.id}"
-        Match.find_or_fetch_from_steam history_match.id
-        options[:start_at_match_id] = history_match.id
+        count = count + 1
+        logger.debug "Fetching #{history_match.id} for #{options[:dota_account_id]}(#{count})"
+        begin
+          Match.find_or_fetch_from_steam history_match.id
+          options[:start_at_match_id] = history_match.id
+        rescue
+          logger.debug "Fetch failed for match #{history_match.id}, continuing"
+          next
+        end
       end
-      break if history.matches.count < match_max
+      break if history.matches.count < MATCH_MAX 
     end
-    puts 'Fetch Done in #{Time.now - start}'
   end
 
   def self.fetch(options={})
