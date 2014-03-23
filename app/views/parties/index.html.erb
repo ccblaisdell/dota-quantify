@@ -1,5 +1,12 @@
 <h1>Listing parties</h1>
 
+<aside class="filters" id="filters">
+  <label>
+    Size:
+    <%= select_tag 'size', options_for_select(2..5), include_blank: true, id: "size" %>
+  </label>
+</aside>
+
 <table id="parties" class="sortable parties">
 </table>
 

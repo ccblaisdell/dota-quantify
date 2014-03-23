@@ -4,10 +4,10 @@ json.array!(@parties) do |party|
     :size, 
     :profile_ids, 
     :winrate, 
-    :count, 
     :wins, 
+    :count, 
     :strict_winrate, 
-    :strict_count,
-    :strict_wins
-  json.url party_url(party, format: :json)
+    :strict_wins,
+    :strict_count
+  json.url party_url(party)
 end

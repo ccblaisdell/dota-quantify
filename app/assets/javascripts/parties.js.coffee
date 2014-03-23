@@ -53,6 +53,8 @@ da.parties =
 
       table
 
+    watchFilters()
+
 # Private
 
 # Format the table cell's html
@@ -86,3 +88,14 @@ columnHeaderText = (d) ->
   return "Members" if d == 'profile_ids'
   return "" if d == 'url'
   d
+
+watchFilters = ->
+  $filters = $ '#filters'
+
+  $filters.on 'change', '#size', ->
+    size = $(this).val()
+    rows = d3.select('#parties tbody').selectAll('tr')
+    return rows.style('display',null) if size == ''
+    rows.style 'display', 'none'
+      .filter (r) -> r.size == parseInt(size)
+      .style 'display', null
