@@ -90,12 +90,22 @@ columnHeaderText = (d) ->
   d
 
 watchFilters = ->
-  $filters = $ '#filters'
+  $('#filters').on 'change', filterChange
 
-  $filters.on 'change', '#size', ->
-    size = $(this).val()
-    rows = d3.select('#parties tbody').selectAll('tr')
-    return rows.style('display',null) if size == ''
-    rows.style 'display', 'none'
-      .filter (r) -> r.size == parseInt(size)
-      .style 'display', null
+filterChange = ->
+  size = parseInt $('#size').val()
+  show_profiles = d3.selectAll('.profile-filter')[0]
+    .map (profile) -> profile.value if profile.checked
+    .filter (id) -> id != undefined
+  filterParties (r) -> 
+    r.size == size || isNaN size
+  , (r) -> 
+    row_profile_ids = r.profile_ids.map (profile) -> profile.$oid
+    show_profiles.every (id) -> row_profile_ids.indexOf(id) != -1
+
+filterParties = (size_filter, show_profiles_filter) ->
+  rows = d3.select('#parties tbody').selectAll('tr')
+  rows.style 'display', 'none'
+
+  rows.filter (r) -> size_filter(r) && show_profiles_filter(r)
+    .style 'display', null

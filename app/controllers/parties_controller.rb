@@ -5,7 +5,8 @@ class PartiesController < ApplicationController
     if request.format == 'json'
       @parties = Party.by_size
     else
-      @profiles_json = Profile.following.to_json except: [:match_ids]
+      @profiles = Profile.following
+      @profiles_json = @profiles.to_json except: [:match_ids]
     end
   end
 
