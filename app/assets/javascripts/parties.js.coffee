@@ -5,6 +5,7 @@ da.parties =
   initPartyTable: ->
     d3.json parties_url, (parties) ->
       table = d3.select '#parties'
+      d3.select('#loading').remove()
 
       # Collect the column headers
       columns = d3.keys(parties[0]).filter (key) -> 
