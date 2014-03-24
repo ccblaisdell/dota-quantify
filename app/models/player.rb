@@ -32,34 +32,35 @@ class Player
   scope :dire, ->{ where :slot.gte => 128 }
   scope :by_slot, ->{ order_by(:slot.asc) }
 
-  after_create :convert_32_bit_account_id_to_64_bit_steam_id
-
-  def self.create_from_steam_player(match, steam_player)
-    match.players.create({
-      dota_account_id: steam_player.id,
-      slot: steam_player.slot,
-      hero_id: steam_player.hero_id,
-      hero: steam_player.hero,
-      kills: steam_player.kills,
-      deaths: steam_player.deaths,
-      assists: steam_player.assists,
-      kda: steam_player.kda,
-      leaver_status: steam_player.leaver_status,
-      gold: steam_player.gold,
-      last_hits: steam_player.last_hits,
-      denies: steam_player.denies,
-      gold_spent: steam_player.gold_spent,
-      hero_damage: steam_player.hero_damage,
-      tower_damage: steam_player.tower_damage,
-      hero_healing: steam_player.hero_healing,
-      level: steam_player.level,
-      xpm: steam_player.xpm,
-      gpm: steam_player.gpm,
-      items: steam_player.items,
-      # additional_unit_items: steam_player.additional_unit_items,
-      # additional_unit_names: steam_player.additional_unit_names,
-      upgrades: steam_player.upgrades,
-    })
+  def self.attributes_from_steam_players(players)
+    players.collect do |player|
+      {
+        dota_account_id: player.id,
+        steam_account_id: Player.convert_32_bit_account_id_to_64_bit_steam_id(player.id),
+        slot: player.slot,
+        hero_id: player.hero_id,
+        hero: player.hero,
+        kills: player.kills,
+        deaths: player.deaths,
+        assists: player.assists,
+        kda: player.kda,
+        leaver_status: player.leaver_status,
+        gold: player.gold,
+        last_hits: player.last_hits,
+        denies: player.denies,
+        gold_spent: player.gold_spent,
+        hero_damage: player.hero_damage,
+        tower_damage: player.tower_damage,
+        hero_healing: player.hero_healing,
+        level: player.level,
+        xpm: player.xpm,
+        gpm: player.gpm,
+        items: player.items,
+        # additional_unit_items: player.additional_unit_items,
+        # additional_unit_names: player.additional_unit_names,
+        upgrades: player.upgrades
+      }
+    end
   end
 
   def won?
@@ -74,9 +75,9 @@ class Player
   # which can't directly be used to look up a profile
   # http://dev.dota2.com/showthread.php?t=108926
   # There has got to be a better way
-  def convert_32_bit_account_id_to_64_bit_steam_id
-    return nil if anonymous?
-    self.update_attributes(steam_account_id: self.dota_account_id + 76561197960265728)
+  def self.convert_32_bit_account_id_to_64_bit_steam_id(dota_account_id)
+    return nil if dota_account_id == 4294967295
+    dota_account_id + 76561197960265728
   end
 
   def anonymous?

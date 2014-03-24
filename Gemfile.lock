@@ -1,4 +1,13 @@
 GIT
+  remote: https://github.com/ccblaisdell/dota.git
+  revision: ee2e72426c0f58eb09dac332b4bcbc53491c7b9b
+  branch: fix_match_with_no_upgrades
+  specs:
+    dota (0.0.1)
+      faraday (~> 0.8.4)
+      faraday_middleware (~> 0.9.0)
+
+GIT
   remote: https://github.com/collectiveidea/delayed_job_mongoid.git
   revision: 14c73bb584358838339ad9a7b50065279437be77
   specs:
@@ -15,14 +24,6 @@ GIT
       moped (~> 2.0.beta6)
       origin (~> 2.1)
       tzinfo (>= 0.3.37)
-
-GIT
-  remote: https://github.com/nashby/dota.git
-  revision: 8520aa02967ed95bf4ab55d96c1f2cb001bbfef1
-  specs:
-    dota (0.0.1)
-      faraday (~> 0.8.4)
-      faraday_middleware (~> 0.9.0)
 
 GEM
   remote: https://rubygems.org/
@@ -208,7 +209,6 @@ GEM
       kgio (~> 2.6)
       rack
       raindrops (~> 0.7)
-    win32console (1.3.2)
     win32console (1.3.2-x86-mingw32)
 
 PLATFORMS

@@ -106,7 +106,6 @@ class Match
 
   def self.create_from_steam_match(steam_match)
     match = Match.create Match.attributes_from_steam_match(steam_match)
-    match.associate_players(steam_match.players)
     match.associate_with_profiles
     match.determine_win
     match.associate_with_parties
@@ -131,7 +130,8 @@ class Match
       positive_votes: match.positive_votes,
       negative_votes: match.negative_votes,
       cluster: match.cluster,
-      league_id: match.league_id
+      league_id: match.league_id,
+      players: Player.attributes_from_steam_players(match.players)
     }
   end
 
@@ -144,7 +144,7 @@ class Match
         count = count + 1
         logger.debug "Fetching #{history_match.id} for #{options[:dota_account_id]}(#{count})"
         begin
-          Match.find_or_fetch_from_steam history_match.id
+          Match.delay.find_or_fetch_from_steam history_match.id
           options[:start_at_match_id] = history_match.id
         rescue
           logger.debug "Fetch failed for match #{history_match.id}, continuing"
@@ -164,13 +164,7 @@ class Match
 
   def self.fetch_matches_for_followed(options={})
     for profile in Profile.where follow: true
-      Match.fetch_max({account_id: profile.dota_account_id}.merge(options))
-    end
-  end
-
-  def associate_players(steam_players)
-    for steam_player in steam_players
-      player = Player.create_from_steam_player(self, steam_player)
+      Match.delay.fetch_max({account_id: profile.dota_account_id}.merge(options))
     end
   end
 
@@ -179,10 +173,9 @@ class Match
   end
 
   def associate_with_profiles
-    for player in players.named
-      profile = Profile.find_or_create_by_steam_account_id player.steam_account_id, dota_account_id: player.dota_account_id
-      profile.matches << self
-    end
+    ids = players.named.collect {|p| p.steam_account_id}
+    self.profiles = Profile.in(steam_account_id: ids)
+    self.save
   end
 
   # Find every possible party in this batch of players
