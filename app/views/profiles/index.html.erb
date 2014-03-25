@@ -1,44 +1,29 @@
 <h1>Listing profiles</h1>
 
-<p>
-  <%= link_to 'Get lots of matches', fetch_for_followed_matches_path %>
-  | <%= link_to 'Followed', profiles_path %>
-  | <%= link_to 'All', all_profiles_path %>
-</p>
-
 <table>
   <thead>
     <tr>
-      <th>★</th>
       <th>Name</th>
-      <th>Steam Id</th>
-      <th>Dota Id</th>
       <th>Last match</th>
-      <th>War</th>
       <th>Match count</th>
       <th>Wins</th>
       <th>Losses</th>
-      <th></th>
-      <th></th>
-      <th></th>
     </tr>
   </thead>
 
   <tbody>
     <% @profiles.each do |profile| %>
       <tr>
-        <td><%= "★" if profile.follow? %></td>
-        <td><%= profile.name %></td>
-        <td><%= profile.steam_account_id %></td>
-        <td><%= profile.dota_account_id %></td>
-        <td><%= profile.last_match %></td>
-        <td><%= profile.war %></td>
-        <td><%= profile.matches.real.count %></td>
-        <td><%= profile.wins %></td>
-        <td><%= profile.losses %></td>
-        <td><%= link_to 'Show', profile %></td>
-        <td><%= link_to 'Edit', edit_profile_path(profile) %></td>
-        <td><%= link_to 'Destroy', profile, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td>
+          <%= link_to profile do %>
+            <%= avatar profile %>
+            <%= profile.name %>
+          <% end %>
+        </td>
+        <td><%= match_time profile.matches.by_date.first %></td>
+        <td><%= profile.matches.count %></td>
+        <td><%= profile.matches.wins.count %></td>
+        <td><%= profile.matches.losses.count %></td>
       </tr>
     <% end %>
   </tbody>

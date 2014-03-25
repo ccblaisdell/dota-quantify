@@ -7,11 +7,6 @@ class ProfilesController < ApplicationController
     @profiles = Profile.following.page params[:page]
   end
 
-  def all
-    @profiles = Profile.page params[:page]
-    render 'index'
-  end
-
   def export
     @profiles = Profile.all
     render 'index'

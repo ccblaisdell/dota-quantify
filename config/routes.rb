@@ -13,7 +13,6 @@ DotaQuantify::Application.routes.draw do
   resources :profiles do
     collection do
       get 'dashboard'
-      get 'all'
       get 'export'
     end
   end
