@@ -15,6 +15,9 @@ DotaQuantify::Application.routes.draw do
       get 'dashboard'
       get 'export'
     end
+    member do
+      get 'heroes'
+    end
   end
 
   # The priority is based upon order of creation: first created -> highest priority.

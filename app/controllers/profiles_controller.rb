@@ -1,5 +1,5 @@
 class ProfilesController < ApplicationController
-  before_action :set_profile, only: [:show, :edit, :update, :destroy]
+  before_action :set_profile, only: [:show, :edit, :update, :heroes]
 
   # GET /profiles
   # GET /profiles.json
@@ -22,19 +22,13 @@ class ProfilesController < ApplicationController
     @matches = @profile.matches.by_date.limit(10)
   end
 
+  def heroes
+    @heroes = @profile.heroes
+  end
+
   def update
     @profile.update_attributes profile_params
     redirect_to 'show'
-  end
-
-  # DELETE /profiles/1
-  # DELETE /profiles/1.json
-  def destroy
-    @profile.destroy
-    respond_to do |format|
-      format.html { redirect_to profiles_url }
-      format.json { head :no_content }
-    end
   end
 
   private

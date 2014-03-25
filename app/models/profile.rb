@@ -69,6 +69,62 @@ class Profile
     }.merge additional_attributes
   end
 
+  def players
+    matches.collect { |match| match.players.find_by(steam_account_id: steam_account_id) }
+  end
+
+  def heroes
+    map = %Q{
+      function() {
+        emit(this.hero_id, { 
+          kills: this.kills,
+          deaths: this.deaths,
+          assists: this.assists,
+          gold: this.gold,
+          gold_spent: this.gold_spent,
+          last_hits: this.last_hits,
+          denies: this.denies,
+          hero_damage: this.hero_damage,
+          tower_damage: this.tower_damage,
+          hero_healing: this.hero_healing,
+          xpm: this.xpm,
+          gpm: this.gpm
+        });
+      }
+    }
+
+    reduce = %Q{
+      function(key, values) {
+        var result = {
+          kills: 0,
+          deaths: 0,
+          assists: 0,
+          gold: 0,
+          gold_spent: 0,
+          last_hits: 0,
+          denies: 0,
+          hero_damage: 0,
+          tower_damage: 0,
+          hero_healing: 0,
+          xpm: 0,
+          gpm: 0
+        };
+        values.forEach(function(value) {
+          for(var key in value) {
+            result[key] += value[key];
+          }
+        });
+
+        for(var key in result) {
+          result[key] = result[key] / values.length;
+        }
+        return result;
+      }
+    }
+
+    players.map_reduce(map, reduce).out(inline: 1)
+  end
+
   def count_games
     w   = 0
     l   = 0
