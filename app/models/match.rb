@@ -28,9 +28,11 @@ class Match
 
   # End of attributes from the Steam API
   
-  embeds_many :players
+  has_many :players
   has_and_belongs_to_many :parties
   has_and_belongs_to_many :profiles
+
+  accepts_nested_attributes_for :players
   
   scope :by_date, ->{ order_by(:start.desc) }
   scope :real, ->{ 
@@ -135,7 +137,7 @@ class Match
       negative_votes: match.negative_votes,
       cluster: match.cluster,
       league_id: match.league_id,
-      players: Player.attributes_from_steam_players(match.players)
+      players_attributes: Player.attributes_from_steam_players(match.players)
     }
   end
 

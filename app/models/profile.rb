@@ -70,59 +70,86 @@ class Profile
   end
 
   def players
-    matches.collect { |match| match.players.find_by(steam_account_id: steam_account_id) }
+    Player.where steam_account_id: steam_account_id
   end
 
   def heroes
     map = %Q{
       function() {
-        emit(this.hero_id, { 
-          kills: this.kills,
-          deaths: this.deaths,
-          assists: this.assists,
-          gold: this.gold,
-          gold_spent: this.gold_spent,
-          last_hits: this.last_hits,
-          denies: this.denies,
-          hero_damage: this.hero_damage,
-          tower_damage: this.tower_damage,
-          hero_healing: this.hero_healing,
-          xpm: this.xpm,
-          gpm: this.gpm
-        });
+        if (this.hero_id !== 0) {
+          emit(this.hero_id, { 
+            kills: this.kills,
+            deaths: this.deaths,
+            assists: this.assists,
+            gold: this.gold,
+            gold_spent: this.gold_spent,
+            last_hits: this.last_hits,
+            denies: this.denies,
+            hero_damage: this.hero_damage,
+            tower_damage: this.tower_damage,
+            hero_healing: this.hero_healing,
+            xpm: this.xpm,
+            gpm: this.gpm
+          });
+        }
       }
     }
 
     reduce = %Q{
       function(key, values) {
-        var result = {
-          kills: 0,
-          deaths: 0,
-          assists: 0,
-          gold: 0,
-          gold_spent: 0,
-          last_hits: 0,
-          denies: 0,
-          hero_damage: 0,
-          tower_damage: 0,
-          hero_healing: 0,
-          xpm: 0,
-          gpm: 0
-        };
+        var result = {count: values.length};
+        for(var k in values[0]){
+          result[k] = 0;
+        }
+
         values.forEach(function(value) {
-          for(var key in value) {
-            result[key] += value[key];
+          for(var k in value) {
+            result[k] += value[k];
           }
         });
 
-        for(var key in result) {
-          result[key] = result[key] / values.length;
-        }
         return result;
       }
     }
 
-    players.map_reduce(map, reduce).out(inline: 1)
+    results = players.map_reduce(map, reduce).out(inline: 1).to_a
+    heroes = results.collect do |r|
+      {
+        hero_id: r["_id"].to_i,
+        count: (r["value"]["count"] || 1).to_i,
+        kills: r['value']['kills'].to_i,
+        deaths: r['value']['deaths'].to_i,
+        assists: r['value']['assists'].to_i,
+        gold: r['value']['gold'].to_i,
+        gold_spent: r['value']['gold_spent'].to_i,
+        last_hits: r['value']['last_hits'].to_i,
+        denies: r['value']['denies'].to_i,
+        hero_damage: r['value']['hero_damage'].to_i,
+        tower_damage: r['value']['tower_damage'].to_i,
+        hero_healing: r['value']['hero_healing'].to_i,
+        xpm: r['value']['xpm'].to_i,
+        gpm: r['value']['gpm'].to_i
+      }
+    end
+    heroes.sort { |a,b| b[:count] <=> a[:count] }
+  end
+
+  # Trying to compare map reduce to a ruby way
+  def slow_heroes
+    result = {}
+    players.distinct(:hero_id).each do |hero_id|
+      hero = {kills: 0, deaths: 0, assists: 0, count: 0}
+
+      players.where(hero_id: hero_id).each do |player|
+        hero[:kills] += player[:kills]
+        hero[:deaths] += player[:deaths]
+        hero[:assists] += player[:assists]
+        hero[:count] += 1
+      end
+
+      result[hero_id] = hero
+    end
+    result
   end
 
   def count_games

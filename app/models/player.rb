@@ -25,7 +25,7 @@ class Player
   field :additional_unit_names, type: Array
   field :upgrades, type: Array
 
-  embedded_in :match
+  belongs_to :match
 
   scope :named, ->{ where :dota_account_id.ne => 4294967295 } # non-anonymous
   scope :radiant, ->{ where :slot.lte => 127 }

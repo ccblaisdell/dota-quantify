@@ -1,5 +1,5 @@
 <tr class="team-player">
-  <td class="team-hero"><%= player_hero_avatar player %></td>
+  <td class="team-hero"><%= hero_avatar player.hero_id %></td>
   <td class="team-profile"><%= profile_link player.profile %></td>
   <td class="team-avatar">
     <% if player.profile.try(:follow) %>

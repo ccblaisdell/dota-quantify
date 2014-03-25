@@ -1,0 +1,37 @@
+<h1>
+  <%= avatar @profile %>
+  <%= @profile.name %>
+</h1>
+
+<p><%= dotabuff_link @profile, '/heroes' %></p>
+
+<table>
+  <thead>
+    <th>Hero</th>
+    <th>Matches</th>
+    <th>Kills</th>
+    <th>Deaths</th>
+    <th>Assists</th>
+    <th>GPM</th>
+    <th>XPM</th>
+    <th>hero_damage</th>
+    <th>tower_damage</th>
+    <th>hero_healing</th>
+  </thead>
+  <tbody>
+    <% for hero in @heroes %>
+      <tr>
+        <th><%= hero_avatar hero[:hero_id] %></th>
+        <td><%= hero[:count] %></td>
+        <td><%= (hero[:kills].to_f / hero[:count].to_f).to_i %></td>
+        <td><%= (hero[:deaths].to_f / hero[:count].to_f).to_i %></td>
+        <td><%= (hero[:assists].to_f / hero[:count].to_f).to_i %></td>
+        <td><%= (hero[:gpm].to_f / hero[:count].to_f).to_i %></td>
+        <td><%= (hero[:xpm].to_f / hero[:count].to_f).to_i %></td>
+        <td><%= (hero[:hero_damage].to_f / hero[:count].to_f).to_i %></td>
+        <td><%= (hero[:tower_damage].to_f / hero[:count].to_f).to_i %></td>
+        <td><%= (hero[:hero_healing].to_f / hero[:count].to_f).to_i %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

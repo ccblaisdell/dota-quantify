@@ -1,6 +1,6 @@
 module PlayersHelper
-  def player_hero_avatar(player)
-    image_tag Hero.avatar_for(player.hero_id), class: "hero-avatar"
+  def hero_avatar(hero_id)
+    image_tag Hero.avatar_for(hero_id), class: "hero-avatar"
   end
 
   def player_kda(player)

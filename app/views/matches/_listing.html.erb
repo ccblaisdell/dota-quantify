@@ -7,7 +7,7 @@
 
   <% for player in match.followed_players %>
     <div class="player">
-      <%= player_hero_avatar player %>
+      <%= hero_avatar player.hero_id %>
       <%= link_to player.profile, class: "player-link" do %>
         <%= player.name %>
         <%= avatar player.profile %>
