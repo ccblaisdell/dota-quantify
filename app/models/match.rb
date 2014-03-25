@@ -65,6 +65,10 @@ class Match
   scope :ar, ->{ where mode: "All Random" }
   scope :ad, ->{ where mode: "Ability Draft" }
 
+  def ad?
+    mode == "Ability Draft"
+  end
+
   # Did this match count? (best guess)
   def real?
     human_players == 10 \
@@ -163,9 +167,13 @@ class Match
   end
 
   def self.fetch_matches_for_followed(options={})
-    for profile in Profile.where follow: true
+    for profile in Profile.following
       Match.delay.fetch_max({account_id: profile.dota_account_id}.merge(options))
     end
+  end
+
+  def self.fetch_recent_for_followed(options={})
+    Profile.following.each { |profile| Match.fetch({account_id: profile.dota_account_id}.merge(options)) }
   end
 
   def determine_win

@@ -19,4 +19,10 @@ module PlayersHelper
     return '' if item == 'emptyitembg'
     image_tag Item.image(item), class: "item", alt: item
   end
+
+  def player_ablities(player)
+    player.upgrades.collect {|upgrade| Ability.list[ upgrade['ability'].to_s.to_sym ]}
+      .reject{ |ability| ability == 'stats' }
+      .uniq
+  end
 end
