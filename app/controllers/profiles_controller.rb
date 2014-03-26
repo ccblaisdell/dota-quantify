@@ -1,5 +1,5 @@
 class ProfilesController < ApplicationController
-  before_action :set_profile, only: [:show, :edit, :update, :heroes]
+  before_action :set_profile, only: [:show, :edit, :update, :heroes, :matches]
 
   # GET /profiles
   # GET /profiles.json
@@ -24,6 +24,10 @@ class ProfilesController < ApplicationController
 
   def heroes
     @heroes = @profile.heroes
+  end
+
+  def matches
+    @matches = @profile.matches.by_date.page params[:page]
   end
 
   def update

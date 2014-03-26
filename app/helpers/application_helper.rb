@@ -7,4 +7,8 @@ module ApplicationHelper
   def dotabuff_url(path)
     "http://dotabuff.com/" + path
   end
+  
+  def menu(*links)
+    content_tag :p, links.join(' | ').html_safe
+  end
 end

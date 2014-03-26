@@ -1,35 +1,5 @@
 <h1>Matches</h1>
 
 <%= paginate @matches %>
-
-<table>
-  <thead>
-    <tr>
-      <th></th>
-      <% for profile in Profile.following %>
-        <th><%= avatar profile %></th>
-      <% end %>
-      <th>Mode</th>
-      <th>Lobby</th>
-      <th>When</th>
-      <th>Duration</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @matches.each do |match| %>
-      <tr>
-        <td><%= link_to match_outcome(match), match %></td>
-        <% for profile in Profile.following %>
-          <td><%= avatar(profile) if match.profiles.include?(profile) %></td>
-        <% end %>
-        <td><%= match.mode %></td>
-        <td><%= match.lobby %></td>
-        <td><%= time_ago_in_words match.end %> ago</td>
-        <td><%= match_duration match %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
+<%= render partial: "matches/table", locals: {matches: @matches} %>
 <%= paginate @matches %>

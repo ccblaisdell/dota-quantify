@@ -3,11 +3,7 @@
   <%= @profile.name %>
 </h1>
 
-<%= dotabuff_link @profile %>
+<%= profile_menu @profile, dotabuff_link(@profile) %>
 
 <h2>Latest matches</h2>
 <%= render partial: "matches/listing", collection: @matches, as: :match %>
-
-<%= link_to 'Get some matches', fetch_matches_path(account_id: @profile.dota_account_id) %> |
-<%= link_to 'Edit', edit_profile_path(@profile) %> |
-<%= link_to 'Back', profiles_path %>

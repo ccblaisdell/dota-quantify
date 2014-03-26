@@ -8,4 +8,11 @@ module ProfilesHelper
     return content_tag :span, 'Anonymous', class: "profile-anonymous" if profile.nil?
     link_to profile.name, profile, class: "profile-link"
   end
+
+  def profile_menu(profile, *links)
+    menu link_to('Overview', profile), 
+      link_to('Matches', matches_profile_path(profile)), 
+      link_to('Heroes', heroes_profile_path(profile)), 
+      links
+  end
 end

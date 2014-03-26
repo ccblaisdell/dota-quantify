@@ -175,7 +175,7 @@ class Match
   end
 
   def self.fetch_recent_for_followed(options={})
-    Profile.following.each { |profile| Match.fetch({account_id: profile.dota_account_id}.merge(options)) }
+    Profile.following.each { |profile| Match.fetch({account_id: profile.dota_account_id, matches_requested: 20}.merge(options)) }
   end
 
   def determine_win

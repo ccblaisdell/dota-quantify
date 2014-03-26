@@ -3,7 +3,7 @@
   <%= @profile.name %>
 </h1>
 
-<p><%= dotabuff_link @profile, '/heroes' %></p>
+<%= profile_menu @profile, dotabuff_link(@profile, '/heroes') %>
 
 <table>
   <thead>
@@ -12,6 +12,7 @@
     <th>Kills</th>
     <th>Deaths</th>
     <th>Assists</th>
+    <th>KDA</th>
     <th>GPM</th>
     <th>XPM</th>
     <th>hero_damage</th>
@@ -21,16 +22,20 @@
   <tbody>
     <% for hero in @heroes %>
       <tr>
-        <th><%= hero_avatar hero[:hero_id] %></th>
+        <th>
+          <%= hero_avatar hero[:hero_id] %>
+          <%= Hero.name hero[:hero_id] %>
+        </th>
         <td><%= hero[:count] %></td>
         <td><%= (hero[:kills].to_f / hero[:count].to_f).to_i %></td>
         <td><%= (hero[:deaths].to_f / hero[:count].to_f).to_i %></td>
         <td><%= (hero[:assists].to_f / hero[:count].to_f).to_i %></td>
+        <td><%= kda_ratio hero[:kills], hero[:deaths], hero[:assists] %></td>
         <td><%= (hero[:gpm].to_f / hero[:count].to_f).to_i %></td>
         <td><%= (hero[:xpm].to_f / hero[:count].to_f).to_i %></td>
-        <td><%= (hero[:hero_damage].to_f / hero[:count].to_f).to_i %></td>
-        <td><%= (hero[:tower_damage].to_f / hero[:count].to_f).to_i %></td>
-        <td><%= (hero[:hero_healing].to_f / hero[:count].to_f).to_i %></td>
+        <td><%= number_to_human (hero[:hero_damage].to_f / hero[:count].to_f).to_i %></td>
+        <td><%= number_to_human (hero[:tower_damage].to_f / hero[:count].to_f).to_i %></td>
+        <td><%= number_to_human (hero[:hero_healing].to_f / hero[:count].to_f).to_i %></td>
       </tr>
     <% end %>
   </tbody>

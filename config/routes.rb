@@ -17,6 +17,7 @@ DotaQuantify::Application.routes.draw do
     end
     member do
       get 'heroes'
+      get 'matches'
     end
   end
 

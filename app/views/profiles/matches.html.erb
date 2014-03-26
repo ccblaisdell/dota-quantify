@@ -1,0 +1,66 @@
+<h1>
+  <%= avatar @profile %>
+  <%= @profile.name %>
+</h1>
+
+<%= profile_menu @profile, dotabuff_link(@profile, '/matches') %>
+<%= paginate @matches %>
+
+<table>
+  <thead>
+    <tr>
+      <th></th>
+      <th>Hero</th>
+      <th>Party</th>
+      <th>Mode</th>
+      <th>Time</th>
+      <th class="team-level text-right">Level</th>
+      <th class="text-right">KDA</th>
+      <th class="team-gold text-right">Gold</th>
+      <th class="team-last-hits text-right">LH</th>
+      <th class="team-denies text-right">DN</th>
+      <th class="team-xpm text-right">XPM</th>
+      <th class="team-gpm text-right">GPM</th>
+      <th class="team-hero-damage text-right">HD</th>
+      <th class="team-hero-healing text-right">HH</th>
+      <th class="team-tower-damage text-right">TD</th>
+      <th class="team-items">Items</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% for match in @matches %>
+    <% player = match.player(@profile) %>
+      <tr>
+        <td><%= link_to match_outcome(match), match %></td>
+        <td>
+          <%= hero_avatar player.hero_id %>
+          <%= player.hero %>
+        </td>
+        <td>
+          <% if match.profiles.following.length > 1 %>
+            <a href="<%= party_path(match.parties.order_by(:size.desc).first) %>">
+          <% end %>
+            <% for profile in match.profiles.following %>
+              <%= avatar profile %>
+            <% end %>
+          <%= "</a>".html_safe if match.profiles.following.length > 1 %>
+        </td>
+        <td><%= match_mode match %></td>
+        <td><%= match_time match %></td>
+        <td class="team-level text-right"><%= player.level  %></td>
+        <td class="text-right"><%= kda_ratio player.kills, player.deaths, player.assists %></td>
+        <td class="team-gold text-right"><%= number_to_human player.net_worth %></td>
+        <td class="team-last-hits text-right"><%= player.last_hits %></td>
+        <td class="team-denies text-right"><%= player.denies %></td>
+        <td class="team-xpm text-right"><%= player.xpm %></td>
+        <td class="team-gpm text-right"><%= player.gpm %></td>
+        <td class="team-hero-damage text-right"><%= number_to_human player.hero_damage %></td>
+        <td class="team-hero-healing text-right"><%= number_to_human player.hero_healing %></td>
+        <td class="team-tower-damage text-right"><%= number_to_human player.tower_damage %></td>
+        <td class="team-items"><%= player_items player %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= paginate @matches %>

@@ -545,6 +545,9 @@ class Hero
     }
   ]
 
+  def self.name(id)
+    NAMES.select {|hero| hero[:id] == id}.first[:localized_name]
+  end
 
   # Download hero images
   def self.download_images
