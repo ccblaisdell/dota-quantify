@@ -48,7 +48,7 @@
         <td><%= match_mode match %></td>
         <td><%= match_time match %></td>
         <td class="team-level text-right"><%= player.level  %></td>
-        <td class="text-right"><%= kda_ratio player.kills, player.deaths, player.assists %></td>
+        <td class="text-right"><%= kda_ratio *player.kda %></td>
         <td class="team-gold text-right"><%= number_to_human player.net_worth %></td>
         <td class="team-last-hits text-right"><%= player.last_hits %></td>
         <td class="team-denies text-right"><%= player.denies %></td>

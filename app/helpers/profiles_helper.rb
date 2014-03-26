@@ -5,7 +5,7 @@ module ProfilesHelper
   end
 
   def profile_link(profile)
-    return content_tag :span, 'Anonymous', class: "profile-anonymous" if profile.nil?
+    return content_tag :span, '---', class: "profile-anonymous" if profile.nil?
     link_to profile.name, profile, class: "profile-link"
   end
 
