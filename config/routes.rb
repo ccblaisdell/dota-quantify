@@ -10,7 +10,7 @@ DotaQuantify::Application.routes.draw do
     end
   end
 
-  resources :profiles do
+  resources :profiles, path: "/players" do
     collection do
       get 'dashboard'
       get 'export'
