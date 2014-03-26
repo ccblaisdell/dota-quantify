@@ -13,7 +13,7 @@ class ProfilesController < ApplicationController
   end
 
   def dashboard
-    @matches = Match.by_date.page params[:page]
+    @matches = Match.by_date.page(params[:page]).per(10)
   end
 
   # GET /profiles/1
