@@ -90,7 +90,7 @@ class Match
   end
 
   def followed_players
-    profiles.following.collect {|profile| player(profile)}
+    players.where :steam_account_id.in => profiles.following.only(:steam_account_id).map(&:steam_account_id)
   end
 
   def end
