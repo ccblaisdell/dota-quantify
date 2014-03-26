@@ -71,6 +71,11 @@ class Player
     self.profile.try(:name) || "anonymous"
   end
 
+  def kda_ratio
+    return kills + assists if deaths < 1
+    ((kills.to_f + assists.to_f) / deaths.to_f)
+  end
+
   # The match API returns a 32 bit dota account ID,
   # which can't directly be used to look up a profile
   # http://dev.dota2.com/showthread.php?t=108926
@@ -94,5 +99,11 @@ class Player
 
   def net_worth
     gold + gold_spent
+  end
+
+  def item_image_paths
+    items.collect do |item|
+      Item.image(item) unless item == 'emptyitembg'
+    end
   end
 end

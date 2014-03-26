@@ -7,11 +7,6 @@ module PlayersHelper
     player.kda
   end
 
-  def kda_ratio(kills, deaths, assists)
-    return number_with_precision (kills + assists), precision: 2 if deaths == 0
-    number_with_precision ((kills.to_f + assists.to_f) / deaths.to_f), precision: 2
-  end
-
   def player_items(player)
     items = []
     for item in player.items
