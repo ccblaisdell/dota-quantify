@@ -197,4 +197,8 @@ class Match
       end
     end
   end
+
+  def party
+    Party.find_or_create_by_profiles profiles.following
+  end
 end

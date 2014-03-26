@@ -14,13 +14,4 @@
   <%= render partial: "players/team", locals: {players: @match.players.dire.by_slot} %>
 </div>
 
-<h2>Parties</h2>
-<% for party in Party.collect(@match.profiles.following) %>
-  <p class="party">
-    <%= link_to party do %>
-      <% for profile in party.profiles %>
-        <%= avatar profile %>
-      <% end %>
-    <% end %>
-  </p>
-<% end %>
+<p>Party: <%= party_link @match.party %></p>

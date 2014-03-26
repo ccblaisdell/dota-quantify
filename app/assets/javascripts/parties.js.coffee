@@ -9,7 +9,7 @@ da.parties =
 
       # Collect the column headers
       columns = d3.keys(parties[0]).filter (key) -> 
-        key != 'id' && key != 'size'
+        key != 'id' && key != 'size' && key != 'profile_ids'
 
       # Build missing table parts
       thead = table.append('thead')
@@ -33,7 +33,7 @@ da.parties =
           # Sort!
           rows.sort (a,b) -> 
             # If sorting the profiles column, actually sort by Count
-            return (if is_desc then a.size - b.size else b.size - a.size) if k == 'profile_ids'
+            return (if is_desc then a.size - b.size else b.size - a.size) if k == 'party'
 
             # Otherwise sort by the column value
             if is_desc then a[k] - b[k] else b[k] - a[k]
@@ -64,29 +64,13 @@ partyTableValue = (cell) ->
     when "_id" then ''
     when "winrate" then d3.format('%') cell.value
     when "strict_winrate" then d3.format('%') cell.value
-    when "url" then "<a href=\"#{cell.value}\">Show</a>"
-    when "profile_ids"
-      urls = []
-
-      # loops through this party's profile_ids
-      for _id in cell.value
-        id = _id.$oid
-        # collect the urls for profiles in this party
-        profiles.forEach (profile) -> urls.push(profile.small_avatar_url) if profile._id.$oid == id
-
-      # Collect the image tags
-      images = urls.map (url) -> "<img src=\"#{url}\" class=\"avatar\">" unless url == null
-
-      # Print them
-      images.join(' ')
-
     else cell.value
 
   text
 
 # Text for column header
 columnHeaderText = (d) ->
-  return "Members" if d == 'profile_ids'
+  return "Members" if d == 'party'
   return "" if d == 'url'
   d
 
