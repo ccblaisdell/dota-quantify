@@ -20,7 +20,7 @@
             <%= profile.name %>
           <% end %>
         </td>
-        <td><%= match_time profile.matches.by_date.first %></td>
+        <td><%= match_time profile.matches.only(:duration, :start, :won).by_date.first %></td>
         <td><%= profile.matches.count %></td>
         <td><%= profile.matches.wins.count %></td>
         <td><%= profile.matches.losses.count %></td>

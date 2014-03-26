@@ -22,15 +22,15 @@
   <tbody>
     <% for hero in @heroes %>
       <tr>
-        <th>
+        <td>
           <%= hero_avatar hero[:hero_id] %>
           <%= Hero.name hero[:hero_id] %>
-        </th>
+        </td>
         <td><%= hero[:count] %></td>
         <td><%= (hero[:kills].to_f / hero[:count].to_f).to_i %></td>
         <td><%= (hero[:deaths].to_f / hero[:count].to_f).to_i %></td>
         <td><%= (hero[:assists].to_f / hero[:count].to_f).to_i %></td>
-        <td><%= kda_ratio hero[:kills], hero[:deaths], hero[:assists] %></td>
+        <td><%= number_with_precision kda_ratio(hero[:kills], hero[:deaths], hero[:assists]), precision: 2 %></td>
         <td><%= (hero[:gpm].to_f / hero[:count].to_f).to_i %></td>
         <td><%= (hero[:xpm].to_f / hero[:count].to_f).to_i %></td>
         <td><%= number_to_human (hero[:hero_damage].to_f / hero[:count].to_f).to_i %></td>

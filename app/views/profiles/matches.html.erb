@@ -38,12 +38,10 @@
         </td>
         <td>
           <% if match.profiles.following.length > 1 %>
-            <a href="<%= party_path(match.parties.order_by(:size.desc).first) %>">
+            <%= party_link match.parties.by_size.first %>
+          <% else %>
+            <%= avatar match.profiles.following.first %>
           <% end %>
-            <% for profile in match.profiles.following %>
-              <%= avatar profile %>
-            <% end %>
-          <%= "</a>".html_safe if match.profiles.following.length > 1 %>
         </td>
         <td><%= match_mode match %></td>
         <td><%= match_time match %></td>

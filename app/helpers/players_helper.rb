@@ -7,6 +7,11 @@ module PlayersHelper
     player.kda
   end
 
+  def kda_ratio(kills, deaths, assists)
+    return kills + assists if deaths < 1
+    ((kills.to_f + assists.to_f) / deaths)
+  end
+
   def player_items(player)
     items = []
     for item in player.items
