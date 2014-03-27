@@ -14,4 +14,6 @@
   <%= render partial: "players/team", locals: {players: @match.players.dire.by_slot} %>
 </div>
 
-<p>Party: <%= party_link @match.party %></p>
+<% if @match.profiles.followed.length > 1 %>
+  <p>Party: <%= party_link @match.party %></p>
+<% end %>
