@@ -4,7 +4,7 @@
 </h1>
 
 <%= profile_menu @profile, dotabuff_link(@profile, '/matches') %>
-<%= paginate @matches %>
+<%= paginate @players %>
 
 <table>
   <thead>
@@ -15,21 +15,23 @@
       <th>Mode</th>
       <th>Time</th>
       <th class="team-level text-right">Level</th>
-      <th class="text-right">KDA</th>
+      <th class="team-kills text-right"><%= sortable Player, 'kills', "K" %></th>
+      <th class="team-deaths text-right"><%= sortable Player, 'deaths', "D" %></th>
+      <th class="team-assists text-right"><%= sortable Player, 'assists', "A" %></th>
       <th class="team-gold text-right">Gold</th>
-      <th class="team-last-hits text-right">LH</th>
-      <th class="team-denies text-right">DN</th>
-      <th class="team-xpm text-right">XPM</th>
-      <th class="team-gpm text-right">GPM</th>
-      <th class="team-hero-damage text-right">HD</th>
-      <th class="team-hero-healing text-right">HH</th>
-      <th class="team-tower-damage text-right">TD</th>
+      <th class="team-last-hits text-right"><%= sortable Player, 'last_hits', "LH" %></th>
+      <th class="team-denies text-right"><%= sortable Player, 'denies', "DN" %></th>
+      <th class="team-xpm text-right"><%= sortable Player, 'xpm', "XPM" %></th>
+      <th class="team-gpm text-right"><%= sortable Player, 'gpm', "GPM" %></th>
+      <th class="team-hero-damage text-right"><%= sortable Player, 'hero_damage', "HD" %></th>
+      <th class="team-hero-healing text-right"><%= sortable Player, 'hero_healing', "HH" %></th>
+      <th class="team-tower-damage text-right"><%= sortable Player, 'tower_damage', "TD" %></th>
       <th class="team-items">Items</th>
     </tr>
   </thead>
   <tbody>
-    <% for match in @matches %>
-    <% player = match.player(@profile) %>
+    <% for player in @players %>
+    <% match = player.match %>
       <tr>
         <td><%= link_to match_outcome(match), match %></td>
         <td>
@@ -46,7 +48,9 @@
         <td><%= match_mode match %></td>
         <td><%= match_time match %></td>
         <td class="team-level text-right"><%= player.level  %></td>
-        <td class="text-right"><%= number_with_precision player.kda_ratio, precision: 2 %></td>
+        <td class="team-kills text-right"><%= player.kills %></td>
+        <td class="team-deaths text-right"><%= player.deaths %></td>
+        <td class="team-assists text-right"><%= player.assists %></td>
         <td class="team-gold text-right"><%= number_to_human player.net_worth %></td>
         <td class="team-last-hits text-right"><%= player.last_hits %></td>
         <td class="team-denies text-right"><%= player.denies %></td>
@@ -61,4 +65,4 @@
   </tbody>
 </table>
 
-<%= paginate @matches %>
+<%= paginate @players %>

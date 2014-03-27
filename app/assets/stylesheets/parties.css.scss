@@ -11,3 +11,12 @@
     }
   }
 }
+
+.party-link {
+  font-size: 0;
+  img {
+    margin-left: 1px;
+    display: inline-block;
+    &:first-child { margin-left: 0; }
+  }
+}

@@ -11,4 +11,10 @@ module ApplicationHelper
   def menu(*links)
     content_tag :p, links.join(' | ').html_safe
   end
+
+  def sortable(model, column, text=nil)
+    text ||= column.titleize
+    direction = (column == sort_column(model) && sort_direction == "asc") ? "desc" : "asc"
+    link_to text, params.merge(sort: column, direction: direction, page: nil)
+  end
 end

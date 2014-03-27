@@ -51,5 +51,11 @@
   width: 240px;
   .item {
     height: 25px;
+    display: inline-block;
+    margin-left: 1px;
+    vertical-align: middle;
+    &:first-child {
+      margin-left: 0;
+    }
   }
 }

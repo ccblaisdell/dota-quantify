@@ -27,7 +27,8 @@ class ProfilesController < ApplicationController
   end
 
   def matches
-    @matches = @profile.matches.by_date.page params[:page]
+    # @matches = @profile.matches.by_date.page params[:page]
+    @players = @profile.players.order_by([sort_column(Player, :id), sort_direction]).page(params[:page])
   end
 
   def update

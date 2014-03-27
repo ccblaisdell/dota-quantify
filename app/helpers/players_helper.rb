@@ -1,6 +1,6 @@
 module PlayersHelper
   def hero_avatar(hero_id)
-    image_tag Hero.avatar_for(hero_id), class: "hero-avatar"
+    image_tag Hero.avatar_for(hero_id), class: "hero-avatar" unless hero_id == 0
   end
 
   def player_kda(player)
@@ -15,9 +15,9 @@ module PlayersHelper
   def player_items(player)
     items = []
     for item in player.items
-      items << item_image(item)
+      items << item_image(item) unless item.nil?
     end
-    items.join(' ').html_safe
+    items.join('').html_safe
   end
 
   def item_image(item)
