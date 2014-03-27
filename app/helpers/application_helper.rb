@@ -14,7 +14,7 @@ module ApplicationHelper
 
   def sortable(model, column, text=nil)
     text ||= column.titleize
-    direction = (column == sort_column(model) && sort_direction == "asc") ? "desc" : "asc"
+    direction = (column == sort_column(model) && sort_direction == "desc") ? "asc" : "desc"
     link_to text, params.merge(sort: column, direction: direction, page: nil)
   end
 end
