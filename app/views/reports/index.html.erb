@@ -1,9 +1,0 @@
-<h1>Reports</h1>
-
-<% content_for :bottom do %>
-  <script>
-    $(function(){
-      da.matches.drawCalendar("<%= calendar_matches_path(format: :json) %>");
-    })
-  </script>
-<% end %>
