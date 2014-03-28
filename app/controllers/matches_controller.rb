@@ -21,7 +21,11 @@ class MatchesController < ApplicationController
   # GET /matches
   # GET /matches.json
   def index
-    @matches = Match.order(:start.desc).page params[:page]
+    @matches = Match.by_date.on_date(params[:date]).page(params[:page])
+  end
+
+  def calendar
+    @matches = Match.only(:match_id, :start, :won, :profile_ids).by_date.by_profiles(params[:profile_ids])
   end
 
   def export

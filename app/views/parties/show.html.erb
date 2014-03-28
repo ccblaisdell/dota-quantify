@@ -17,15 +17,14 @@
 </p>
 
 <ul>
-  <li>Game modes</li>
-  <li>Frequent heroes (for/against?)</li>
-  <li>Roles</li>
-  <li>Top performances</li>
-  <li>Games on calendar</li>
-  <li>Winrate chart</li>
-  <li>Paginate matches</li>
-</ul>
-
-<ul>
   <%= render partial: "matches/listing", collection: @matches, as: :match %>
 </ul>
+
+<h2>Match frequency</h2>
+<% content_for :bottom do %>
+  <script>
+    $(function(){
+      da.matches.drawCalendar("<%= calendar_matches_path(format: :json, profile_ids: @party.profiles.collect{|p| p.id.to_s}) %>");
+    })
+  </script>
+<% end %>

@@ -37,7 +37,7 @@ class Match
   scope :by_date, ->{ order_by(:start.desc) }
   scope :real, ->{ 
     where :duration.gte => 600, 
-    :human_players.gte => 9 ,
+    :human_players.gte => 9,
     :lobby.nin => [
       'Invalid',
       'Practice',
@@ -58,6 +58,20 @@ class Match
   }
   scope :wins, ->{ where won: true }
   scope :losses, ->{ where won: false }
+  scope :between, ->(start, stop) { where(start: {'$gte' => start, '$lte' => stop}) }
+  scope :on_date, ->(date) do
+    return if date.nil?
+    # Mar 28th will yield all games from 5am Mar 28 to 4:59am Mar 29
+    start = date.to_time +  5.hours
+    stop  = date.to_time + 29.hours
+    where(
+      start: {'$gte' => start, '$lte' => stop},
+    )
+  end
+  scope :by_profiles, ->(profiles) {
+    return if profiles.nil?
+    where(:profile_ids.all => profiles) 
+  }
 
   scope :ap, ->{ where mode: "All Pick" }
   scope :rd, ->{ where mode: "Random Draft" }
@@ -69,6 +83,10 @@ class Match
 
   def ad?
     mode == "Ability Draft"
+  end
+
+  def day
+    (start - 12.hours).to_date
   end
 
   # Did this match count? (best guess)
