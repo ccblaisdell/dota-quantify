@@ -25,9 +25,14 @@ module PlayersHelper
     image_tag Item.image(item), class: "item", alt: item
   end
 
-  def player_ablities(player)
-    player.upgrades.collect {|upgrade| Ability.list[ upgrade['ability'].to_s.to_sym ]}
-      .reject{ |ability| ability == 'stats' }
-      .uniq
+  def ability_image(id)
+    image_tag Ability.image_url(id.to_s.to_sym), title: Ability.list[id.to_s.to_sym]
+  end
+
+  def player_abilities(player)
+    abilities = player.upgrades.collect{|upgrade| upgrade['ability']}.uniq.collect do |id|
+      ability_image(id) unless Ability.stats?(id)
+    end
+    content_tag :span, abilities.join('').html_safe, class: "ability-draft-abilities"
   end
 end

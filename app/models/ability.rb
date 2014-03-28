@@ -1,3 +1,5 @@
+require "open-uri"
+
 class Ability
   LIST = {
     :"5295" => "centaur_khan_war_stomp",
@@ -549,5 +551,27 @@ class Ability
 
   def self.list
     LIST
+  end
+
+  # Download hero images
+  def self.download_images
+    for id, name in self.list
+      filename = self.image_url(id)
+      begin
+        File.open(Rails.root.join('app','assets','images','abilities',filename), 'wb') do |fo|
+          fo.puts open('http://cdn.dota2.com/apps/dota2/images/abilities/' + filename).read 
+        end
+      rescue
+        puts "Could not download #{filename}"
+      end
+    end
+  end
+
+  def self.image_url(id)
+    "abilities/" + self.list[id].to_s + "_lg.png"
+  end
+
+  def self.stats?(id)
+    id.to_s.to_sym == :"5002"
   end
 end

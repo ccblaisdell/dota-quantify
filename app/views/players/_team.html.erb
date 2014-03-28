@@ -3,6 +3,9 @@
     <th class="team-hero"></th>
     <th class="team-profile">Player</th>
     <th class="team-avatar"></th>
+    <% if @match.ad? %>
+      <th class="team-abilities"></th>
+    <% end %>
     <th class="team-level text-right">Level</th>
     <th class="team-kills text-right">K</th>
     <th class="team-deaths text-right">D</th>
@@ -25,6 +28,7 @@
       <td></td>
       <td></td>
       <td></td>
+      <% if @match.ad? %><td class="team-abilities"></td><% end %>
       <td class="team-level text-right"><%= players.sum(:level) %></td>
       <td class="team-kills text-right"><%= players.sum(:kills) %></td>
       <td class="team-deaths text-right"><%= players.sum(:deaths) %></td>

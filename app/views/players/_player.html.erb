@@ -6,6 +6,9 @@
       <%= link_to avatar(player.profile), player.profile %>
     <% end %>
   </td>
+  <% if @match.ad? %>
+  <td class="team-abilities"><%= player_abilities(player) %></td>
+  <% end %>
   <td class="team-level text-right"><%= player.level %></td>
   <td class="team-kills text-right"><%= player.kills %></td>
   <td class="team-deaths text-right"><%= player.deaths %></td>
@@ -20,12 +23,3 @@
   <td class="team-tower-damage text-right"><%= number_to_human player.tower_damage %></td>
   <td class="team-items"><%= player_items player %></td>
 </tr>
-<% if @match.ad? %>
-  <tr>
-    <td colspan=15>
-      <% for ability in player_ablities(player) %>
-        <%= ability %> |
-      <% end %>
-    </td>
-  </tr>
-<% end %>
