@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/ccblaisdell/dota.git
-  revision: e54ac0c4db01fdf3a889cdeb413f56746d41291d
+  revision: 3ace57b1e57df537ba00af486943d532f149253e
   branch: fix_match_with_no_upgrades
   specs:
     dota (0.0.1)
