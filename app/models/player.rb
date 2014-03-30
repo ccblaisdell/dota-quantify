@@ -90,7 +90,7 @@ class Player
   end
 
   def profile
-    Profile.find_by steam_account_id: steam_account_id
+    Profile.find_by steam_account_id: steam_account_id unless steam_account_id.nil?
   end
 
   def team

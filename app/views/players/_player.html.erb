@@ -23,3 +23,19 @@
   <td class="team-tower-damage text-right"><%= number_to_human player.tower_damage %></td>
   <td class="team-items"><%= player_items player %></td>
 </tr>
+<% 
+  # Update totals
+  @level += player.level
+  @kills += player.kills
+  @deaths += player.deaths
+  @assists += player.assists
+  @net_worth += player.net_worth
+  @last_hits += player.last_hits
+  @denies += player.denies
+  @xpm += player.xpm
+  @gpm += player.gpm
+  @hero_damage += player.hero_damage
+  @hero_healing += player.hero_healing
+  @tower_damage += player.tower_damage
+
+ %>

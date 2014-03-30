@@ -1,3 +1,6 @@
+<% # team totals %>
+<% @level = @kills = @deaths = @assists = @net_worth = @last_hits = @denies = @xpm = @gpm = @hero_damage = @hero_healing = @tower_damage = 0 %>
+
 <table class="team">
   <thead>
     <th class="team-hero"></th>
@@ -29,18 +32,18 @@
       <td></td>
       <td></td>
       <% if @match.ad? %><td class="team-abilities"></td><% end %>
-      <td class="team-level text-right"><%= players.sum(:level) %></td>
-      <td class="team-kills text-right"><%= players.sum(:kills) %></td>
-      <td class="team-deaths text-right"><%= players.sum(:deaths) %></td>
-      <td class="team-assists text-right"><%= players.sum(:assists) %></td>
-      <td class="team-gold text-right"><%= number_to_human players.sum(:gold) + players.sum(:gold_spent) %></td>
-      <td class="team-last-hits text-right"><%= players.sum(:last_hits) %></td>
-      <td class="team-denies text-right"><%= players.sum(:denies) %></td>
-      <td class="team-xpm text-right"><%= players.sum(:xpm) %></td>
-      <td class="team-gpm text-right"><%= players.sum(:gpm) %></td>
-      <td class="team-hero-damage text-right"><%= number_to_human players.sum(:hero_damage) %></td>
-      <td class="team-hero-healing text-right"><%= number_to_human players.sum(:hero_healing) %></td>
-      <td class="team-tower-damage text-right"><%= number_to_human players.sum(:tower_damage) %></td>
+      <td class="team-level text-right"><%= @level %></td>
+      <td class="team-kills text-right"><%= @kills %></td>
+      <td class="team-deaths text-right"><%= @deaths %></td>
+      <td class="team-assists text-right"><%= @assists %></td>
+      <td class="team-gold text-right"><%= number_to_human @net_worth %></td>
+      <td class="team-last-hits text-right"><%= @last_hits %></td>
+      <td class="team-denies text-right"><%= @denies %></td>
+      <td class="team-xpm text-right"><%= @xpm %></td>
+      <td class="team-gpm text-right"><%= @gpm %></td>
+      <td class="team-hero-damage text-right"><%= number_to_human @hero_damage %></td>
+      <td class="team-hero-healing text-right"><%= number_to_human @hero_healing %></td>
+      <td class="team-tower-damage text-right"><%= number_to_human @tower_damage %></td>
       <td></td>
     </tr>
   </tfoot>

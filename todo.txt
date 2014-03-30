@@ -2,8 +2,6 @@ Todos
 =====
 - catch up on test coverage
 - toggle Heroku worker as needed https://github.com/lostboy/workless
-- download older matches for followed profiles ::HOP::
-- 'get lots of matches' button should only ask for matches newer than the ones it has 
-  - max_date and min_date aren't currently functional
-- magical super-robust sorting and filtering framework!
-- don't fetch strangers' profiles (or maybe only when we actually go view a match)
+- change display of matches on Matches page
+- initial sorting of matches on profile/matches page should be by date (currently by ID)
+- move image assets to cdn / set far future expires headers
