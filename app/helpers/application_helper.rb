@@ -19,7 +19,7 @@ module ApplicationHelper
   end
 
   def time_ago(time)
-    return time_ago_in_words(time) + ' ago' if Time.now.day == (time + 5.hours).day && Time.now - time < 24.hours
+    return time_ago_in_words(time) + ' ago' if Time.now.day == (time - 5.hours).day && Time.now - time < 24.hours
     format = "%a %-m/%-d"
     format += "/%y" if time.year != Time.now.year
     format += " %l:%M%p"
