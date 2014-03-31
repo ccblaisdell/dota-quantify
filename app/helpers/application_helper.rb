@@ -17,4 +17,12 @@ module ApplicationHelper
     direction = (column == sort_column(model) && sort_direction == "desc") ? "asc" : "desc"
     link_to text, params.merge(sort: column, direction: direction, page: nil)
   end
+
+  def time_ago(time)
+    return time_ago_in_words(time) + ' ago' if Time.now - time < 24.hours
+    format = "%a %-m/%-d"
+    format += "/%y" if time.year != Time.now.year
+    format += " %l:%M%p"
+    time.strftime format
+  end
 end

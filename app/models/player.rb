@@ -25,6 +25,17 @@ class Player
   field :additional_unit_names, type: Array
   field :upgrades, type: Array
 
+  # TODO: Copy these fields from match for sorting and filtering
+  # field :start, type: Time
+  # field :lobby, type: String
+  # field :mode, type: String
+  # field :winner, type: String
+  # field :duration, type: Integer
+  # field :won, type: Boolean
+
+
+
+
   belongs_to :match
 
   scope :named, ->{ where :dota_account_id.ne => 4294967295 } # non-anonymous

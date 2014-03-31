@@ -5,7 +5,7 @@ module MatchesHelper
   end
 
   def match_time(match)
-    content_tag :span, "#{time_ago_in_words match.end} ago", class: "match-time"
+    content_tag :span, time_ago(match.end), class: "match-time"
   end
 
   def match_mode(match)

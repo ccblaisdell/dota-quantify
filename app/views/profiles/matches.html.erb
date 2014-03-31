@@ -12,9 +12,10 @@
       <th></th>
       <th>Hero</th>
       <th>Party</th>
-      <th>Mode</th>
+      <th></th>
       <th>Time</th>
-      <th class="team-level text-right">Level</th>
+      <th>Dur</th>
+      <th class="team-level text-right">Lvl</th>
       <th class="team-kills text-right"><%= sortable Player, 'kills', "K" %></th>
       <th class="team-deaths text-right"><%= sortable Player, 'deaths', "D" %></th>
       <th class="team-assists text-right"><%= sortable Player, 'assists', "A" %></th>
@@ -47,6 +48,7 @@
         </td>
         <td><%= match_mode match %></td>
         <td><%= match_time match %></td>
+        <td><%= match_duration match %></td>
         <td class="team-level text-right"><%= player.level  %></td>
         <td class="team-kills text-right"><%= player.kills %></td>
         <td class="team-deaths text-right"><%= player.deaths %></td>

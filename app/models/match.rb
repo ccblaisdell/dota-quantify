@@ -82,7 +82,7 @@ class Match
   scope :ad, ->{ where mode: "Ability Draft" }
 
   def ad?
-    mode == "Ability Draft"
+    mode == "AD"
   end
 
   def day
@@ -218,5 +218,26 @@ class Match
 
   def party
     Party.find_or_create_by_profiles profiles.following
+  end
+
+  def mode
+    case read_attribute(:mode)
+    when "All Pick"
+      "AP"
+    when "All Random"
+      "AR"
+    when "Ability Draft"
+      "AD"
+    when "Random Draft"
+      "RD"
+    when "Single Draft"
+      "SD"
+    when "Captains Draft"
+      "CD"
+    when "Captains Mode"
+      "CM"
+    else
+      read_attribute(:mode)
+    end
   end
 end
