@@ -21,7 +21,7 @@ class MatchesController < ApplicationController
   # GET /matches
   # GET /matches.json
   def index
-    @matches = Match.by_date.on_date(params[:date]).page(params[:page])
+    @matches = Match.includes(:players).by_date.on_date(params[:date]).page(params[:page]).per(10)
     render(partial: "listings") and return if request.xhr?
   end
 
