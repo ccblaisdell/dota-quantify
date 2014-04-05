@@ -18,6 +18,8 @@ module ApplicationHelper
     link_to text, params.merge(sort: column, direction: direction, page: nil)
   end
 
+  # Show time ago in words if the game occured earlier today (ex. about 2 hours ago)
+  # Otherwise show ex. Mon 3/31 1:09pm
   def time_ago(time)
     return time_ago_in_words(time) + ' ago' if Time.now.day == (time - 5.hours).day && Time.now - time < 24.hours
     format = "%a %-m/%-d"
