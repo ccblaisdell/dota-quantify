@@ -1,8 +1,7 @@
 <h1>Dashboard</h1>
 
 <h2>Recent matches</h2>
-<%= render partial: "matches/listing", collection: @matches, as: :match %>
-<%= paginate @matches %>
+<%= @matches.to_json %>
 
 <h2>Match frequency</h2>
 <% content_for :bottom do %>
