@@ -82,3 +82,8 @@ da.matches =
         .text (d) -> d + ": " + data[d].wins + "/" + data[d].count
 
     d3.select(self.frameElement).style("height", "2910px")
+
+  loadListings: (url) ->
+    $.ajax
+      url: url
+      success: (data) -> $('#matches').html(data)

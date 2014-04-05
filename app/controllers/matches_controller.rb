@@ -22,6 +22,7 @@ class MatchesController < ApplicationController
   # GET /matches.json
   def index
     @matches = Match.by_date.on_date(params[:date]).page(params[:page])
+    render(partial: "listings") and return if request.xhr?
   end
 
   def calendar
