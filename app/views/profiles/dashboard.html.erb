@@ -1,7 +1,7 @@
 <h1>Dashboard</h1>
 
 <h2>Recent matches</h2>
-<%= @matches.to_json %>
+<%= @matches.to_json(include: :players) %>
 
 <h2>Match frequency</h2>
 <% content_for :bottom do %>
