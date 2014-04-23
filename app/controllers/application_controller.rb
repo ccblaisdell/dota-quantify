@@ -15,4 +15,11 @@ class ApplicationController < ActionController::Base
     def sort_direction
       %w[asc desc].include?(params[:direction]) ? params[:direction] : "desc"
     end
+
+    def get_kda_max(players)
+      k = players.max(:kills)
+      d = players.max(:deaths)
+      a = players.max(:assists)
+      @kda_max = [k, d, a].max
+    end
 end

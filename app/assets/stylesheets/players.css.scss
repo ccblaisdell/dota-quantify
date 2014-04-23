@@ -77,3 +77,23 @@
     }
   }
 }
+
+// Bars
+.bar {
+  display: block;
+  height: 10px;
+}
+.bar-segment {
+  height: 10px;
+  display: block;
+  background: #999;
+}
+.bar-segment--kills {
+  background: #7ED321;
+}
+.bar-segment--deaths {
+  background: #D0021B;
+}
+.bar-segment--assists {
+  background: #4A90E2;
+}

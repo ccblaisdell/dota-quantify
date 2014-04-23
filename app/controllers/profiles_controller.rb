@@ -27,6 +27,7 @@ class ProfilesController < ApplicationController
 
   def matches
     @players = @profile.players.order_by([sort_column(Player, :start), sort_direction]).page(params[:page])
+    get_kda_max(@players)
   end
 
   def update

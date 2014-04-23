@@ -27,4 +27,10 @@ module ApplicationHelper
     format += " %l:%M%p"
     time.strftime format
   end
+
+  def bar(target, field, max)
+    content_tag :div, class: "bar" do
+      content_tag :div, '', class: "bar-segment bar-segment--#{field}", style: "width: #{(target.send(field).to_f / max.to_f * 100)}%;"
+    end
+  end
 end

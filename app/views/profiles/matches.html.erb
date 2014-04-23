@@ -50,9 +50,18 @@
         <td><%= match_time match %></td>
         <td><%= match_duration match %></td>
         <td class="team-level text-right"><%= player.level  %></td>
-        <td class="team-kills text-right"><%= player.kills %></td>
-        <td class="team-deaths text-right"><%= player.deaths %></td>
-        <td class="team-assists text-right"><%= player.assists %></td>
+        <td class="team-kills text-right">
+          <%= player.kills %>
+          <%= bar player, :kills, @kda_max %>
+        </td>
+        <td class="team-deaths text-right">
+          <%= player.deaths %>
+          <%= bar player, :deaths, @kda_max %>
+        </td>
+        <td class="team-assists text-right">
+          <%= player.assists %>
+          <%= bar player, :assists, @kda_max %>
+        </td>
         <td class="team-gold text-right"><%= number_to_human player.net_worth %></td>
         <td class="team-last-hits text-right"><%= player.last_hits %></td>
         <td class="team-denies text-right"><%= player.denies %></td>
