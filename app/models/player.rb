@@ -25,6 +25,8 @@ class Player
   field :additional_unit_names, type: Array
   field :upgrades, type: Array
 
+  field :start, type: Time # copied from Match, for sorting
+
   # TODO: Copy these fields from match for sorting and filtering
   # field :start, type: Time
   # field :lobby, type: String
@@ -43,7 +45,7 @@ class Player
   scope :dire, ->{ where :slot.gte => 128 }
   scope :by_slot, ->{ order_by(:slot.asc) }
 
-  def self.attributes_from_steam_players(players)
+  def self.attributes_from_steam_players(players, match)
     players.collect do |player|
       {
         dota_account_id: player.id,
@@ -69,7 +71,10 @@ class Player
         items: player.items,
         # additional_unit_items: player.additional_unit_items,
         # additional_unit_names: player.additional_unit_names,
-        upgrades: player.upgrades
+        upgrades: player.upgrades,
+
+        # copied from match, for sorting
+        start: match.start
       }
     end
   end

@@ -155,7 +155,7 @@ class Match
       negative_votes: match.negative_votes,
       cluster: match.cluster,
       league_id: match.league_id,
-      players_attributes: Player.attributes_from_steam_players(match.players)
+      players_attributes: Player.attributes_from_steam_players(match.players, match)
     }
   end
 
