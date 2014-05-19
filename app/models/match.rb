@@ -35,6 +35,7 @@ class Match
   accepts_nested_attributes_for :players
   
   scope :by_date, ->{ order_by(:start.desc) }
+  scope :ranked, ->{ where lobby: "Ranked" }
   scope :real, ->{ 
     where :duration.gte => 600, 
     :human_players.gte => 9,
