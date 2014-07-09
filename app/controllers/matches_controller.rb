@@ -9,7 +9,7 @@ class MatchesController < ApplicationController
 
   def fetch_recent
     Match.fetch_recent_for_followed
-    redirect_to action: 'index'
+    redirect_to :back
   end
 
   def fetch_for_followed

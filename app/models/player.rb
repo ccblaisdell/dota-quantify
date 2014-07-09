@@ -98,6 +98,7 @@ class Player
   # There has got to be a better way
   def self.convert_32_bit_account_id_to_64_bit_steam_id(dota_account_id)
     return nil if dota_account_id == 4294967295
+    return nil if dota_account_id.nil?
     dota_account_id + 76561197960265728
   end
 
