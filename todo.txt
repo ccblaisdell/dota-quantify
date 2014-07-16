@@ -5,3 +5,5 @@ Todos
 - change display of matches on Matches page
 - initial sorting of matches on profile/matches page should be by date (currently by ID)
 - move image assets to cdn / set far future expires headers
+- Make update button ajax with progress indicators, like
+  - 1 new match found, importing
