@@ -1,0 +1,57 @@
+<h1><%= params[:type].titleize %> report for: <%= @from %></h1>
+<p>
+  Matches: <%= @matches.count %>
+  <small>
+    <%= @matches.wins.count %> /
+    <%= @matches.losses.count %>
+  </small>
+</p>
+
+<h2>Records</h2>
+<ul class="reports">
+  <li class="report">
+    <h3>Longest match</h3>
+    <%= match_record(@matches.sort {|a,b| b.duration <=> a.duration}, :duration) %>
+  </li>
+  <li class="report">
+    <h3>Shortest match</h3>
+    <%= match_record(@matches.sort {|a,b| a.duration <=> b.duration}, :duration) %>
+  </li>
+  <li class="report">
+    <h3>Most kills</h3>
+    <%= player_records(@players.sort {|a,b| b.kills <=> a.kills}, :kills) %>
+  </li>
+  <li class="report">
+    <h3>Most deaths</h3>
+    <%= player_records(@players.sort {|a,b| b.deaths <=> a.deaths}, :deaths) %>
+  </li>
+  <li class="report">
+    <h3>Most assists</h3>
+    <%= player_records(@players.sort {|a,b| b.assists <=> a.assists}, :assists) %>
+  </li>
+  <li class="report">
+    <h3>Highest gpm</h3>
+    <%= player_records(@players.sort {|a,b| b.gpm <=> a.gpm}, :gpm) %>
+  </li>
+  <li class="report">
+    <h3>Highest xpm</h3>
+    <%= player_records(@players.sort {|a,b| b.xpm <=> a.xpm}, :xpm) %>
+  </li>
+  <li class="report">
+    <h3>Most last hits</h3>
+    <%= player_records(@players.sort {|a,b| b.last_hits <=> a.last_hits}, :last_hits) %>
+  </li>
+  <li class="report">
+    <h3>Most denies</h3>
+    <%= player_records(@players.sort {|a,b| b.denies <=> a.denies}, :denies) %>
+  </li>
+  <li class="report">
+    <h3>Most hero_damage</h3>
+    <%= player_records(@players.sort {|a,b| b.hero_damage <=> a.hero_damage}, :hero_damage) %>
+  </li>
+  <li class="report">
+    <h3>Most hero_healing</h3>
+    <%= player_records(@players.sort {|a,b| b.hero_healing <=> a.hero_healing}, :hero_healing) %>
+  </li>
+</ul>
+

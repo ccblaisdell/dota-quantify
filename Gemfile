@@ -64,6 +64,7 @@ gem 'kaminari'
 
 group :development do
   gem 'pry-rails'
+  gem 'pry-remote'
   gem 'pry-stack_explorer'
 end
 
