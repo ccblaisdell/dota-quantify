@@ -59,7 +59,11 @@ class Match
   }
   scope :wins, ->{ where won: true }
   scope :losses, ->{ where won: false }
-  scope :between, ->(start, stop) { where(start: {'$gte' => start, '$lte' => stop}) }
+  scope :between, ->(start, stop) do
+    start = start + 5.hours
+    stop  = stop  + 5.hours
+    where(start: {'$gte' => start, '$lte' => stop})
+  end
   scope :on_date, ->(date) do
     return if date.nil?
     # Mar 28th will yield all games from 5am Mar 28 to 4:59am Mar 29

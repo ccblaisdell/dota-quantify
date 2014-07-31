@@ -1,7 +1,7 @@
 class ReportsController < ApplicationController
   def show
     find_report_period
-    @matches = Match.where(:start.gt => @from, :start.lt => @to)
+    @matches = Match.between(@from, @to).by_date
     @players = @matches.all.collect {|m| m.followed_players}.flatten
   end
 

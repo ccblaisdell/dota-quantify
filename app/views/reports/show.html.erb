@@ -15,7 +15,7 @@
   </li>
   <li class="report">
     <h3>Shortest match</h3>
-    <%= match_record(@matches.sort {|a,b| a.duration <=> b.duration}, :duration) %>
+    <%= match_record(@matches.where(:duration.gt => 10.minutes).sort {|a,b| a.duration <=> b.duration}, :duration) %>
   </li>
   <li class="report">
     <h3>Most kills</h3>
@@ -55,3 +55,6 @@
   </li>
 </ul>
 
+<h2>Matches</h2>
+
+<%= render partial: "matches/listing", collection: @matches, as: :match %>
