@@ -198,7 +198,8 @@ class Match
   end
 
   def self.fetch_recent_for_followed(options={})
-    Profile.following.each { |profile| Match.fetch({account_id: profile.dota_account_id, matches_requested: 20}.merge(options)) }
+    options[:count] ||= 20
+    Profile.following.each { |profile| Match.fetch({account_id: profile.dota_account_id, matches_requested: options[:count]}.merge(options)) }
   end
 
   def determine_win
