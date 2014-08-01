@@ -1,0 +1,76 @@
+<%= paginate @players %>
+
+<table>
+  <thead>
+    <tr>
+      <th></th>
+      <th>Hero</th>
+      <th>Party</th>
+      <th></th>
+      <th><%= sortable Player, 'start', "Time" %></th>
+      <th>Dur</th>
+      <th class="team-level text-right">Lvl</th>
+      <th class="team-kills text-right"><%= sortable Player, 'kills', "K" %></th>
+      <th class="team-deaths text-right"><%= sortable Player, 'deaths', "D" %></th>
+      <th class="team-assists text-right"><%= sortable Player, 'assists', "A" %></th>
+      <th class="team-gold text-right">Gold</th>
+      <th class="team-last-hits text-right"><%= sortable Player, 'last_hits', "LH" %></th>
+      <th class="team-denies text-right"><%= sortable Player, 'denies', "DN" %></th>
+      <th class="team-xpm text-right"><%= sortable Player, 'xpm', "XPM" %></th>
+      <th class="team-gpm text-right"><%= sortable Player, 'gpm', "GPM" %></th>
+      <th class="team-hero-damage text-right"><%= sortable Player, 'hero_damage', "HD" %></th>
+      <th class="team-hero-healing text-right"><%= sortable Player, 'hero_healing', "HH" %></th>
+      <th class="team-tower-damage text-right"><%= sortable Player, 'tower_damage', "TD" %></th>
+      <th class="team-items">Items</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% for player in @players %>
+      <% match = player.match %>
+      <% if match %>
+        <tr>
+          <td><%= link_to match_outcome(match), match %></td>
+          <td>
+            <%= hero_avatar player.hero_id %>
+            <%= player.name %>
+            <%= avatar player.profile %>
+          </td>
+          <td>
+            <% if match.profiles.following.length > 1 %>
+              <%= party_link match.parties.by_size.first %>
+            <% else %>
+              <%= avatar match.profiles.following.first %>
+            <% end %>
+          </td>
+          <td><%= match_mode match %></td>
+          <td><%= match_time match %></td>
+          <td><%= match_duration match %></td>
+          <td class="team-level text-right"><%= player.level  %></td>
+          <td class="team-kills text-right">
+            <%= player.kills %>
+            <%= bar player, :kills, @kda_max %>
+          </td>
+          <td class="team-deaths text-right">
+            <%= player.deaths %>
+            <%= bar player, :deaths, @kda_max %>
+          </td>
+          <td class="team-assists text-right">
+            <%= player.assists %>
+            <%= bar player, :assists, @kda_max %>
+          </td>
+          <td class="team-gold text-right"><%= number_to_human player.net_worth %></td>
+          <td class="team-last-hits text-right"><%= player.last_hits %></td>
+          <td class="team-denies text-right"><%= player.denies %></td>
+          <td class="team-xpm text-right"><%= player.xpm %></td>
+          <td class="team-gpm text-right"><%= player.gpm %></td>
+          <td class="team-hero-damage text-right"><%= number_to_human player.hero_damage %></td>
+          <td class="team-hero-healing text-right"><%= number_to_human player.hero_healing %></td>
+          <td class="team-tower-damage text-right"><%= number_to_human player.tower_damage %></td>
+          <td class="team-items"><%= player_items player %></td>
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>
+
+<%= paginate @players %>

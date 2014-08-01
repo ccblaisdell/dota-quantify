@@ -58,3 +58,7 @@
 <h2>Matches</h2>
 
 <%= render partial: "matches/listing", collection: @matches, as: :match %>
+
+<h2>Performances</h2>
+
+<%= render partial: "profiles/matches", locals: { players: @players } %>
