@@ -22,7 +22,8 @@ class ReportsController < ApplicationController
         @from = Time.new params[:year], params[:month], params[:day]
         @to = @from + 24.hours
       when "weekly"
-        @from = Time.new(params[:year], params[:month], params[:day]).beginning_of_week
+        # beginning_of_week returns a monday
+        @from = Time.new(params[:year], params[:month], params[:day]).beginning_of_week - 1.day
         @to = @from + 1.week
       when "monthly"
         @from = Time.new(params[:year], params[:month])
