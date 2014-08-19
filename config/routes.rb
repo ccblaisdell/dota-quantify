@@ -22,6 +22,9 @@ DotaQuantify::Application.routes.draw do
     end
   end
 
+  resources :players, path: "/performances" do
+  end
+
   get 'reports/:type/:year(/:month(/:day))' => 'reports#show', as: "report"
 
   # The priority is based upon order of creation: first created -> highest priority.
