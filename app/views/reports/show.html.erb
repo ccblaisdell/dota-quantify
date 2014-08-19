@@ -53,6 +53,10 @@
     <h3>Most hero_healing</h3>
     <%= player_records(@players.sort {|a,b| b.hero_healing <=> a.hero_healing}, :hero_healing) %>
   </li>
+  <li class="report">
+    <h3>Most tower_damage</h3>
+    <%= player_records(@players.sort {|a,b| b.tower_damage <=> a.tower_damage}, :tower_damage) %>
+  </li>
 </ul>
 
 <h2>Matches</h2>
@@ -61,4 +65,4 @@
 
 <h2>Performances</h2>
 
-<%= render partial: "profiles/matches", locals: { players: @players } %>
+<%= render partial: "profiles/matches", locals: { players: @players.page(params[:page]) } %>

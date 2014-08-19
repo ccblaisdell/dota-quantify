@@ -79,6 +79,11 @@ class Player
     end
   end
 
+  def self.following
+    steam_account_ids = Profile.following.collect {|profile| profile.steam_account_id}
+    self.where :steam_account_id.in => steam_account_ids
+  end
+
   def won?
     match.won?
   end
