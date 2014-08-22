@@ -59,6 +59,8 @@ class Match
   }
   scope :wins, ->{ where won: true }
   scope :losses, ->{ where won: false }
+  scope :partied, ->{ exists party_ids: true }
+  scope :solo, ->{ exists party_ids: false }
   scope :between, ->(start, stop) do
     start = start + 5.hours
     stop  = stop  + 5.hours
