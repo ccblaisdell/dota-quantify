@@ -7,3 +7,6 @@ Todos
 - move image assets to cdn / set far future expires headers
 - Make update button ajax with progress indicators, like
   - 1 new match found, importing
+- better sorting and filter for Player lists
+- automatically guess player roles
+  - check hero, gpm, xpm, items

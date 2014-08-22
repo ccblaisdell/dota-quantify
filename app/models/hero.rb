@@ -6,12 +6,16 @@ class Hero
     {
       name: "npc_dota_hero_antimage",
       id: 1,
-      localized_name: "Anti-Mage"
+      localized_name: "Anti-Mage"#,
+      # roles: ["core", "carry"],
+      # supportiness: 0.0 # CORE 0.0 ....... 1.0 SUPPORT
     },
     {
       name: "npc_dota_hero_axe",
       id: 2,
-      localized_name: "Axe"
+      localized_name: "Axe"#,
+      # roles: ["core", "tank"],
+      # supportiness: 0 # CORE 0.0 ....... 1.0 SUPPORT
     },
     {
       name: "npc_dota_hero_bane",

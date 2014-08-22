@@ -161,4 +161,8 @@ class Item
   def self.image_suffix
     '_lg.png'
   end
+
+  ## Guessing roles
+  SUPPORT = []
+  CORE = []
 end
