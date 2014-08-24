@@ -1,0 +1,57 @@
+<%= params.inspect %>
+
+<%= form_tag players_path(params), method: :get do %>
+  <span>
+    <%= label_tag :filter_key, "Where" %>
+    <%= select_tag :filter_key, 
+      options_for_select(Player::FILTERABLE_BY_NUMBER, params[:filter_key]),
+      prompt: "" %>
+    <%= label_tag :filter_criteria, "is" %>
+    <%= select_tag :filter_criteria, 
+      options_for_select([["<", :lt], ["=", :eq], [">", :gt]], params[:filter_criteria]),
+      prompt: "" %>
+    <%= label_tag :filter_limit, "than" %>
+    <%= text_field_tag :filter_limit, params[:filter_limit] %>
+  </span>
+
+  AND
+
+  <span>
+    <%= label_tag :filter_hero, "Hero" %>
+    <%= select_tag :filter_hero, 
+      options_for_select(Hero::NAMES.collect{ |hero| 
+        [hero[:localized_name], hero[:id]]
+      }.sort { |a,b|
+        a[0] <=> b[0]
+      }, params[:filter_hero]),
+      include_blank: true %>
+  </span>
+
+  AND
+
+  <span>
+    <%= label_tag :filter_outcome, "Outcome" %>
+    <%= select_tag :filter_outcome,
+      options_for_select([:won, :lost], params[:filter_outcome]),
+      prompt: "any" %>
+  </span>
+
+  AND
+
+  <span>
+    <%= label_tag :items, "Items" %>
+    <%= select_tag :filter_items,
+      options_for_select(Item::ITEMS.to_a.collect{ |item| 
+        [item[0], Item.item_name(item[1])] 
+      }.sort{|a,b| a[0] <=> b[0]}, params[:filter_items]),
+      include_blank: true,
+      multiple: true %>
+  </span>
+
+  <br>
+
+  AND Party
+  <%= render partial: "parties/filters", locals: {profiles: Profile.following} %>
+
+  <%= submit_tag :go %>
+<% end %>

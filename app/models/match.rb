@@ -204,7 +204,10 @@ class Match
   end
 
   def determine_win
-    update_attributes won: (team.try(:downcase) == winner.downcase)
+    we_won = team.try(:downcase) == winner.downcase
+    update_attributes won: we_won
+    # This updates even anonymous players and bad guy profiles with win status
+    players.update_all won: we_won
   end
 
   def associate_with_profiles

@@ -1,0 +1,10 @@
+<label>
+  Size:
+  <%= select_tag 'size', options_for_select(2..5), include_blank: true, id: "size" %>
+</label>
+<% for profile in profiles %>
+  <label>
+    <%= check_box_tag 'profiles[]', profile.id, params[:profiles].to_a.include?(profile.id.to_s), class: "profile-filter" %>
+    <%= avatar profile %>
+  </label>
+<% end %>

@@ -28,12 +28,28 @@ class Player
   field :start, type: Time # copied from Match, for sorting
 
   # TODO: Copy these fields from match for sorting and filtering
-  # field :start, type: Time
-  # field :lobby, type: String
-  # field :mode, type: String
-  # field :winner, type: String
-  # field :duration, type: Integer
-  # field :won, type: Boolean
+  field :start, type: Time
+  field :lobby, type: String
+  field :mode, type: String
+  field :winner, type: String
+  field :duration, type: Integer
+  field :won, type: Boolean
+
+  FILTERABLE_BY_NUMBER = [
+    ["Kills", :kills],
+    ["Assists", :assists],
+    ["Deaths", :deaths],
+    ["Gold", :gold],
+    ["Last hits", :last_hits],
+    ["Denies", :denies],
+    ["Gold spent", :gold_spent],
+    ["Hero damage", :hero_damage],
+    ["Tower damage", :tower_damage],
+    ["Hero healing", :hero_healing],
+    ["Level", :level],
+    ["XPM", :xpm],
+    ["GPM", :gpm]
+  ]
 
   belongs_to :match
 
@@ -71,7 +87,12 @@ class Player
         upgrades: player.upgrades,
 
         # copied from match, for sorting
-        start: match.start
+        start: match.start,
+        lobby: match.lobby,
+        mode: match.mode,
+        winner: match.winner,
+        duration: match.duration
+        # won: match.won # copied later
       }
     end
   end

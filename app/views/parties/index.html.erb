@@ -1,16 +1,7 @@
 <h1>Listing parties</h1>
 
 <aside class="filters" id="filters">
-  <label>
-    Size:
-    <%= select_tag 'size', options_for_select(2..5), include_blank: true, id: "size" %>
-  </label>
-  <% for profile in @profiles %>
-    <label>
-      <%= check_box_tag 'profiles', profile.id, false, class: "profile-filter" %>
-      <%= avatar profile %>
-    </label>
-  <% end %>
+  <%= render partial: "parties/filters", locals: {profiles: @profiles} %>
 </aside>
 
 <div class="loading" id="loading">Loading...</div>

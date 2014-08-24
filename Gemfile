@@ -62,6 +62,9 @@ gem "delayed_job_mongoid", git: 'https://github.com/collectiveidea/delayed_job_m
 # Pagination
 gem 'kaminari'
 
+# AI, neural networks and genetic algorithms
+gem "ai4r"
+
 group :development do
   gem 'pry-rails'
   gem 'pry-remote'
