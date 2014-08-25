@@ -38,7 +38,7 @@
             <%= avatar player.profile %>
           </td>
           <td>
-            <% if match.profiles && match.profiles.following.length > 1 %>
+            <% if match.profiles && match.profiles.following.length > 1 && match.parties %>
               <%= party_link match.parties.by_size.first %>
             <% elsif match.profiles %>
               <%= avatar match.profiles.following.first %>
