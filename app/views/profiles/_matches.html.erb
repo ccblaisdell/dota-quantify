@@ -42,7 +42,7 @@
               <%= party_link match.parties.by_size.first %>
             <% elsif match.profiles %>
               <%= avatar match.profiles.following.first %>
-            <%= else %>
+            <% else %>
               <small>No party data</small>
             <% end %>
           </td>
