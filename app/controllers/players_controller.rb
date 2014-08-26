@@ -1,4 +1,5 @@
 class PlayersController < ApplicationController
+  before_action :set_player, only: [:update]
   def index
     filter_players
     sort_players
@@ -6,7 +7,23 @@ class PlayersController < ApplicationController
     get_kda_max(@players)
   end
 
+  def update
+    @player.update_attributes profile_params
+    render text: @player.role and return if request.xhr?
+    redirect_to :back
+  end
+
   private
+
+  # Use callbacks to share common setup or constraints between actions.
+  def set_player
+    @player = Player.find_by(id: params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def profile_params
+    params.require(:player).permit(:role)
+  end
 
   def sort_players
     @players = @players.order_by([sort_column(Player, :start), sort_direction])

@@ -25,15 +25,17 @@ class Player
   field :additional_unit_names, type: Array
   field :upgrades, type: Array
 
-  field :start, type: Time # copied from Match, for sorting
-
-  # TODO: Copy these fields from match for sorting and filtering
   field :start, type: Time
   field :lobby, type: String
   field :mode, type: String
   field :winner, type: String
   field :duration, type: Integer
   field :won, type: Boolean
+
+  field :role, type: String
+  field :auto_role, type: Boolean, default: false
+
+  ROLES = ["core", "support"]
 
   FILTERABLE_BY_NUMBER = [
     ["Kills", :kills],
@@ -145,38 +147,5 @@ class Player
     items.collect do |item|
       Item.image(item) unless item == 'emptyitembg'
     end
-  end
-
-  ## Guessing roles
-
-  def role
-    # check hero
-    # check gpm
-    # check profile
-    # check items
-    # check xpm
-    # kda?
-    # last hits?
-
-    # we should assign a numeric value to each of the things above, tally the result,
-    # then rank the players on each team by that value. Assume 3 cores and 2 supports.
-
-    # For example:
-    # logan, CM, 3/7/13, 21LH, 273XPM, 335GPM, [Tranquil Boots, Mekansm, Black King Bar, Observer Ward, Smoke of Deceit, Town Portal Scroll]
-    # 10.0: HERO - cm is a 10 on the 1-10 support scale (from Hero.rb)
-    #  8.0: GPM - 335, lowest, 67% of the mean (498) 
-    #  9.0: PROFILE
-    #  6.8: ITEMS - tranqs(7), mek(7), bkb(3), obs(10), tp(5), smoke(9)
-    #  9.0 : XPM - 273, lowest, about half the mean (520)
-    #  ===
-    #  8.6 : Compare this to the other scores. In the event of ties, break them by
-
-    # Hero  Player                         Level  K D  A   Gold  LH DN XPM GPM HD  HH  TD  Items
-    # Bristleback Roamin Ronin  Roamin Ronin  17  5 8 11  14.7k 142  2 474 458 14.1k 0 661 Sange and YashaPower TreadsVanguardMedallion of CourageBlade Mail
-    # Crystal Maiden  losandro  losandro      12  3 7 13  10.7k  21  0 273 335 4.2k  491 139 Tranquil BootsMekansmBlack King BarObserver WardSmoke of DeceitTown Portal Scroll
-    # Death Prophet mgrif mgrif               18  7 8 15  15.7k  93  4 580 491 16k 597 2.1k  Magic WandBottlePhase BootsTown Portal ScrollBloodstoneForce Staff
-    # Disruptor hoplyte hoplyte               15  4 6 12  11.0k  34  1 382 343 4.3k  0 252 Boots of TravelPipe of InsightEnergy BoosterTown Portal ScrollSentry Ward
-    # Morphling Dialuposaurus Dialuposaurus   23 16 1  6  27.6k 227  7 890 862 17.6k 0 9k  Ethereal BladeBoots of TravelUltimate OrbLinken's SphereManta StyleHand of Midas
-    ""
   end
 end

@@ -10,3 +10,4 @@ Todos
 - better sorting and filter for Player lists
 - automatically guess player roles
   - check hero, gpm, xpm, items
+  - create an interface for manually tagging roles. Use this to train the system

@@ -22,6 +22,7 @@
   <td class="team-hero-healing text-right"><%= number_to_human player.hero_healing %></td>
   <td class="team-tower-damage text-right"><%= number_to_human player.tower_damage %></td>
   <td class="team-items"><%= player_items player %></td>
+  <td><%= render partial: "players/role_form", locals: {player: player} %></td>
 </tr>
 <% 
   # Update totals

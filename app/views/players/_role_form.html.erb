@@ -1,0 +1,3 @@
+<%= form_for player, html: {class: "role-form"} do |f| %>
+  <%= f.select :role, options_for_select(Player::ROLES), prompt: "choose role" %>
+<% end %>
