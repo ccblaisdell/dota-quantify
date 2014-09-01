@@ -8,7 +8,8 @@ class MatchesController < ApplicationController
   end
 
   def fetch_recent
-    Match.fetch_recent_for_followed
+    MatchUpdateJob.new.async.perform
+    # Match.fetch_recent_for_followed
     redirect_to :back
   end
 
@@ -37,6 +38,11 @@ class MatchesController < ApplicationController
   # GET /matches/1
   # GET /matches/1.json
   def show
+  end
+
+  def random
+    @match = Match.real.skip( rand(Match.real.count) ).first
+    render 'show'
   end
 
   private

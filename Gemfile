@@ -55,6 +55,7 @@ gem "figaro"
 
 # Work fetching and analysis in the background
 gem "delayed_job_mongoid", git: 'https://github.com/collectiveidea/delayed_job_mongoid.git'
+gem 'sucker_punch', '~> 1.0'
 
 # Run Heroku workers only when needed
 # gem "workless"
