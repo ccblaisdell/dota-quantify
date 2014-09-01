@@ -148,4 +148,24 @@ class Player
       Item.image(item) unless item == 'emptyitembg'
     end
   end
+
+  def attributes_for_roles
+    [
+      Profile.index(steam_account_id),
+      hero_id,
+      kills,
+      deaths,
+      assists,
+      gold,
+      last_hits,
+      denies,
+      gold_spent,
+      hero_damage,
+      tower_damage,
+      hero_healing,
+      xpm,
+      gpm,
+      items.collect {|item| Item.index(item)}
+    ].flatten
+  end
 end

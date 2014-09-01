@@ -246,8 +246,14 @@ class Match
       "CD"
     when "Captains Mode"
       "CM"
+    when "Least Played"
+      "LP"
     else
       read_attribute(:mode)
     end
+  end
+
+  def attributes_for_roles
+    players.collect {|player| player.attributes_for_roles}.flatten << [duration]
   end
 end

@@ -8,6 +8,7 @@ DotaQuantify::Application.routes.draw do
       get 'fetch_recent'
       get 'export'
       get 'calendar'
+      get 'random'
     end
   end
 

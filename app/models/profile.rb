@@ -172,4 +172,9 @@ class Profile
 
     update_attributes match_count: mc, wins: w, losses: l, real_match_count: rmc, real_wins: rw, real_losses: rl
   end
+
+  def self.index(steam_account_id)
+    ind = self.following.pluck(:steam_account_id).index(steam_account_id)
+    ind ? ind : 0
+  end
 end

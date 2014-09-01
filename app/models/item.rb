@@ -162,7 +162,7 @@ class Item
     '_lg.png'
   end
 
-  ## Guessing roles
-  SUPPORT = []
-  CORE = []
+  def self.index(item)
+    Item::ITEMS.values.index("item_#{item}")
+  end
 end
