@@ -7,8 +7,10 @@ json.array!(@parties) do |party|
     :winrate, 
     :wins, 
     :count, 
+    :difference,
     :strict_winrate, 
     :strict_wins,
     :strict_count,
+    :strict_difference,
     :profile_ids
 end
