@@ -30,6 +30,11 @@ class ReportsController < ApplicationController
       when "yearly"
         @from = Time.new(params[:year])
         @to = @from + 1.year
+      when "range"
+        range_start = params[:year].split('-')
+        @from = Time.new(range_start[2], range_start[0], range_start[1])
+        range_end = params[:day].split('-')
+        @to = Time.new(range_end[2], range_end[0], range_end[1])
     end
   end
 end
