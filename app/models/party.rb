@@ -85,4 +85,12 @@ class Party
   def strict_winrate
     winrate strict_wins, strict_count
   end
+
+  def difference
+    wins - (count - wins)
+  end
+
+  def strict_difference
+    strict_wins - (strict_count - strict_wins)
+  end
 end
