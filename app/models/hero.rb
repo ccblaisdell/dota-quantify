@@ -523,6 +523,11 @@ class Hero
       localized_name: "Legion Commander"
     },
     {
+      name: "npc_dota_hero_techies",
+      id: 105,
+      localized_name: "Techies"
+    },
+    {
       name: "npc_dota_hero_ember_spirit",
       id: 106,
       localized_name: "Ember Spirit"
