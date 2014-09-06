@@ -5,6 +5,8 @@ da.charts =
     window.kdaChart = dc.barChart('#kda-chart')
     window.outcomeChart = dc.pieChart('#outcome-chart')
     window.xpmChart = dc.barChart('#xpm-chart')
+    window.gpmChart = dc.barChart('#gpm-chart')
+    window.durationChart = dc.barChart('#duration-chart')
 
     # Fetch the data and do all the stuff
     d3.json url, (error, players) ->
@@ -27,6 +29,12 @@ da.charts =
       
       xpm = player.dimension (d) -> d.xpm
       xpms = xpm.group (d) -> Math.floor(d / 50) * 50
+      
+      gpm = player.dimension (d) -> d.gpm
+      gpms = gpm.group (d) -> Math.floor(d / 50) * 50
+      
+      duration = player.dimension (d) -> d.duration / 60
+      durations = duration.group (d) -> Math.floor(d / 5) * 5
 
       # xpm = kda
       # xpms = kdas
@@ -69,8 +77,45 @@ da.charts =
               .domain([0, Math.ceil( d3.max(players, (d) -> d.xpm) / 50 ) * 50])
           )
           .xUnits -> 20
-
       xpmChart.yAxis().ticks(5)
+
+      #dc.barchart('#gpm-chart')
+      gpmChart.width(400)
+          .height(100)
+          .margins({top: 10, right: 10, bottom: 20, left: 30})
+          .dimension(gpm)
+          .group(gpms)
+          .elasticY(true)
+          .round (d) -> Math.floor(d / 50) * 50
+          .alwaysUseRounding(true)
+          .x(
+            d3.scale.linear()
+              .domain([
+                Math.floor( d3.min(players, (d) -> d.gpm) / 50 ) * 50,
+                Math.ceil( d3.max(players, (d) -> d.gpm) / 50 ) * 50
+              ])
+          )
+          .xUnits -> gpms.size()
+      gpmChart.yAxis().ticks(5)
+
+      #dc.barchart('#duration-chart')
+      durationChart.width(400)
+          .height(100)
+          .margins({top: 10, right: 10, bottom: 20, left: 30})
+          .dimension(duration)
+          .group(durations)
+          .elasticY(true)
+          .round (d) -> Math.floor(d / 5) * 5
+          .alwaysUseRounding(true)
+          .x(
+            d3.scale.linear()
+              .domain([
+                0
+                Math.ceil( d3.max(players, (d) -> d.duration) / 60 )
+              ])
+          )
+          .xUnits -> durations.size()
+      durationChart.yAxis().ticks(5)
 
       # dc.pieChart('#outcome-chart')
       outcomeChart.width(100)

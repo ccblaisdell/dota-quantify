@@ -31,6 +31,20 @@
   </div>
 </div>
 
+<div id="gpm-chart" class="chart">
+  <div class="title">
+    GPM
+    <%= link_to "reset", "javascript:gpmChart.filterAll();dc.redrawAll();", class: :reset, style: "display:none;" %>
+  </div>
+</div>
+
+<div id="duration-chart" class="chart">
+  <div class="title">
+    Match duration
+    <%= link_to "reset", "javascript:durationChart.filterAll();dc.redrawAll();", class: :reset, style: "display:none;" %>
+  </div>
+</div>
+
 <aside id="totals"><span id="active">-</span> of <span id="total">-</span> performances selected.</aside>
 
 <div id="lists">

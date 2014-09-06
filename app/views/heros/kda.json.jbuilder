@@ -4,5 +4,6 @@ json.array!(@players) do |player|
     :kda_ratio, 
     :outcome,
     :xpm,
-    :gpm
+    :gpm,
+    :duration
 end
