@@ -111,6 +111,10 @@ class Player
     match.won?
   end
 
+  def outcome
+    won ? "won" : "lost"
+  end
+
   def name
     self.profile.try(:name) || "anonymous"
   end

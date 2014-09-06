@@ -1,3 +1,8 @@
 json.array!(@players) do |player|
-  json.extract! player, :id, :kda_ratio
+  json.extract! player, 
+    :id, 
+    :kda_ratio, 
+    :outcome,
+    :xpm,
+    :gpm
 end

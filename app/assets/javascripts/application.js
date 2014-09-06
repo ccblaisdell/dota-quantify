@@ -15,6 +15,7 @@
 //= require turbolinks
 //= require d3
 //= require crossfilter
+//= require dc
 //= require_self
 //= require_tree .
 

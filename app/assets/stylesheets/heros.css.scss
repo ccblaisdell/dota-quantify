@@ -5,7 +5,8 @@
 // Histogram stuff copied from 
 // https://github.com/square/crossfilter/blob/gh-pages/index.html
 
-.background.bar {
+.background.bar,
+.bar.deselected {
   fill: #ccc;
 }
 
@@ -31,4 +32,10 @@
 .brush .resize path {
   fill: #eee;
   stroke: #666;
+}
+
+.pie-slice.deselected {
+  path {
+    fill: #ccc;
+  }
 }

@@ -11,7 +11,24 @@
 </h1>
 
 <div id="kda-chart" class="chart">
-  <div class="title">KDA</div>
+  <div class="title">
+    KDA
+    <%= link_to "reset", "javascript:kdaChart.filterAll();dc.redrawAll();", class: :reset, style: "display:none;" %>
+  </div>
+</div>
+
+<div id="outcome-chart" class="chart">
+  <div class="title">
+    Outcome
+    <%= link_to "reset", "javascript:outcomeChart.filterAll();dc.redrawAll();", class: :reset, style: "display:none;" %>
+  </div>
+</div>
+
+<div id="xpm-chart" class="chart">
+  <div class="title">
+    XPM
+    <%= link_to "reset", "javascript:xpmChart.filterAll();dc.redrawAll();", class: :reset, style: "display:none;" %>
+  </div>
 </div>
 
 <aside id="totals"><span id="active">-</span> of <span id="total">-</span> performances selected.</aside>
@@ -23,7 +40,8 @@
 <% content_for :bottom do %>
   <script>
     $(function(){
-      da.heroes.KDAHistogram('#kda-chart', "<%= kda_hero_path(params[:id], profile_id: @profile, format: :json) %>");
+      // da.heroes.KDAHistogram('#kda-chart', "<%= kda_hero_path(params[:id], profile_id: @profile, format: :json) %>");
+      da.charts.performances("<%= kda_hero_path(params[:id], profile_id: @profile, format: :json) %>");
     })
   </script>
 <% end %>
