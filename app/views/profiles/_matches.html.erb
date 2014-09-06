@@ -38,13 +38,7 @@
             <%= avatar player.profile %>
           </td>
           <td>
-            <% if match.profiles && match.profiles.following.length > 1 && match.parties %>
-              <%= party_link match.parties.by_size.first %>
-            <% elsif match.profiles %>
-              <%= avatar match.profiles.following.first %>
-            <% else %>
-              <small>No party data</small>
-            <% end %>
+            <%= match_party(match) %>
           </td>
           <td><%= match_mode match %></td>
           <td><%= match_time match %></td>

@@ -1,0 +1,29 @@
+<h1>
+  <%= hero_avatar @hero[:id] %>
+  <%= Hero.name @hero[:id] %>
+  <% if @profile %>
+    -
+    <small>
+      <%= avatar @profile %>
+      <%= @profile.name %>
+    </small>
+  <% end %>
+</h1>
+
+<div id="kda-chart" class="chart">
+  <div class="title">KDA</div>
+</div>
+
+<aside id="totals"><span id="active">-</span> of <span id="total">-</span> performances selected.</aside>
+
+<div id="lists">
+  <div id="players-list" class="list"></div>
+</div>
+
+<% content_for :bottom do %>
+  <script>
+    $(function(){
+      da.heroes.KDAHistogram('#kda-chart', "<%= kda_hero_path(params[:id], profile_id: @profile, format: :json) %>");
+    })
+  </script>
+<% end %>

@@ -25,4 +25,15 @@ module MatchesHelper
     return if match.nil?
     content_tag :span, match.lobby, class: "match-lobby"
   end
+
+  def match_party(match)
+    return content_tag :small, "No party data" unless !match.profiles.try(:empty?)
+    return party_link match.parties.by_size.first if match.profiles && match.profiles.following.length > 1 && match.parties
+    avatar match.profiles.following.first
+  end
+
+  def match_heroes(match, team=nil)
+    players = team.nil? ? match.players : (team == :radiant ? match.players.radiant : match.players.dire)
+    players.collect { |player| hero_avatar player.hero_id, class: ("hero-avatar-dim" unless player.profile.try(:follow?)) }.join(' ').html_safe
+  end
 end

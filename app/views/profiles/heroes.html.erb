@@ -23,8 +23,10 @@
     <% for hero in @heroes %>
       <tr>
         <td>
-          <%= hero_avatar hero[:hero_id] %>
-          <%= Hero.name hero[:hero_id] %>
+          <%= link_to hero_path(hero[:hero_id], profile_id: @profile) do %>
+            <%= hero_avatar hero[:hero_id] %>
+            <%= Hero.name hero[:hero_id] %>
+          <% end %>
         </td>
         <td><%= hero[:count] %></td>
         <td><%= (hero[:kills].to_f / hero[:count].to_f).to_i %></td>

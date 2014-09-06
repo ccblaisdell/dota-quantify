@@ -1,6 +1,7 @@
 module PlayersHelper
-  def hero_avatar(hero_id)
-    image_tag Hero.avatar_for(hero_id), class: "hero-avatar" unless hero_id == 0
+  def hero_avatar(hero_id, options={})
+    options[:class] = [options[:class], "hero-avatar"].join(' ')
+    image_tag Hero.avatar_for(hero_id), options unless hero_id == 0
   end
 
   def player_kda(player)

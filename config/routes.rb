@@ -1,4 +1,10 @@
 DotaQuantify::Application.routes.draw do
+  resources :heros do
+    member do
+      get :kda
+    end
+  end
+
   resources :parties
 
   resources :matches do

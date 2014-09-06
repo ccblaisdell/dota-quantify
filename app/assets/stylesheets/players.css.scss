@@ -12,6 +12,20 @@
   background: #888;
   vertical-align: middle;
 }
+.hero-avatar-dim {
+  opacity: 0.5;
+  -webkit-filter: grayscale(100%);
+  &:hover {
+    opacity: 1;
+    -webkit-filter: none;
+  }
+}
+tr:hover {
+  .hero-avatar-dim {
+    opacity: 1;
+    -webkit-filter: none;
+  }
+}
 
 // Team table
 .team-hero {

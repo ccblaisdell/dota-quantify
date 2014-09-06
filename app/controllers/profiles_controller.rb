@@ -1,5 +1,5 @@
 class ProfilesController < ApplicationController
-  before_action :set_profile, only: [:show, :edit, :update, :heroes, :matches]
+  before_action :set_profile, only: [:show, :edit, :update, :hero, :heroes, :matches]
 
   # GET /profiles
   # GET /profiles.json

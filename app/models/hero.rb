@@ -554,8 +554,12 @@ class Hero
     }
   ]
 
+  def self.find(id)
+    NAMES.select {|hero| hero[:id] == id.to_i}.first
+  end
+
   def self.name(id)
-    NAMES.select {|hero| hero[:id] == id}.first[:localized_name]
+    Hero.find(id)[:localized_name]
   end
 
   # Download hero images
@@ -579,7 +583,7 @@ class Hero
   end
 
   def self.avatar_for(hero_id, size=:small)
-    hero = NAMES.select {|hero| hero[:id] == hero_id}.first
+    hero = Hero.find(hero_id)
     'heroes/' + Hero.hero_name(hero) + Hero.image_suffix(size)
   end
 

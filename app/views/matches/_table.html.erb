@@ -2,13 +2,12 @@
 <thead>
   <tr>
     <th></th>
-    <% for profile in Profile.following %>
-      <th><%= avatar profile %></th>
-    <% end %>
+    <th>Players</th>
     <th>Mode</th>
-    <th>Lobby</th>
-    <th>When</th>
     <th>Duration</th>
+    <th>Date</th>
+    <th>Radiant</th>
+    <th>Dire</th>
   </tr>
 </thead>
 
@@ -16,13 +15,12 @@
   <% matches.each do |match| %>
     <tr>
       <td><%= link_to match_outcome(match), match %></td>
-      <% for profile in Profile.following %>
-        <td><%= avatar(profile) if match.profiles.include?(profile) %></td>
-      <% end %>
+      <td><%= match_party(match) %></td>
       <td><%= match.mode %></td>
-      <td><%= match.lobby %></td>
-      <td><%= time_ago match.end %></td>
       <td><%= match_duration match %></td>
+      <td><%= time_ago match.end %></td>
+      <td><%= match_heroes match, :radiant %></td>
+      <td><%= match_heroes match, :dire %></td>
     </tr>
   <% end %>
 </tbody>
