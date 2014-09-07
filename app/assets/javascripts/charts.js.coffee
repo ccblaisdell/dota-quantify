@@ -83,7 +83,7 @@ da.charts =
             d3.scale.linear()
               .domain([0, Math.ceil( d3.max(players, (d) -> d.xpm) / 50 ) * 50])
           )
-          .xUnits -> 20
+          .xUnits -> xpms.size()
       xpmChart.yAxis().ticks(5)
 
       #dc.barchart('#gpm-chart')
@@ -118,7 +118,7 @@ da.charts =
             d3.scale.linear()
               .domain([
                 0
-                Math.ceil( d3.max(players, (d) -> d.duration) / 60 )
+                Math.ceil( d3.max(players, (d) -> d.duration) / 60 ) + 1
               ])
           )
           .xUnits -> durations.size()
@@ -129,10 +129,9 @@ da.charts =
           .margins({top: 10, right: 10, bottom: 20, left: 30})
           .dimension(date)
           .group(dates)
-          .centerBar(true)
           .elasticY(true)
-          # .round(d3.time.week.round)
-          # .alwaysUseRounding(true)
+          .round(d3.time.week.round)
+          .alwaysUseRounding(true)
           .x(d3.time.scale().domain(d3.extent(players, (d) -> d.start)))
           .xUnits(d3.time.weeks)
       volumeChart.yAxis().ticks(5)
@@ -144,6 +143,15 @@ da.charts =
           .dimension(outcome)
           .group(outcomes)
           .renderLabel(true)
+
+      # Data count
+      dc.dataCount('#data-count')
+          .dimension(player)
+          .group(all)
+          .html({
+            some: "<strong>%filter-count</strong> selected out of <strong>%total-count</strong> records | <a href='javascript:dc.filterAll(); dc.renderAll();'>Reset All</a>",
+            all: "All records selected."
+          })
 
 
       dc.renderAll()
