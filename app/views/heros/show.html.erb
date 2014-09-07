@@ -45,6 +45,13 @@
   </div>
 </div>
 
+<div id="volume-chart" class="chart">
+  <div class="title">
+    By week
+    <%= link_to "reset", "javascript:volumeChart.filterAll();dc.redrawAll();", class: :reset, style: "display:none;" %>
+  </div>
+</div>
+
 <aside id="totals"><span id="active">-</span> of <span id="total">-</span> performances selected.</aside>
 
 <div id="lists">

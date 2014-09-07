@@ -11,7 +11,19 @@ class HerosController < ApplicationController
   end
 
   def kda
-    fields = [:kda_ratio, :kills, :deaths, :assists, :won, :outcome, :xpm, :gpm, :duration]
+    fields = [
+      :kda_ratio, 
+      :kills, 
+      :deaths, 
+      :assists, 
+      :won, 
+      :outcome, 
+      :xpm, 
+      :gpm, 
+      :duration, 
+      :start,
+      :adjusted_start
+    ]
     if @profile
       @players = @profile.players.where(hero_id: @hero[:id]).only(fields)
     else

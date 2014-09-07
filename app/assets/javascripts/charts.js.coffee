@@ -7,15 +7,20 @@ da.charts =
     window.xpmChart = dc.barChart('#xpm-chart')
     window.gpmChart = dc.barChart('#gpm-chart')
     window.durationChart = dc.barChart('#duration-chart')
+    window.volumeChart = dc.barChart('#volume-chart')
 
     # Fetch the data and do all the stuff
     d3.json url, (error, players) ->
 
       # Formatters for later use
       formatNumber = d3.format(',d')
+      formatDate = d3.time.format("%m/%d/%Y")
 
       # Coerce data
-      # players.forEach (d, i) -> d.kda_ratio = +d.kda_ratio
+      players.forEach (d, i) -> 
+        d.start = new Date(d.adjusted_start)
+        d.date = formatDate(d.start)
+        d.week = d3.time.week(d.start) # Precalculate week for better performance
 
       # Create crossfilter groups and dimensions
       player = crossfilter(players)
@@ -36,8 +41,10 @@ da.charts =
       duration = player.dimension (d) -> d.duration / 60
       durations = duration.group (d) -> Math.floor(d / 5) * 5
 
-      # xpm = kda
-      # xpms = kdas
+      # date = player.dimension (d) -> d.week
+      # dates = date.group d3.time.weeks
+      date = player.dimension (d) -> d.week
+      dates = date.group()
 
       # dc.barChart('#kda-chart')
       kdaChart_width = Math.floor(d3.max(players, (d) -> d.kda_ratio)) + 1
@@ -116,6 +123,19 @@ da.charts =
           )
           .xUnits -> durations.size()
       durationChart.yAxis().ticks(5)
+
+      volumeChart.width(820)
+          .height(100)
+          .margins({top: 10, right: 10, bottom: 20, left: 30})
+          .dimension(date)
+          .group(dates)
+          .centerBar(true)
+          .elasticY(true)
+          # .round(d3.time.week.round)
+          # .alwaysUseRounding(true)
+          .x(d3.time.scale().domain(d3.extent(players, (d) -> d.start)))
+          .xUnits(d3.time.weeks)
+      volumeChart.yAxis().ticks(5)
 
       # dc.pieChart('#outcome-chart')
       outcomeChart.width(100)

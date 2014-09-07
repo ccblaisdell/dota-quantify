@@ -124,6 +124,10 @@ class Player
     ((kills.to_f + assists.to_f) / deaths.to_f)
   end
 
+  def adjusted_start
+    start - 5.hours
+  end
+
   # The match API returns a 32 bit dota account ID,
   # which can't directly be used to look up a profile
   # http://dev.dota2.com/showthread.php?t=108926

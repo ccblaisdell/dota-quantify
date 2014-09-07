@@ -5,5 +5,6 @@ json.array!(@players) do |player|
     :outcome,
     :xpm,
     :gpm,
-    :duration
+    :duration,
+    :adjusted_start
 end

@@ -5,6 +5,11 @@
 // Histogram stuff copied from 
 // https://github.com/square/crossfilter/blob/gh-pages/index.html
 
+.chart {
+  float: left;
+  margin: 0 20px 20px 0;
+}
+
 .background.bar,
 .bar.deselected {
   fill: #ccc;
