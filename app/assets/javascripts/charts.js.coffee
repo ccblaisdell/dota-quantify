@@ -161,8 +161,8 @@ da.charts =
             format = d3.format("02d")
             d.start.getFullYear() + "/" + format(d.start.getMonth() + 1)
           .columns([
-            ((d) -> console.log(this); React.renderComponentToString(PlayerOutcome({outcome: d.outcome}), this)),
-            ((d) -> Math.floor(d.duration / 60)),
+            ((d) -> React.renderComponentToString(PlayerOutcome({outcome: d.outcome}), this)),
+            ((d) -> React.renderComponentToString(MatchDuration({duration: d.duration}), this)),
             ((d) -> d.date),
             ((d) -> d.kills),
             ((d) -> d.deaths),
