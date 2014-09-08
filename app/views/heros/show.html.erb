@@ -56,14 +56,24 @@
   <span class="filter-count"></span> selected out of <span class="total-count"></span> records
 </div>
 
-<div id="lists">
-  <div id="players-list" class="list"></div>
-</div>
+<table id="data-table">
+  <thead>
+    <tr>
+      <th><!-- Outcome --></th>
+      <th>Dur</th>
+      <th>Date</th>
+      <th>K</th>
+      <th>D</th>
+      <th>A</th>
+      <th>GPM</th>
+      <th>XPM</th>
+    </tr>
+  </thead>
+</table>
 
 <% content_for :bottom do %>
   <script>
     $(function(){
-      // da.heroes.KDAHistogram('#kda-chart', "<%= kda_hero_path(params[:id], profile_id: @profile, format: :json) %>");
       da.charts.performances("<%= kda_hero_path(params[:id], profile_id: @profile, format: :json) %>");
     })
   </script>

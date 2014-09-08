@@ -41,10 +41,11 @@ da.charts =
       duration = player.dimension (d) -> d.duration / 60
       durations = duration.group (d) -> Math.floor(d / 5) * 5
 
-      # date = player.dimension (d) -> d.week
-      # dates = date.group d3.time.weeks
-      date = player.dimension (d) -> d.week
-      dates = date.group()
+      week = player.dimension (d) -> d.week
+      weeks = week.group()
+
+      date = player.dimension (d) -> d.date
+      # dates = date.group(d3.time.days)
 
       # dc.barChart('#kda-chart')
       kdaChart_width = Math.floor(d3.max(players, (d) -> d.kda_ratio)) + 1
@@ -127,8 +128,8 @@ da.charts =
       volumeChart.width(820)
           .height(100)
           .margins({top: 10, right: 10, bottom: 20, left: 30})
-          .dimension(date)
-          .group(dates)
+          .dimension(week)
+          .group(weeks)
           .elasticY(true)
           .round(d3.time.week.round)
           .alwaysUseRounding(true)
@@ -152,6 +153,25 @@ da.charts =
             some: "<strong>%filter-count</strong> selected out of <strong>%total-count</strong> records | <a href='javascript:dc.filterAll(); dc.renderAll();'>Reset All</a>",
             all: "All records selected."
           })
+
+      # The table at the bottom of the page
+      dc.dataTable("#data-table")
+          .dimension(date)
+          .group (d) ->
+            format = d3.format("02d")
+            d.start.getFullYear() + "/" + format(d.start.getMonth() + 1)
+          .columns([
+            ((d) -> console.log(this); React.renderComponentToString(PlayerOutcome({outcome: d.outcome}), this)),
+            ((d) -> Math.floor(d.duration / 60)),
+            ((d) -> d.date),
+            ((d) -> d.kills),
+            ((d) -> d.deaths),
+            ((d) -> d.assists),
+            ((d) -> d.gpm),
+            ((d) -> d.xpm)
+          ])
+          .sortBy (d) -> d.date
+          .order d3.descending
 
 
       dc.renderAll()
