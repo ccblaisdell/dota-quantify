@@ -9,5 +9,6 @@ json.array!(@players) do |player|
     :xpm,
     :gpm,
     :duration,
-    :adjusted_start
+    :adjusted_start,
+    :hero_id
 end

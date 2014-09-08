@@ -119,7 +119,7 @@ da.charts =
             d3.scale.linear()
               .domain([
                 0
-                Math.ceil( d3.max(players, (d) -> d.duration) / 60 ) + 1
+                Math.ceil( d3.max(players, (d) -> d.duration) / 60 ) + 5
               ])
           )
           .xUnits -> durations.size()
@@ -162,6 +162,7 @@ da.charts =
             d.start.getFullYear() + "/" + format(d.start.getMonth() + 1)
           .columns([
             ((d) -> React.renderComponentToString(PlayerOutcome({outcome: d.outcome}), this)),
+            ((d) -> React.renderComponentToString(HeroAvatar({hero_id: d.hero_id}), this)),
             ((d) -> React.renderComponentToString(MatchDuration({duration: d.duration}), this)),
             ((d) -> d.date),
             ((d) -> d.kills),
