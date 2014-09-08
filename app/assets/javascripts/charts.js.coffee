@@ -113,7 +113,7 @@ da.charts =
           .dimension(duration)
           .group(durations)
           .elasticY(true)
-          .round (d) -> Math.floor(d / 5) * 5
+          .round (d) -> Math.ceil(d / 5) * 5
           .alwaysUseRounding(true)
           .x(
             d3.scale.linear()

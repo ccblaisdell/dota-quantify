@@ -12,9 +12,9 @@ class HerosController < ApplicationController
 
   def kda
     if @profile
-      @players = @profile.players.where(hero_id: @hero[:id])
+      @players = @profile.players.real.where(hero_id: @hero[:id])
     else
-      @players = Player.where(hero_id: @hero[:id])
+      @players = Player.real.where(hero_id: @hero[:id])
     end
   end
 

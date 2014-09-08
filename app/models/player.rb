@@ -62,6 +62,26 @@ class Player
   scope :dire, ->{ where :slot.gte => 128 }
   scope :by_slot, ->{ order_by(:slot.asc) }
   scope :by_profile, ->(id){ where profile_id: id }
+  scope :real, ->{ 
+    where :duration.gte => 600, 
+    :lobby.nin => [
+      'Invalid',
+      'Practice',
+      'Tournament',
+      'Tutorial',
+      'Co-op with bots'
+    ], :mode.nin => [
+      '?? INTRO/DEATH ??',
+      'The Diretide',
+      'Reverse Captains Mode',
+      'Greeviling',
+      'Tutorial',
+      'Mid Only',
+      'Compendium Matchmaking',
+      'Custom',
+      'Ability Draft'
+    ]
+  }
 
   def self.attributes_from_steam_players(players, match)
     players.collect do |player|
