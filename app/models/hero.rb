@@ -584,6 +584,7 @@ class Hero
 
   def self.avatar_for(hero_id, size=:small)
     hero = Hero.find(hero_id)
+    return nil if hero.nil?
     'heroes/' + Hero.hero_name(hero) + Hero.image_suffix(size)
   end
 
