@@ -1,0 +1,71 @@
+<h1>Charts</h1>
+
+<div id="kda-chart" class="chart">
+  <div class="title">
+    KDA
+    <%= link_to "reset", "javascript:kdaChart.filterAll();dc.redrawAll();", class: :reset, style: "display:none;" %>
+  </div>
+</div>
+
+<div id="duration-chart" class="chart">
+  <div class="title">
+    Match duration
+    <%= link_to "reset", "javascript:durationChart.filterAll();dc.redrawAll();", class: :reset, style: "display:none;" %>
+  </div>
+</div>
+
+<div id="outcome-chart" class="chart">
+  <div class="title">
+    Outcome
+    <%= link_to "reset", "javascript:outcomeChart.filterAll();dc.redrawAll();", class: :reset, style: "display:none;" %>
+  </div>
+</div>
+
+<div id="xpm-chart" class="chart">
+  <div class="title">
+    XPM
+    <%= link_to "reset", "javascript:xpmChart.filterAll();dc.redrawAll();", class: :reset, style: "display:none;" %>
+  </div>
+</div>
+
+<div id="gpm-chart" class="chart">
+  <div class="title">
+    GPM
+    <%= link_to "reset", "javascript:gpmChart.filterAll();dc.redrawAll();", class: :reset, style: "display:none;" %>
+  </div>
+</div>
+
+<div id="volume-chart" class="chart">
+  <div class="title">
+    By week
+    <%= link_to "reset", "javascript:volumeChart.filterAll();dc.redrawAll();", class: :reset, style: "display:none;" %>
+  </div>
+</div>
+
+<div id="data-count">
+  <span class="filter-count"></span> selected out of <span class="total-count"></span> records
+</div>
+
+<table id="data-table">
+  <thead>
+    <tr>
+      <th><!-- Outcome --></th>
+      <th>Hero</th>
+      <th>Dur</th>
+      <th>Date</th>
+      <th>K</th>
+      <th>D</th>
+      <th>A</th>
+      <th>GPM</th>
+      <th>XPM</th>
+    </tr>
+  </thead>
+</table>
+
+<% content_for :bottom do %>
+  <script>
+    $(function(){
+      da.charts.performances("<%= charts_data_players_path(params[:id], profile_id: @profile, format: :json) %>");
+    })
+  </script>
+<% end %>

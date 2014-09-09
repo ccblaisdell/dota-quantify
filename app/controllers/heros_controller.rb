@@ -14,7 +14,8 @@ class HerosController < ApplicationController
     if @profile
       @players = @profile.players.real.where(hero_id: @hero[:id])
     else
-      @players = Player.real.where(hero_id: @hero[:id])
+      @players = Player.following.real.where(hero_id: @hero[:id])
+      # @players = Player.following.real
     end
   end
 

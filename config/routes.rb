@@ -30,6 +30,10 @@ DotaQuantify::Application.routes.draw do
   end
 
   resources :players, path: "/performances" do
+    collection do
+      get 'charts'
+      get 'charts_data'
+    end
   end
 
   get 'reports/:type/:year(/:month(/:day))' => 'reports#show', as: "report"

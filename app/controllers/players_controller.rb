@@ -7,6 +7,13 @@ class PlayersController < ApplicationController
     get_kda_max(@players)
   end
 
+  def charts
+  end
+
+  def charts_data
+    @players = Player.following.real.where(hero_id: 106)
+  end
+
   def update
     @player.update_attributes profile_params
     render text: @player.role and return if request.xhr?
