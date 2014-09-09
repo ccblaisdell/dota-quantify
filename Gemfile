@@ -28,7 +28,6 @@ gem 'jbuilder', '~> 1.2'
 
 # Support for React.js, and JSX in the asset pipeline
 gem 'react-rails', '~> 1.0.0.pre', github: 'reactjs/react-rails'
-gem "therubyracer", :platforms => :ruby
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
