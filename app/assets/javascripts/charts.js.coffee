@@ -8,6 +8,10 @@ da.charts =
     window.gpmChart = dc.barChart('#gpm-chart')
     window.durationChart = dc.barChart('#duration-chart')
     window.volumeChart = dc.barChart('#volume-chart')
+    window.heroesChart = document.getElementById('heroes-filter')
+
+    # Do not throttle brush events
+    dc.constants.EVENT_DELAY = 0
 
     # Fetch the data and do all the stuff
     d3.json url, (error, players) ->
@@ -28,7 +32,7 @@ da.charts =
 
       kda = player.dimension (d) -> d.kda_ratio
       # kdas = kda.group (d) -> Math.pow(2, Math.floor(Math.log(d)/Math.log(2)))
-      kdas = kda.group (d) -> Math.pow(1.4, Math.floor(Math.log(d)/Math.log(1.4)))
+      kdas = kda.group (d) -> Math.pow(Math.sqrt(2), Math.round(Math.log(d)/Math.log(Math.sqrt(2))))
       
       outcome = player.dimension (d) -> d.outcome
       outcomes = outcome.group()
@@ -46,7 +50,10 @@ da.charts =
       weeks = week.group()
 
       date = player.dimension (d) -> d.date
-      # dates = date.group(d3.time.days)
+
+      hero = player.dimension (d) -> d.hero_id
+      heroes = hero.group().reduceCount (d) -> d.hero_id
+      window.hero = hero
 
       # dc.barChart('#kda-chart')
       kdaChart_width = Math.ceil(d3.max(players, (d) -> d.kda_ratio))
@@ -62,6 +69,8 @@ da.charts =
               .base(2)
           )
           .xUnits -> kdas.size()
+          .centerBar(true)
+          .transitionDuration(100)
 
           # Customize the filter displayed in the control span
           .filterPrinter (filters) ->
@@ -81,11 +90,9 @@ da.charts =
           .elasticY(true)
           .round (d) -> Math.floor(d / 50) * 50
           .alwaysUseRounding(true)
-          .x(
-            d3.scale.linear()
-              .domain([0, Math.ceil( d3.max(players, (d) -> d.xpm) / 50 ) * 50])
-          )
-          .xUnits -> xpms.size()
+          .x(d3.scale.linear().domain([0, Math.ceil( d3.max(players, (d) -> d.xpm) / 50 ) * 50]))
+          .xUnits -> xpmChart.x().domain()[1] / 50
+          .transitionDuration(100)
       xpmChart.yAxis().ticks(5)
 
       #dc.barchart('#gpm-chart')
@@ -100,11 +107,12 @@ da.charts =
           .x(
             d3.scale.linear()
               .domain([
-                Math.floor( d3.min(players, (d) -> d.gpm) / 50 ) * 50,
+                0,
                 Math.ceil( d3.max(players, (d) -> d.gpm) / 50 ) * 50
               ])
           )
-          .xUnits -> gpms.size()
+          .xUnits -> gpmChart.x().domain()[1] / 50
+          .transitionDuration(100)
       gpmChart.yAxis().ticks(5)
 
       #dc.barchart('#duration-chart')
@@ -119,11 +127,12 @@ da.charts =
           .x(
             d3.scale.linear().nice()
               .domain([
-                0
-                Math.ceil( d3.max(players, (d) -> d.duration) / 60 ) + 5
-              ])
+                0,
+                Math.ceil( d3.max(players, (d) -> d.duration) / 60 )
+              ]).nice()
           )
-          .xUnits -> durations.size()
+          .xUnits -> durationChart.x().domain()[1] / 5 # durations.size()
+          .transitionDuration(100)
       durationChart.yAxis().ticks(5)
 
       volumeChart.width(820)
@@ -136,6 +145,7 @@ da.charts =
           .alwaysUseRounding(true)
           .x(d3.time.scale().domain(d3.extent(players, (d) -> d.start)))
           .xUnits(d3.time.weeks)
+          .transitionDuration(100)
       volumeChart.yAxis().ticks(5)
 
       # dc.pieChart('#outcome-chart')
@@ -145,6 +155,7 @@ da.charts =
           .dimension(outcome)
           .group(outcomes)
           .renderLabel(true)
+          .transitionDuration(100)
 
       # Data count
       dc.dataCount('#data-count')
@@ -175,5 +186,6 @@ da.charts =
           .sortBy (d) -> d.date
           .order d3.descending
 
+      React.renderComponent( HeroesWidget({heroes: heroes.top(Infinity)}), heroesChart )
 
       dc.renderAll()
