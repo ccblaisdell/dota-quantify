@@ -28,7 +28,7 @@ da.charts =
 
       kda = player.dimension (d) -> d.kda_ratio
       # kdas = kda.group (d) -> Math.pow(2, Math.floor(Math.log(d)/Math.log(2)))
-      kdas = kda.group (d) -> Math.pow(1.5, Math.floor(Math.log(d)/Math.log(1.5)))
+      kdas = kda.group (d) -> Math.pow(1.4, Math.floor(Math.log(d)/Math.log(1.4)))
       
       outcome = player.dimension (d) -> d.outcome
       outcomes = outcome.group()
@@ -52,11 +52,10 @@ da.charts =
       kdaChart_width = Math.ceil(d3.max(players, (d) -> d.kda_ratio))
       kdaChart.width(400)
           .height(100)
-          .margins({top: 10, right: 10, bottom: 20, left: 30})
+          .margins({top: 10, right: 10, bottom: 20, left: 40})
           .dimension(kda)
           .group(kdas)
           .elasticY(true)
-          
           .x(
             d3.scale.log()
               .domain([0.1, kdaChart_width])
@@ -76,7 +75,7 @@ da.charts =
       #dc.barchart('#xpm-chart')
       xpmChart.width(400)
           .height(100)
-          .margins({top: 10, right: 10, bottom: 20, left: 30})
+          .margins({top: 10, right: 10, bottom: 20, left: 40})
           .dimension(xpm)
           .group(xpms)
           .elasticY(true)
@@ -92,7 +91,7 @@ da.charts =
       #dc.barchart('#gpm-chart')
       gpmChart.width(400)
           .height(100)
-          .margins({top: 10, right: 10, bottom: 20, left: 30})
+          .margins({top: 10, right: 10, bottom: 20, left: 40})
           .dimension(gpm)
           .group(gpms)
           .elasticY(true)
@@ -111,7 +110,7 @@ da.charts =
       #dc.barchart('#duration-chart')
       durationChart.width(400)
           .height(100)
-          .margins({top: 10, right: 10, bottom: 20, left: 30})
+          .margins({top: 10, right: 10, bottom: 20, left: 40})
           .dimension(duration)
           .group(durations)
           .elasticY(true)
@@ -129,7 +128,7 @@ da.charts =
 
       volumeChart.width(820)
           .height(100)
-          .margins({top: 10, right: 10, bottom: 20, left: 30})
+          .margins({top: 10, right: 10, bottom: 20, left: 40})
           .dimension(week)
           .group(weeks)
           .elasticY(true)
@@ -163,7 +162,7 @@ da.charts =
             format = d3.format("02d")
             d.start.getFullYear() + "/" + format(d.start.getMonth() + 1)
           .columns([
-            ((d) -> React.renderComponentToString( PlayerOutcome({outcome: d.outcome}), this)),
+            ((d) -> React.renderComponentToString( PlayerOutcome({outcome: d.outcome, url: d.url}), this)),
             ((d) -> React.renderComponentToString( HeroAvatar({hero_id: d.hero_id}), this) + " " + d.name ),
             ((d) -> React.renderComponentToString( MatchDuration({duration: d.duration}), this) ),
             ((d) -> d.date),

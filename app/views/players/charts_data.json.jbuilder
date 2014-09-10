@@ -21,4 +21,5 @@ json.array!(@players) do |player|
     :hero_healing,
     :tower_damage,
     :items
+  json.url match_url(player.match)
 end
