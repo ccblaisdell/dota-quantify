@@ -44,7 +44,8 @@ da.charts =
       gpms = gpm.group (d) -> Math.floor(d / 50) * 50
       
       duration = player.dimension (d) -> d.duration / 60
-      durations = duration.group (d) -> Math.floor(d / 5) * 5
+      duration_bucket_division = 5
+      durations = duration.group (d) -> Math.floor(d / duration_bucket_division) * duration_bucket_division
 
       week = player.dimension (d) -> d.week
       weeks = week.group()
@@ -122,7 +123,7 @@ da.charts =
           .dimension(duration)
           .group(durations)
           .elasticY(true)
-          .round (d) -> Math.floor(d / 5) * 5
+          .round (d) -> Math.floor(d / duration_bucket_division) * duration_bucket_division
           .alwaysUseRounding(true)
           .x(
             d3.scale.linear().nice()
@@ -131,7 +132,7 @@ da.charts =
                 Math.ceil( d3.max(players, (d) -> d.duration) / 60 )
               ]).nice()
           )
-          .xUnits -> durationChart.x().domain()[1] / 5 # durations.size()
+          .xUnits -> durationChart.x().domain()[1] / duration_bucket_division # durations.size()
           .transitionDuration(100)
       durationChart.yAxis().ticks(5)
 
@@ -183,7 +184,7 @@ da.charts =
             ((d) -> d.gpm),
             ((d) -> d.xpm)
           ])
-          .sortBy (d) -> d.date
+          .sortBy (d) -> d.start.valueOf()
           .order d3.descending
 
       React.renderComponent( HeroesWidget({heroes: heroes.top(Infinity)}), heroesChart )
