@@ -27,8 +27,8 @@ da.charts =
       all = player.groupAll()
 
       kda = player.dimension (d) -> d.kda_ratio
-      kdas = kda.group (d) -> d
-      # kdas = kda.group(Math.floor)
+      # kdas = kda.group (d) -> Math.pow(2, Math.floor(Math.log(d)/Math.log(2)))
+      kdas = kda.group (d) -> Math.pow(1.5, Math.floor(Math.log(d)/Math.log(1.5)))
       
       outcome = player.dimension (d) -> d.outcome
       outcomes = outcome.group()
@@ -57,16 +57,12 @@ da.charts =
           .group(kdas)
           .elasticY(true)
           
-          # Filter brush rounding
-          # .round(dc.round.floor)
-          # .alwaysUseRounding(true)
-          
           .x(
             d3.scale.log()
               .domain([0.1, kdaChart_width])
               .base(2)
           )
-          # .x(d3.scale.linear().domain([0, kdaChart_width]))
+          .xUnits -> kdas.size()
 
           # Customize the filter displayed in the control span
           .filterPrinter (filters) ->
@@ -74,7 +70,7 @@ da.charts =
             formatNumber(filter[0]) + " -> " + formatNumber(filter[1])
 
       # Customize axis
-      kdaChart.xAxis().tickFormat (d) -> kdaChart.x().tickFormat(5, ",g.2s")(d)
+      kdaChart.xAxis().tickFormat (d) -> kdaChart.x().tickFormat(5, ",g.2")(d)
       kdaChart.yAxis().ticks(5)
 
       #dc.barchart('#xpm-chart')
