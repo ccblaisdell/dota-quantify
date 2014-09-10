@@ -11,7 +11,8 @@ class PlayersController < ApplicationController
   end
 
   def charts_data
-    @players = Player.following.real.where(hero_id: 106)
+    @players = Player.following.real.in(hero_id: 0..10)
+    # @players = Player.following.real#.where(hero_id: 106)
   end
 
   def update

@@ -141,6 +141,7 @@ class Player
 
   def kda_ratio
     return kills + assists if deaths < 1
+    return 1 / deaths if kills + assists < 1
     ((kills.to_f + assists.to_f) / deaths.to_f)
   end
 

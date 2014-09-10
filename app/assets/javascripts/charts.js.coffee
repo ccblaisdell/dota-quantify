@@ -27,7 +27,8 @@ da.charts =
       all = player.groupAll()
 
       kda = player.dimension (d) -> d.kda_ratio
-      kdas = kda.group(Math.floor)
+      kdas = kda.group (d) -> d
+      # kdas = kda.group(Math.floor)
       
       outcome = player.dimension (d) -> d.outcome
       outcomes = outcome.group()
@@ -48,7 +49,7 @@ da.charts =
       # dates = date.group(d3.time.days)
 
       # dc.barChart('#kda-chart')
-      kdaChart_width = Math.floor(d3.max(players, (d) -> d.kda_ratio)) + 1
+      kdaChart_width = Math.ceil(d3.max(players, (d) -> d.kda_ratio))
       kdaChart.width(400)
           .height(100)
           .margins({top: 10, right: 10, bottom: 20, left: 30})
@@ -57,10 +58,15 @@ da.charts =
           .elasticY(true)
           
           # Filter brush rounding
-          .round(dc.round.floor)
-          .alwaysUseRounding(true)
+          # .round(dc.round.floor)
+          # .alwaysUseRounding(true)
           
-          .x(d3.scale.linear().domain([0, kdaChart_width]))
+          .x(
+            d3.scale.log()
+              .domain([0.1, kdaChart_width])
+              .base(2)
+          )
+          # .x(d3.scale.linear().domain([0, kdaChart_width]))
 
           # Customize the filter displayed in the control span
           .filterPrinter (filters) ->
@@ -68,7 +74,7 @@ da.charts =
             formatNumber(filter[0]) + " -> " + formatNumber(filter[1])
 
       # Customize axis
-      # kdaChart.xAxis().tickFormat (v) -> v + "%"
+      kdaChart.xAxis().tickFormat (d) -> kdaChart.x().tickFormat(5, ",g.2s")(d)
       kdaChart.yAxis().ticks(5)
 
       #dc.barchart('#xpm-chart')
@@ -113,10 +119,10 @@ da.charts =
           .dimension(duration)
           .group(durations)
           .elasticY(true)
-          .round (d) -> Math.ceil(d / 5) * 5
+          .round (d) -> Math.floor(d / 5) * 5
           .alwaysUseRounding(true)
           .x(
-            d3.scale.linear()
+            d3.scale.linear().nice()
               .domain([
                 0
                 Math.ceil( d3.max(players, (d) -> d.duration) / 60 ) + 5
@@ -161,9 +167,9 @@ da.charts =
             format = d3.format("02d")
             d.start.getFullYear() + "/" + format(d.start.getMonth() + 1)
           .columns([
-            ((d) -> React.renderComponentToString(PlayerOutcome({outcome: d.outcome}), this)),
-            ((d) -> React.renderComponentToString(HeroAvatar({hero_id: d.hero_id}), this)),
-            ((d) -> React.renderComponentToString(MatchDuration({duration: d.duration}), this)),
+            ((d) -> React.renderComponentToString( PlayerOutcome({outcome: d.outcome}), this)),
+            ((d) -> React.renderComponentToString( HeroAvatar({hero_id: d.hero_id}), this) + " " + d.name ),
+            ((d) -> React.renderComponentToString( MatchDuration({duration: d.duration}), this) ),
             ((d) -> d.date),
             ((d) -> d.kills),
             ((d) -> d.deaths),
