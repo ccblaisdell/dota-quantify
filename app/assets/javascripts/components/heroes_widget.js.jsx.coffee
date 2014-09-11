@@ -7,9 +7,12 @@ HeroesWidget = React.createClass
       {this.props.heroes.map(this.heroWidget)}
     </select>`
 
-  heroWidget: (hero) -> this.option(hero.key, hero.key, hero.key)
+  heroWidget: (hero) -> 
+    hero_name = if da.heroes[hero.key] then da.heroes[hero.key][1] else "--no hero--"
+    this.option(hero.key, hero.key, "#{hero_name} (#{hero.value})")
 
-  option: (key, value, text) -> `<option key={key} value={value}>{text}</option>`
+  option: (key, value, text) -> 
+    `<option key={key} value={value}>{text}</option>`
 
   handleChange: (e) ->
     if e.target.value then hero.filter(e.target.value) else hero.filterAll()
