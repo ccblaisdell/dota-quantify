@@ -9,6 +9,7 @@ da.charts =
     window.durationChart = dc.barChart('#duration-chart')
     window.volumeChart = dc.barChart('#volume-chart')
     window.heroesChart = document.getElementById('heroes-filter')
+    window.profilesChart = document.getElementById('names-filter')
 
     $('#data-count').on 'click', -> 
       $(document).trigger("filterAll")
@@ -58,6 +59,10 @@ da.charts =
       hero = player.dimension (d) -> d.hero_id
       heroes = hero.group().reduceCount (d) -> d.hero_id
       window.hero = hero
+
+      profile = player.dimension (d) -> d.name
+      profiles = profile.group()
+      window.profile = profile
 
       # dc.barChart('#kda-chart')
       kdaChart_width = Math.ceil(d3.max(players, (d) -> d.kda_ratio))
@@ -191,5 +196,6 @@ da.charts =
           .order d3.descending
 
       React.renderComponent( HeroesWidget({heroes: heroes.top(Infinity)}), heroesChart )
+      React.renderComponent( NamesWidget({profiles: profiles.top(Infinity)}), profilesChart )
 
       dc.renderAll()
