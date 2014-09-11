@@ -10,6 +10,9 @@ da.charts =
     window.volumeChart = dc.barChart('#volume-chart')
     window.heroesChart = document.getElementById('heroes-filter')
 
+    $('#data-count').on 'click', -> 
+      $(document).trigger("filterAll")
+
     # Do not throttle brush events
     dc.constants.EVENT_DELAY = 0
 

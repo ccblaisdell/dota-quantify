@@ -2,11 +2,11 @@ source 'https://rubygems.org'
 
 ruby '2.0.0'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.0.3'
+gem 'rails', '4.1.5'
 
 
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 4.0.0'
+gem 'sass-rails', '~> 4.0.2'
 
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
@@ -25,6 +25,10 @@ gem 'turbolinks'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'
+
+# Cache big json responses
+gem 'jbuilder_cache_multi'
+gem 'dalli'
 
 # Support for React.js, and JSX in the asset pipeline
 gem 'react-rails', '~> 1.0.0.pre', github: 'reactjs/react-rails'
@@ -57,7 +61,6 @@ gem 'dota', git: 'https://github.com/ccblaisdell/dota.git', branch: "fix_match_w
 gem "figaro"
 
 # Work fetching and analysis in the background
-gem "delayed_job_mongoid", git: 'https://github.com/collectiveidea/delayed_job_mongoid.git'
 gem 'sucker_punch', '~> 1.0'
 
 # Run Heroku workers only when needed

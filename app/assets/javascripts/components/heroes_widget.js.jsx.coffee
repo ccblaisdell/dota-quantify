@@ -2,17 +2,27 @@
 
 HeroesWidget = React.createClass
   render: ->
-    console.log this.props.heroes
-    `<select name="heroes-widget" className="heroes-widget" onchange={this.handleChange}>
+    `<select name="heroes-widget" ref="select" className="heroes-widget" onChange={this.handleChange} onFilterAll={this.handleFilterAll}>
+      {this.option('blank', '' ,'')}
       {this.props.heroes.map(this.heroWidget)}
     </select>`
 
-  heroWidget: (hero) ->
-    `<option value={hero.key} key={hero.key}>{hero.key}</option>`
+  heroWidget: (hero) -> this.option(hero.key, hero.key, hero.key)
+
+  option: (key, value, text) -> `<option key={key} value={value}>{text}</option>`
 
   handleChange: (e) ->
-    console.log this, e.target.value, hero
-    hero.filter(e.target.value)
+    if e.target.value then hero.filter(e.target.value) else hero.filterAll()
     dc.redrawAll()
+
+  handleFilterAll: (e) -> 
+    this.reset()
+    hero.filterAll()
+
+  reset: -> $(this.refs.select.getDOMNode()).val('')
+
+  componentDidMount: -> $(document).on 'filterAll', this.handleFilterAll
+
+  componentWillUnmount: -> $(document).off 'filterAll', this.handleFilterAll
 
 window.HeroesWidget = HeroesWidget
