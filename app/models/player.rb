@@ -82,6 +82,11 @@ class Player
       'Ability Draft'
     ]
   }
+  scope :between, ->(start, stop) do
+    start = start + 5.hours
+    stop  = stop  + 5.hours
+    where(start: {'$gte' => start, '$lte' => stop})
+  end
 
   def self.attributes_from_steam_players(players, match)
     players.collect do |player|
