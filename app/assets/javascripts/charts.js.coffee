@@ -183,7 +183,7 @@ da.charts =
             d.start.getFullYear() + "/" + format(d.start.getMonth() + 1)
           .columns([
             ((d) -> React.renderComponentToString( PlayerOutcome({outcome: d.outcome, url: d.url}), this)),
-            ((d) -> React.renderComponentToString( HeroAvatar({hero_id: d.hero_id}), this) + " " + d.name ),
+            ((d) -> React.renderComponentToString( HeroAvatar({hero_id: d.hero_id, hero_avatar: d.hero_avatar}), this) + " " + d.name ),
             ((d) -> React.renderComponentToString( MatchDuration({duration: d.duration}), this) ),
             ((d) -> d.date),
             ((d) -> d.kills),

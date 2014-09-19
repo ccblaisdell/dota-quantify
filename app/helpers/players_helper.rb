@@ -4,6 +4,10 @@ module PlayersHelper
     image_tag Hero.avatar_for(hero_id), options unless hero_id == 0
   end
 
+  def hero_avatar_path(hero_id)
+    asset_path Hero.avatar_for(hero_id)
+  end
+
   def player_kda(player)
     player.kda
   end

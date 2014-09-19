@@ -8,8 +8,7 @@ HeroAvatar = React.createClass
   classes: ->
     ["hero-avatar", this.props.className].join ' '
 
-  imagePath: ->
-    "/assets/heroes/#{this.heroName(this.props.hero_id)}_sb.png"
+  imagePath: -> this.props.hero_avatar
 
   heroName: (id) -> da.heroes[id][0]
 

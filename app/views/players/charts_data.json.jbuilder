@@ -22,6 +22,7 @@ json.cache! @players do
       :hero_healing,
       :tower_damage,
       :items
+    json.hero_avatar hero_avatar_path(player.hero_id)
     json.url match_url(player.match)
   end
 end
