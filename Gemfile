@@ -90,5 +90,4 @@ group :production do
   # Use unicorn as the app server
   gem 'unicorn'
   gem "memcachier"
-  gem "rack-cache"
 end
