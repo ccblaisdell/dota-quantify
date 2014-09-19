@@ -15,7 +15,7 @@ da.charts =
       $(document).trigger("filterAll")
 
     # Do not throttle brush events
-    dc.constants.EVENT_DELAY = 0
+    # dc.constants.EVENT_DELAY = 0
 
     # Fetch the data and do all the stuff
     d3.json url, (error, players) ->
