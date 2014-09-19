@@ -112,6 +112,7 @@ GEM
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
+    memcachier (0.0.2)
     method_source (0.8.2)
     mime-types (1.25.1)
     minitest (5.4.1)
@@ -142,6 +143,8 @@ GEM
       binding_of_caller (>= 0.7)
       pry (>= 0.9.11)
     rack (1.5.2)
+    rack-cache (1.2)
+      rack (>= 0.4)
     rack-test (0.6.2)
       rack (>= 1.0)
     rails (4.1.5)
@@ -242,10 +245,12 @@ DEPENDENCIES
   jbuilder_cache_multi
   jquery-rails
   kaminari
+  memcachier
   mongoid!
   pry-rails
   pry-remote
   pry-stack_explorer
+  rack-cache
   rails (= 4.1.5)
   rails_12factor
   rails_best_practices
