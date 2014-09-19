@@ -1,5 +1,5 @@
-# json.cache! @players do
-  json.array! @players do |player|
+json.cache! @players do
+  json.cache_collection! @players do |player|
     json.extract! player, 
       :id, 
       :outcome,
@@ -25,4 +25,4 @@
     json.hero_avatar hero_avatar_path(player.hero_id)
     json.url match_url(player.match)
   end
-# end
+end
