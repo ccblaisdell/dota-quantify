@@ -1,3 +1,5 @@
+@import "base";
+
 // Place all the styles related to the Heros controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
@@ -9,6 +11,9 @@
   float: left;
   margin: 0 20px 20px 0;
 }
+
+._0 .bar, ._1 path { fill: $blue; }
+._1 .bar, ._0 path { fill: lighten($blue, 15%); }
 
 .background.bar,
 .bar.deselected {

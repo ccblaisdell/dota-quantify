@@ -31,6 +31,9 @@ da.charts =
       formatNumber = d3.format(',d')
       formatDate = d3.time.format("%m/%d/%Y")
 
+      winReducer = (d) -> d.outcome == 'won'
+      lossReducer = (d) -> d.outcome == 'lost'
+
       # Coerce data
       players.forEach (d, i) -> 
         d.start = new Date(d.adjusted_start)
@@ -42,24 +45,32 @@ da.charts =
       all = player.groupAll()
 
       kda = player.dimension (d) -> d.kda_ratio
-      # kdas = kda.group (d) -> Math.pow(2, Math.floor(Math.log(d)/Math.log(2)))
-      kdas = kda.group (d) -> Math.pow(Math.sqrt(2), Math.round(Math.log(d)/Math.log(Math.sqrt(2))))
+      groupKDAs = (d) -> Math.pow(Math.sqrt(2), Math.round(Math.log(d)/Math.log(Math.sqrt(2))))
+      kda_wins_group = kda.group(groupKDAs).reduceSum(winReducer)
+      kda_losses_group = kda.group(groupKDAs).reduceSum(lossReducer)
       
       outcome = player.dimension (d) -> d.outcome
       outcomes = outcome.group()
       
       xpm = player.dimension (d) -> d.xpm
-      xpms = xpm.group (d) -> Math.floor(d / 50) * 50
+      groupXPMs = (d) -> Math.floor(d / 50) * 50
+      xpm_wins_group = xpm.group(groupXPMs).reduceSum(winReducer)
+      xpm_losses_group = xpm.group(groupXPMs).reduceSum(lossReducer)
       
       gpm = player.dimension (d) -> d.gpm
-      gpms = gpm.group (d) -> Math.floor(d / 50) * 50
+      groupGPMs = (d) -> Math.floor(d / 50) * 50
+      gpm_wins_group = gpm.group(groupGPMs).reduceSum(winReducer)
+      gpm_losses_group = gpm.group(groupGPMs).reduceSum(lossReducer)
       
       duration = player.dimension (d) -> d.duration / 60
       duration_bucket_division = 5
-      durations = duration.group (d) -> Math.floor(d / duration_bucket_division) * duration_bucket_division
+      duration_group_function = (d) -> Math.floor(d / duration_bucket_division) * duration_bucket_division
+      duration_wins_group   = duration.group(duration_group_function).reduceSum(winReducer) 
+      duration_losses_group = duration.group(duration_group_function).reduceSum(lossReducer)
 
       week = player.dimension (d) -> d.week
-      weeks = week.group()
+      weekly_wins_group = week.group().reduceSum(winReducer)
+      weekly_losses_group = week.group().reduceSum(lossReducer)
 
       date = player.dimension (d) -> d.date
 
@@ -77,14 +88,15 @@ da.charts =
           .height(100)
           .margins({top: 10, right: 10, bottom: 20, left: 40})
           .dimension(kda)
-          .group(kdas)
+          .group(kda_wins_group)
+          .stack(kda_losses_group)
           .elasticY(true)
           .x(
             d3.scale.log()
               .domain([0.1, kdaChart_width])
               .base(2)
           )
-          .xUnits -> kdas.size()
+          .xUnits -> kda_wins_group.size()
           .centerBar(true)
           .transitionDuration(100)
 
@@ -102,7 +114,8 @@ da.charts =
           .height(100)
           .margins({top: 10, right: 10, bottom: 20, left: 40})
           .dimension(xpm)
-          .group(xpms)
+          .group(xpm_wins_group)
+          .stack(xpm_losses_group)
           .elasticY(true)
           .round (d) -> Math.floor(d / 50) * 50
           .alwaysUseRounding(true)
@@ -116,7 +129,8 @@ da.charts =
           .height(100)
           .margins({top: 10, right: 10, bottom: 20, left: 40})
           .dimension(gpm)
-          .group(gpms)
+          .group(gpm_wins_group)
+          .stack(gpm_losses_group)
           .elasticY(true)
           .round (d) -> Math.floor(d / 50) * 50
           .alwaysUseRounding(true)
@@ -136,7 +150,8 @@ da.charts =
           .height(100)
           .margins({top: 10, right: 10, bottom: 20, left: 40})
           .dimension(duration)
-          .group(durations)
+          .group(duration_wins_group)
+          .stack(duration_losses_group)
           .elasticY(true)
           .round (d) -> Math.floor(d / duration_bucket_division) * duration_bucket_division
           .alwaysUseRounding(true)
@@ -147,7 +162,7 @@ da.charts =
                 Math.ceil( d3.max(players, (d) -> d.duration) / 60 )
               ]).nice()
           )
-          .xUnits -> durationChart.x().domain()[1] / duration_bucket_division # durations.size()
+          .xUnits -> durationChart.x().domain()[1] / duration_bucket_division 
           .transitionDuration(100)
       durationChart.yAxis().ticks(5)
 
@@ -155,7 +170,8 @@ da.charts =
           .height(100)
           .margins({top: 10, right: 10, bottom: 20, left: 40})
           .dimension(week)
-          .group(weeks)
+          .group(weekly_wins_group)
+          .stack(weekly_losses_group)
           .elasticY(true)
           .round(d3.time.week.round)
           .alwaysUseRounding(true)

@@ -11,3 +11,5 @@ Todos
   - create an interface for manually tagging roles. Use this to train the system
 - line graphs for improvement
   - maybe trends in kda, gpm, xpm, winrate. or some combinated overall metric
+- stream graph of player's hero choices over time
+- make bar charts stacked with wins and losses
