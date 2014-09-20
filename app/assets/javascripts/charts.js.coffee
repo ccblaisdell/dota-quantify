@@ -1,6 +1,10 @@
 # Charts.coffee
 
 da.charts = 
+  handleError: (error) ->
+    $('.spinner-container')
+      .html("<p>Oops, the data didn't load! Refresh the page to try again.</p>")
+
   performances: (url) ->
     window.kdaChart = dc.barChart('#kda-chart')
     window.outcomeChart = dc.pieChart('#outcome-chart')
@@ -19,7 +23,9 @@ da.charts =
 
     # Fetch the data and do all the stuff
     d3.json url, (error, players) ->
-      console.log error, players
+      return da.charts.handleError(error) if error
+      $('.spinner-container').remove()
+      $('.hide').fadeIn()
 
       # Formatters for later use
       formatNumber = d3.format(',d')

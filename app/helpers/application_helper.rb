@@ -33,4 +33,15 @@ module ApplicationHelper
       content_tag :div, '', class: "bar-segment bar-segment--#{field}", style: "width: #{(target.send(field).to_f / max.to_f * 100)}%;"
     end
   end
+
+  def spinner
+    spin = <<-eos
+<div class="spinner-container">
+  <svg class="spinner" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+    <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
+  </svg>
+</div>
+    eos
+    spin.html_safe
+  end
 end

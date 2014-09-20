@@ -18,7 +18,6 @@ class PlayersController < ApplicationController
     #   Time.now
     # ).following.real
     @players = Player.following.real.by_date.limit(2000)
-    # render text: "ruh roh", status: 500
   end
 
   def update
