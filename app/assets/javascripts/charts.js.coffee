@@ -30,6 +30,7 @@ da.charts =
       # Formatters for later use
       formatNumber = d3.format(',d')
       formatDate = d3.time.format("%m/%d/%Y")
+      formatTableDate = d3.time.format("%b %Y")
 
       winReducer = (d) -> d.outcome == 'won'
       lossReducer = (d) -> d.outcome == 'lost'
@@ -72,7 +73,7 @@ da.charts =
       weekly_wins_group = week.group().reduceSum(winReducer)
       weekly_losses_group = week.group().reduceSum(lossReducer)
 
-      date = player.dimension (d) -> d.date
+      date = player.dimension (d) -> d.start
 
       hero = player.dimension (d) -> d.hero_id
       heroes = hero.group().reduceCount (d) -> d.hero_id
@@ -201,9 +202,7 @@ da.charts =
       # The table at the bottom of the page
       dc.dataTable("#data-table")
           .dimension(date)
-          .group (d) ->
-            format = d3.format("02d")
-            d.start.getFullYear() + "/" + format(d.start.getMonth() + 1)
+          .group (d) -> formatTableDate(d.start)
           .columns([
             ((d) -> React.renderComponentToString( PlayerOutcome({outcome: d.outcome, url: d.url}), this)),
             ((d) -> React.renderComponentToString( HeroAvatar({hero_id: d.hero_id, hero_avatar: d.hero_avatar}), this) + " " + d.name ),
@@ -215,7 +214,7 @@ da.charts =
             ((d) -> d.gpm),
             ((d) -> d.xpm)
           ])
-          .sortBy (d) -> d.start.valueOf()
+          .sortBy (d) -> d.start
           .order d3.descending
 
       React.renderComponent( HeroesWidget({heroes: heroes.top(Infinity)}), heroesChart )
