@@ -12,4 +12,5 @@ Todos
 - line graphs for improvement
   - maybe trends in kda, gpm, xpm, winrate. or some combinated overall metric
 - stream graph of player's hero choices over time
-- make bar charts stacked with wins and losses
+- rebuild performances index page with React
+- import new performances rows into charts page

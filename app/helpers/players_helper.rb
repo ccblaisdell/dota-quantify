@@ -40,4 +40,9 @@ module PlayersHelper
     end
     content_tag :span, abilities.join('').html_safe, class: "ability-draft-abilities"
   end
+
+  def players_menu
+    menu link_to("Overview", players_path),
+      link_to("Charts", charts_players_path)
+  end
 end
