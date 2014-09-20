@@ -13,10 +13,12 @@ class PlayersController < ApplicationController
   def charts_data
     # @players = Player.following.real.in(hero_id: 0..10)
     # @players = Player.following.real#.where(hero_id: 106)
-    @players = Player.between(
-      Time.now - 6.months,
-      Time.now
-    ).following.real
+    # @players = Player.between(
+    #   Time.now - 6.months,
+    #   Time.now
+    # ).following.real
+    @players = Player.following.real.by_date.limit(2000)
+    # render text: "ruh roh", status: 500
   end
 
   def update

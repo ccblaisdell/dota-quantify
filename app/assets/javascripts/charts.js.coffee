@@ -19,6 +19,7 @@ da.charts =
 
     # Fetch the data and do all the stuff
     d3.json url, (error, players) ->
+      console.log error, players
 
       # Formatters for later use
       formatNumber = d3.format(',d')

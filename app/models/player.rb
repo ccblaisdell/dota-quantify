@@ -54,6 +54,7 @@ class Player
   ]
 
   # Sorting indeces
+  index start: -1
 
   belongs_to :match
 
@@ -62,6 +63,7 @@ class Player
   scope :dire, ->{ where :slot.gte => 128 }
   scope :by_slot, ->{ order_by(:slot.asc) }
   scope :by_profile, ->(id){ where profile_id: id }
+  scope :by_date, ->{ order_by(:start.desc) }
   scope :real, ->{ 
     where :duration.gte => 600, 
     :lobby.nin => [
