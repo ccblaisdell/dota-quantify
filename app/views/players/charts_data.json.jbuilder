@@ -14,6 +14,6 @@ json.cache! @players do
       :xpm,
       :gpm
     json.hero_avatar hero_avatar_path(player.hero_id)
-    json.url match_url(player.match)
+    json.url match_url(player.match) if player.match
   end
 end
