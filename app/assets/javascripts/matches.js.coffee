@@ -28,7 +28,7 @@ da.matches =
 
     # Create an svg for each year in the range
     svg = d3.select("body").selectAll("svg")
-        .data(d3.range(2013, 2015))
+        .data(d3.range(2013, 2016))
       .enter().append("svg")
         .attr("width", width)
         .attr("height", height)
