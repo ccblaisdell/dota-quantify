@@ -195,7 +195,7 @@ class Match
 
   def self.fetch_matches_for_followed(options={})
     for profile in Profile.following
-      Match.delay.fetch_max({account_id: profile.dota_account_id}.merge(options))
+      Match.fetch_max({account_id: profile.dota_account_id}.merge(options))
     end
   end
 
